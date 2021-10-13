@@ -14,7 +14,10 @@ async function bootstrap() {
         // eslint-disable-next-line no-process-env
         url: process.env.CONNECTION_URL,
         package: 'henkenclub.search.v1',
-        protoPath: [path.join(__dirname, 'protobuf/upserter.proto')],
+        protoPath: [
+          path.join(__dirname, 'protobuf/upserter.proto'),
+          path.join(__dirname, 'protobuf/searcher.proto'),
+        ],
       },
     },
   );

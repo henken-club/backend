@@ -18,4 +18,12 @@ export class MeiliSearchService {
   addDocument<T extends {id: string}>(index: string, document: T) {
     return this.client.index(index).updateDocuments([document]);
   }
+
+  searchDocuments<T extends Record<string, unknown>>(
+    index: string,
+    query: string,
+    option: {offset: number; limit: number},
+  ) {
+    return this.client.index(index).search<T>(query, {...option});
+  }
 }
