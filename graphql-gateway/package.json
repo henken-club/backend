@@ -22,7 +22,6 @@
     "jwks-rsa": "^2.0.4"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "0.7.6",
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/schema-ast": "^2.2.0",
     "@shopify/eslint-plugin": "40.4.0",

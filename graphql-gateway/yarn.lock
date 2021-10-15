@@ -90,11 +90,6 @@
   resolved "https://registry.yarnpkg.com/@ardatan/fetch-event-source/-/fetch-event-source-2.0.2.tgz#734aa3eaa0da456453d24d8dc7c14d5e366a8d21"
   integrity sha512-mcpz/wJ7s50PJIVz4OQ1Yim3w/AAchtYtIg0QMWiMR2cZZoI9t23hRyqeumtD5EmyJu0fxtjmQ5WY8GI86V4rQ==
 
-"@arkweid/lefthook@0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@arkweid/lefthook/-/lefthook-0.7.6.tgz#0647f698a6ae9a42440846911a277a370359d861"
-  integrity sha512-dm8UE0+9sbDRFJ6BMYpOrg56W3/wpZq2eBkGsCM+iSBrEKQF8hXFZ4eEEBxo25yfEPNVZguN/FbZcRmkeCyRiA==
-
 "@babel/code-frame@7.12.11", "@babel/code-frame@^7.0.0":
   version "7.12.11"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.12.11.tgz"
