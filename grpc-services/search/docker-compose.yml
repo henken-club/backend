@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v0.22.0
+    ports:
+      - published: $MEILISEARCH_PORT
+        target: 7700

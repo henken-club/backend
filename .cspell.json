@@ -33,6 +33,7 @@
     "protogen",
     "meilisearch",
     "eslintcache",
-    "scripty"
+    "scripty",
+    "meilisearch"
   ]
 }

@@ -12,6 +12,10 @@
       "name": "grpc-auth-service",
 			"path": "grpc-services/auth"
 		},
+		{
+      "name": "grpc-search-service",
+			"path": "grpc-services/search"
+		},
 	],
 	"settings": {
     "files.associations": {
