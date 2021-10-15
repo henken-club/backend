@@ -36,7 +36,9 @@
     "eslintcache",
     "scripty",
     "meilisearch",
-    "protolint"
+    "protolint",
+    "streetsidesoftware",
+    "dprint"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }
