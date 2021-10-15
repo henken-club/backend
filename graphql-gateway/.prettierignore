@@ -1,0 +1,9 @@
+# dependencies
+package-lock.json
+
+# output
+dist/
+schema.graphql
+
+# test
+coverage/
