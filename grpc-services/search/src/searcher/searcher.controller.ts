@@ -31,12 +31,12 @@ export class SearcherController implements SearcherControllerInterface {
         offset: skip,
         limit,
       })
-      .then((hits) =>
+      .then((hits) => (
         hits.map(({ id, type }) => ({
           id,
           type: this.serializeContentType(type),
         }))
-      )
+      ))
       .then((hits) => ({ results: hits }));
   }
 
