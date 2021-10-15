@@ -7,8 +7,8 @@ service Account {
 }
 
 message ConnectRequest {
-  string accountId = 1;
-  string userIs = 2;
+  string account_id = 1;
+  string user_id = 2;
 }
 
 message ConnectResponse {

@@ -24,3 +24,5 @@ lint:
       - PROTO3_GROUPS_AVOID
       # etc
       - REPEATED_FIELD_NAMES_PLURALIZED
+    remove:
+      - ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH

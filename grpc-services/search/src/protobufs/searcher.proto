@@ -6,8 +6,7 @@ service Searcher {
   rpc SearchAll(SearchAuthorRequest) returns (SearchAllResponse);
   rpc SearchAuthor(SearchAuthorRequest) returns (FilteredSearchResponse);
   rpc SearchBook(SearchBookRequest) returns (FilteredSearchResponse);
-  rpc SearchBookSeries(SearchBookSeriesRequest)
-      returns (FilteredSearchResponse);
+  rpc SearchBookSeries(SearchBookSeriesRequest) returns (FilteredSearchResponse);
 }
 
 message SearchAllRequest {
