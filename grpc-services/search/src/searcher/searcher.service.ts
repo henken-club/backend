@@ -1,11 +1,11 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 import {
-  ContentDocument,
   AuthorDocument,
   BookSeriesDocument,
-} from '~/meilisearch/meilisearch.documents';
-import {MeiliSearchService} from '~/meilisearch/meilisearch.service';
+  ContentDocument,
+} from "~/meilisearch/meilisearch.documents";
+import { MeiliSearchService } from "~/meilisearch/meilisearch.service";
 
 @Injectable()
 export class SearcherService {
@@ -13,34 +13,37 @@ export class SearcherService {
 
   async searchFromContent(
     query: string,
-    option: {offset: number; limit: number},
+    option: { offset: number; limit: number },
   ) {
     return this.meilisearch
-      .searchDocuments<ContentDocument>('content', query, option)
-      .then(({hits}) => hits.map(({id, type}) => ({id, type})));
+      .searchDocuments<ContentDocument>("content", query, option)
+      .then(({ hits }) => hits.map(({ id, type }) => ({ id, type })));
   }
 
   async searchFromAuthor(
     query: string,
-    option: {offset: number; limit: number},
+    option: { offset: number; limit: number },
   ) {
     return this.meilisearch
-      .searchDocuments<AuthorDocument>('author', query, option)
-      .then(({hits}) => hits.map(({id}) => ({id})));
+      .searchDocuments<AuthorDocument>("author", query, option)
+      .then(({ hits }) => hits.map(({ id }) => ({ id })));
   }
 
-  async searchFromBook(query: string, option: {offset: number; limit: number}) {
+  async searchFromBook(
+    query: string,
+    option: { offset: number; limit: number },
+  ) {
     return this.meilisearch
-      .searchDocuments<AuthorDocument>('book', query, option)
-      .then(({hits}) => hits.map(({id}) => ({id})));
+      .searchDocuments<AuthorDocument>("book", query, option)
+      .then(({ hits }) => hits.map(({ id }) => ({ id })));
   }
 
   async searchFromBookSeries(
     query: string,
-    option: {offset: number; limit: number},
+    option: { offset: number; limit: number },
   ) {
     return this.meilisearch
-      .searchDocuments<BookSeriesDocument>('bookseries', query, option)
-      .then(({hits}) => hits.map(({id}) => ({id})));
+      .searchDocuments<BookSeriesDocument>("bookseries", query, option)
+      .then(({ hits }) => hits.map(({ id }) => ({ id })));
   }
 }

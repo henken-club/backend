@@ -1,9 +1,9 @@
-import * as path from 'path';
+import * as path from "path";
 
-import {NestFactory} from '@nestjs/core';
-import {MicroserviceOptions, Transport} from '@nestjs/microservices';
+import { NestFactory } from "@nestjs/core";
+import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 
-import {AppModule} from './app.module';
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -13,10 +13,10 @@ async function bootstrap() {
       options: {
         // eslint-disable-next-line no-process-env
         url: process.env.CONNECTION_URL,
-        package: 'henkenclub.search.v1',
+        package: "henkenclub.search.v1",
         protoPath: [
-          path.join(__dirname, 'protobuf/upserter.proto'),
-          path.join(__dirname, 'protobuf/searcher.proto'),
+          path.join(__dirname, "protobuf/upserter.proto"),
+          path.join(__dirname, "protobuf/searcher.proto"),
         ],
       },
     },

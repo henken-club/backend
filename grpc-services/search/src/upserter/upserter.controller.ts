@@ -1,16 +1,16 @@
-import {Controller} from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-import {UpserterService} from './upserter.service';
+import { UpserterService } from "./upserter.service";
 
 import {
+  HENKENCLUB_SEARCH_V1_PACKAGE_NAME,
+  UpsertAuthorRequest,
+  UpsertBookRequest,
+  UpsertBookSeriesRequest,
   UpserterController as UpserterControllerInterface,
   UpserterControllerMethods,
-  HENKENCLUB_SEARCH_V1_PACKAGE_NAME,
   UpsertResponse,
-  UpsertBookRequest,
-  UpsertAuthorRequest,
-  UpsertBookSeriesRequest,
-} from '~/protogen/upserter';
+} from "~/protogen/upserter";
 
 @UpserterControllerMethods()
 @Controller(HENKENCLUB_SEARCH_V1_PACKAGE_NAME)
@@ -20,15 +20,15 @@ export class UpserterController implements UpserterControllerInterface {
   async upsertAuthor(request: UpsertAuthorRequest): Promise<UpsertResponse> {
     return this.upserter
       .upsertAuthor(request)
-      .then((result) => ({success: result}))
-      .catch(() => ({success: false}));
+      .then((result) => ({ success: result }))
+      .catch(() => ({ success: false }));
   }
 
   async upsertBook(request: UpsertBookRequest): Promise<UpsertResponse> {
     return this.upserter
       .upsertBook(request)
-      .then((result) => ({success: result}))
-      .catch(() => ({success: false}));
+      .then((result) => ({ success: result }))
+      .catch(() => ({ success: false }));
   }
 
   async upsertBookSeries(
@@ -36,7 +36,7 @@ export class UpserterController implements UpserterControllerInterface {
   ): Promise<UpsertResponse> {
     return this.upserter
       .upsertBookSeries(request)
-      .then((result) => ({success: result}))
-      .catch(() => ({success: false}));
+      .then((result) => ({ success: result }))
+      .catch(() => ({ success: false }));
   }
 }

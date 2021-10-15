@@ -1,8 +1,8 @@
-import {Controller} from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-import {SearcherService} from './searcher.service';
+import { SearcherService } from "./searcher.service";
 
-import {ContentDocument} from '~/meilisearch/meilisearch.documents';
+import { ContentDocument } from "~/meilisearch/meilisearch.documents";
 import {
   FilteredSearchResponse,
   HENKENCLUB_SEARCH_V1_PACKAGE_NAME,
@@ -14,7 +14,7 @@ import {
   SearchBookSeriesRequest,
   SearcherController as SearcherControllerInterface,
   SearcherControllerMethods,
-} from '~/protogen/searcher';
+} from "~/protogen/searcher";
 
 @SearcherControllerMethods()
 @Controller(HENKENCLUB_SEARCH_V1_PACKAGE_NAME)
@@ -32,9 +32,12 @@ export class SearcherController implements SearcherControllerInterface {
         limit,
       })
       .then((hits) =>
-        hits.map(({id, type}) => ({id, type: this.serializeContentType(type)})),
+        hits.map(({ id, type }) => ({
+          id,
+          type: this.serializeContentType(type),
+        }))
       )
-      .then((hits) => ({results: hits}));
+      .then((hits) => ({ results: hits }));
   }
 
   async searchAuthor({
@@ -47,7 +50,7 @@ export class SearcherController implements SearcherControllerInterface {
         offset: skip,
         limit,
       })
-      .then((hits) => ({results: hits}));
+      .then((hits) => ({ results: hits }));
   }
 
   async searchBook({
@@ -60,7 +63,7 @@ export class SearcherController implements SearcherControllerInterface {
         offset: skip,
         limit,
       })
-      .then((hits) => ({results: hits}));
+      .then((hits) => ({ results: hits }));
   }
 
   async searchBookSeries({
@@ -73,16 +76,16 @@ export class SearcherController implements SearcherControllerInterface {
         offset: skip,
         limit,
       })
-      .then((hits) => ({results: hits}));
+      .then((hits) => ({ results: hits }));
   }
 
-  private serializeContentType(type: ContentDocument['type']) {
+  private serializeContentType(type: ContentDocument["type"]) {
     switch (type) {
-      case 'author':
+      case "author":
         return SearchAllResponse_SearchResultType.AUTHOR;
-      case 'book':
+      case "book":
         return SearchAllResponse_SearchResultType.BOOK;
-      case 'bookseries':
+      case "bookseries":
         return SearchAllResponse_SearchResultType.BOOK_SERIES;
       default:
         return SearchAllResponse_SearchResultType.UNKNOWN;
