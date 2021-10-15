@@ -1,9 +1,9 @@
-import {Module} from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import {SearcherController} from './searcher.controller';
-import {SearcherService} from './searcher.service';
+import { SearcherController } from "./searcher.controller";
+import { SearcherService } from "./searcher.service";
 
-import {MeiliSearchModule} from '~/meilisearch/meilisearch.module';
+import { MeiliSearchModule } from "~/meilisearch/meilisearch.module";
 
 @Module({
   imports: [MeiliSearchModule],
