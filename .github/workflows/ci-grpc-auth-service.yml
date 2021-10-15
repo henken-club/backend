@@ -17,6 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: grpc-services/auth
       - run: yarn run lint:eslint
 
   typecheck:
@@ -25,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: grpc-services/auth
       - run: yarn run generate
       - run: yarn run typecheck
 
@@ -34,5 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: grpc-services/auth
       - run: yarn run generate
       - run: yarn run build
