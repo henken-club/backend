@@ -1,4 +1,4 @@
-name: CI(grpc-auth-service)
+name: CI(grpc-search-service)
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
   pull_request:
     paths:
-      - grpc-services/auth/**
+      - grpc-services/search/**
 
 defaults:
   run:
-    working-directory: grpc-services/auth
+    working-directory: grpc-services/search
 
 jobs:
   eslint:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
         with:
-          working-directory: grpc-services/auth
+          working-directory: grpc-services/search
       - run: yarn run generate
       - run: yarn run typecheck
 
