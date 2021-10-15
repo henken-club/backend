@@ -12,5 +12,5 @@ message ConnectRequest {
 }
 
 message ConnectResponse {
-	bool success = 1;
+  bool success = 1;
 }
