@@ -2,8 +2,7 @@
   "root": true,
   "extends": [
     "plugin:@shopify/typescript",
-    "plugin:@shopify/jest",
-    "plugin:@shopify/prettier"
+    "plugin:@shopify/jest"
   ],
   "plugins": ["unused-imports"],
   "rules": {
@@ -11,6 +10,10 @@
     "unused-imports/no-unused-imports": [2],
     "@typescript-eslint/consistent-type-definitions": [2, "type"],
     "@typescript-eslint/consistent-indexed-object-style": [2, "record"],
+    "@typescript-eslint/member-delimiter-style": [2, {
+      "multiline": { "delimiter": "semi", "requireLast": true },
+      "singleline": { "delimiter": "semi", "requireLast": false }
+    }],
     "@shopify/typescript/prefer-pascal-case-enums": [0],
     // quotes
     "quotes": [0],
