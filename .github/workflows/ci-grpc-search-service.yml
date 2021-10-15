@@ -6,6 +6,7 @@ on:
       - main
   pull_request:
     paths:
+      - .github/workflows/ci-grpc-search-service.yml
       - grpc-services/search/**
 
 defaults:
