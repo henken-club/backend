@@ -44,7 +44,9 @@
     "codegen",
     "actionlint",
     "reviewdog",
-    "jwks"
+    "jwks",
+    "singleline",
+    "bahmutov"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }
