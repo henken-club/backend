@@ -18,7 +18,9 @@
     "typecheck",
     "upsert",
     "upserter",
-    "workdir"
+    "workdir",
+    "authrorization",
+    "logfiles"
   ],
   "ignoreWords": [
     "nestjs",
@@ -38,7 +40,13 @@
     "meilisearch",
     "protolint",
     "streetsidesoftware",
-    "dprint"
+    "dprint",
+    "codegen",
+    "actionlint",
+    "reviewdog",
+    "jwks",
+    "singleline",
+    "bahmutov"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }
