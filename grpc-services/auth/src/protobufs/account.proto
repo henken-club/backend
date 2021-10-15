@@ -1,1 +1,16 @@
-../../../protobufs/auth/account.proto
+syntax = "proto3";
+
+package henkenclub.auth.v1;
+
+service Account {
+  rpc Connect(ConnectRequest) returns (ConnectResponse);
+}
+
+message ConnectRequest {
+  string accountId = 1;
+  string userIs = 2;
+}
+
+message ConnectResponse {
+	bool success = 1;
+}
