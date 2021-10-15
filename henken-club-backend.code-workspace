@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+      "name": "root",
+			"path": "."
+		},
+		{
+      "name": "grpc-protobufs",
+			"path": "grpc-services/protobufs"
+		},
+		{
+      "name": "grpc-auth-service",
+			"path": "grpc-services/auth"
+		},
+	],
+	"settings": {
+    "files.associations": {
+      "dprint.json": "jsonc"
+    },
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/node_modules":true,
+    },
+	}
+}

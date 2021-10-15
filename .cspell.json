@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "bookseries",
+    "datamodel",
+    "datasource",
+    "deps",
+    "followee",
+    "followees",
+    "henken",
+    "henkens",
+    "microservice",
+    "microservices",
+    "parens",
+    "typecheck",
+    "upsert",
+    "upserter",
+    "workdir"
+  ],
+  "ignoreWords": [
+    "nestjs",
+    "dmmf",
+    "cuid",
+    "GraphQLISODateTime",
+    "devoxa",
+    "henkenclub",
+    "grpc",
+    "proto",
+    "protobuf",
+    "protobufs",
+    "protogen",
+    "meilisearch",
+    "eslintcache",
+    "scripty"
+  ]
+}
