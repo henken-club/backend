@@ -6,6 +6,7 @@ on:
       - main
   pull_request:
     paths:
+      - .github/workflows/ci-grpc-auth-service.yml
       - grpc-services/auth/**
 
 defaults:
