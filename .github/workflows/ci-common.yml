@@ -13,3 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dprint/check@v2.0
+
+  spellcheck:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: streetsidesoftware/cspell-action@v1.3.4
+        with:
+          config: ".cspell.json"

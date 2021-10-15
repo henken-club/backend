@@ -35,6 +35,8 @@
     "meilisearch",
     "eslintcache",
     "scripty",
-    "meilisearch"
-  ]
+    "meilisearch",
+    "protolint"
+  ],
+  "ignorePaths": ["**/node_modules", "**/dist"]
 }
