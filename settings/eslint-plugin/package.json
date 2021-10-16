@@ -1,0 +1,17 @@
+{
+  "name": "@henken-club/eslint-plugin",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./index.js",
+  "files": [
+    "./index.js",
+    "./configs"
+  ],
+  "peerDependencies": {
+    "eslint": "7"
+  },
+  "dependencies": {
+    "@shopify/eslint-plugin": "^40.4.0",
+    "eslint-plugin-unused-imports": "^1.1.5"
+  }
+}

@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# logfiles
+*.log
+
+# OS
+.DS_Store
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+
+*.code-workspace
+
+# ignore keep
+!.keep

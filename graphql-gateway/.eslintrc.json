@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:@henken-club/typescript",
+    "plugin:@henken-club/nestjs"
+  ],
+  "rules": {
+    "no-process-env": [0]
+  }
+}

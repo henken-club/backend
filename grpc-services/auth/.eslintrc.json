@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:@henken-club/typescript",
+    "plugin:@henken-club/nestjs",
+    "plugin:@henken-club/jest"
+  ]
+}
