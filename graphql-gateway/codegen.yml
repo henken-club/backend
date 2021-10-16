@@ -1,0 +1,7 @@
+schema:
+  - ${ENDPOINT_URL}
+
+generates:
+  ./schema.graphql:
+    plugins:
+      - schema-ast

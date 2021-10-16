@@ -1,0 +1,9 @@
+# test
+coverage/
+junit/
+
+# output
+dist/
+
+src/protogen/
+src/types/graphql.ts
