@@ -1,15 +1,21 @@
-import {Directive, Field, ID, InterfaceType, ObjectType} from '@nestjs/graphql';
+import {
+  Directive,
+  Field,
+  ID,
+  InterfaceType,
+  ObjectType,
+} from "@nestjs/graphql";
 
-export type ContentType = 'book' | 'bookseries' | 'author';
+export type ContentType = "book" | "bookseries" | "author";
 
-@InterfaceType('SearchContent', {
-  resolveType({type}: Content) {
+@InterfaceType("SearchContent", {
+  resolveType({ type }: Content) {
     switch (type) {
-      case 'book':
+      case "book":
         return BookEntity;
-      case 'bookseries':
+      case "bookseries":
         return BookSeriesEntity;
-      case 'author':
+      case "author":
         return AuthorEntity;
     }
     return null;
@@ -22,35 +28,35 @@ export abstract class Content {
   type!: ContentType;
 }
 
-@ObjectType('Author', {implements: () => [Content]})
-@Directive('@extends')
-@Directive('@key(fields: "id")')
+@ObjectType("Author", { implements: () => [Content] })
+@Directive("@extends")
+@Directive("@key(fields: \"id\")")
 export class AuthorEntity implements Content {
   @Field((type) => ID)
-  @Directive('@external')
+  @Directive("@external")
   id!: string;
 
-  type!: 'author';
+  type!: "author";
 }
 
-@ObjectType('Book', {implements: () => [Content]})
-@Directive('@extends')
-@Directive('@key(fields: "id")')
+@ObjectType("Book", { implements: () => [Content] })
+@Directive("@extends")
+@Directive("@key(fields: \"id\")")
 export class BookEntity implements Content {
   @Field((type) => ID)
-  @Directive('@external')
+  @Directive("@external")
   id!: string;
 
-  type!: 'book';
+  type!: "book";
 }
 
-@ObjectType('BookSeries', {implements: () => [Content]})
-@Directive('@extends')
-@Directive('@key(fields: "id")')
+@ObjectType("BookSeries", { implements: () => [Content] })
+@Directive("@extends")
+@Directive("@key(fields: \"id\")")
 export class BookSeriesEntity implements Content {
   @Field((type) => ID)
-  @Directive('@external')
+  @Directive("@external")
   id!: string;
 
-  type!: 'bookseries';
+  type!: "bookseries";
 }
