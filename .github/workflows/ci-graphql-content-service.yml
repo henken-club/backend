@@ -1,4 +1,4 @@
-name: CI(graphql-services/content)
+name: CI(graphql-content-services)
 
 on:
   push:
