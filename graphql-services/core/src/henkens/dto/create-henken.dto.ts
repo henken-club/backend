@@ -1,6 +1,6 @@
-import {ArgsType, Field, ID, ObjectType} from '@nestjs/graphql';
+import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
 
-import {HenkenEntity} from '../henken.entity';
+import { HenkenEntity } from "../henken.entity";
 
 @ArgsType()
 export class CreateHenkenArgs {
@@ -10,7 +10,7 @@ export class CreateHenkenArgs {
   @Field(() => ID)
   content!: string;
 
-  @Field(() => String, {nullable: true, defaultValue: ''})
+  @Field(() => String, { nullable: true, defaultValue: "" })
   comment!: string;
 }
 

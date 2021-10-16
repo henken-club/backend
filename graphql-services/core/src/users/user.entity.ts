@@ -5,15 +5,15 @@ import {
   Int,
   ObjectType,
   registerEnumType,
-} from '@nestjs/graphql';
+} from "@nestjs/graphql";
 
-import {Connection} from '~/pagination/connection.interface';
-import {Edge} from '~/pagination/edge.interface';
-import {Node} from '~/pagination/node.interface';
-import {OrderDirection} from '~/pagination/order.enum';
-import {PageInfoEntity} from '~/pagination/page-info.entity';
+import { Connection } from "~/pagination/connection.interface";
+import { Edge } from "~/pagination/edge.interface";
+import { Node } from "~/pagination/node.interface";
+import { OrderDirection } from "~/pagination/order.enum";
+import { PageInfoEntity } from "~/pagination/page-info.entity";
 
-@ObjectType('User', {implements: () => [Node]})
+@ObjectType("User", { implements: () => [Node] })
 export class UserEntity implements Node {
   @Field((type) => ID)
   id!: string;
@@ -28,15 +28,15 @@ export class UserEntity implements Node {
   avatar!: string;
 }
 
-@ObjectType('UserEdge', {implements: () => [Edge]})
+@ObjectType("UserEdge", { implements: () => [Edge] })
 export class UserEdgeEntity implements Edge {
   @Field((type) => String)
   cursor!: string;
 
-  node!: {id: string};
+  node!: { id: string };
 }
 
-@ObjectType('UserConnection', {implements: () => [Connection]})
+@ObjectType("UserConnection", { implements: () => [Connection] })
 export class UserConnectionEntity implements Connection {
   @Field((type) => [UserEdgeEntity])
   edges!: UserEdgeEntity[];
@@ -52,10 +52,10 @@ export enum UserOrderField {
   CREATED_AT,
 }
 registerEnumType(UserOrderField, {
-  name: 'UserOrderField',
+  name: "UserOrderField",
 });
 
-@InputType('UserOrder')
+@InputType("UserOrder")
 export class UserOrder {
   @Field((type) => OrderDirection)
   direction!: OrderDirection;

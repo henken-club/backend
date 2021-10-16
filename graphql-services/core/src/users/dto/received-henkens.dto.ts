@@ -1,7 +1,7 @@
-import {ArgsType, Field, ID, InputType, Int} from '@nestjs/graphql';
+import { ArgsType, Field, ID, InputType, Int } from "@nestjs/graphql";
 
-import {PaginationArgs} from '~/pagination/pagination.args';
-import {HenkenOrder} from '~/henkens/henken.entity';
+import { HenkenOrder } from "~/henkens/henken.entity";
+import { PaginationArgs } from "~/pagination/pagination.args";
 
 @InputType()
 export class UserReceivedHenkensFilter {
@@ -11,21 +11,21 @@ export class UserReceivedHenkensFilter {
 
 @ArgsType()
 export class ReceivedHenkensArgs extends PaginationArgs {
-  @Field(() => Int, {nullable: true})
+  @Field(() => Int, { nullable: true })
   first!: number | null;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String, { nullable: true })
   after!: string | null;
 
-  @Field(() => Int, {nullable: true})
+  @Field(() => Int, { nullable: true })
   last!: number | null;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String, { nullable: true })
   before!: string | null;
 
   @Field(() => HenkenOrder)
   orderBy!: HenkenOrder;
 
-  @Field(() => UserReceivedHenkensFilter, {nullable: true})
+  @Field(() => UserReceivedHenkensFilter, { nullable: true })
   filter!: UserReceivedHenkensFilter | null;
 }

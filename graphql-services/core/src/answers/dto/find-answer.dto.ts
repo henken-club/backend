@@ -1,6 +1,6 @@
-import {ArgsType, Field, ID, ObjectType} from '@nestjs/graphql';
+import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
 
-import {AnswerEntity} from '../answer.entity';
+import { AnswerEntity } from "../answer.entity";
 
 @ArgsType()
 export class FindAnswerArgs {
@@ -10,6 +10,6 @@ export class FindAnswerArgs {
 
 @ObjectType()
 export class FindAnswerPayload {
-  @Field(() => AnswerEntity, {nullable: true})
+  @Field(() => AnswerEntity, { nullable: true })
   answer!: AnswerEntity | null;
 }

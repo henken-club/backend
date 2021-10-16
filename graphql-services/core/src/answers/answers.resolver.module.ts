@@ -1,9 +1,9 @@
-import {Module} from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import {AnswerEdgesResolver, AnswersResolver} from './answers.resolver';
-import {AnswersModule} from './answers.module';
+import { AnswersModule } from "./answers.module";
+import { AnswerEdgesResolver, AnswersResolver } from "./answers.resolver";
 
-import {HenkensModule} from '~/henkens/henkens.module';
+import { HenkensModule } from "~/henkens/henkens.module";
 
 @Module({
   imports: [AnswersModule, HenkensModule],

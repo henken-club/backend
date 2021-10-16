@@ -1,6 +1,6 @@
-import {ArgsType, Field, ObjectType} from '@nestjs/graphql';
+import { ArgsType, Field, ObjectType } from "@nestjs/graphql";
 
-import {UserEntity} from '../user.entity';
+import { UserEntity } from "../user.entity";
 
 @ArgsType()
 export class RegisterUserArgs {

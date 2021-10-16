@@ -3,8 +3,8 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
-} from '@nestjs/common';
-import {GqlExecutionContext} from '@nestjs/graphql';
+} from "@nestjs/common";
+import { GqlExecutionContext } from "@nestjs/graphql";
 
 @Injectable()
 export class ViewerGuard implements CanActivate {
@@ -12,8 +12,10 @@ export class ViewerGuard implements CanActivate {
     const ctx = GqlExecutionContext.create(context);
 
     const accountId: string | undefined =
-      ctx.getContext().req.headers['x-account-id'];
-    if (!accountId) throw new UnauthorizedException();
+      ctx.getContext().req.headers["x-account-id"];
+    if (!accountId) {
+      throw new UnauthorizedException();
+    }
 
     return true;
   }

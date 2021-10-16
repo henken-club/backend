@@ -1,27 +1,27 @@
 import {
-  ObjectType,
   Field,
-  ID,
   GraphQLISODateTime,
-  Int,
-  registerEnumType,
+  ID,
   InputType,
-} from '@nestjs/graphql';
+  Int,
+  ObjectType,
+  registerEnumType,
+} from "@nestjs/graphql";
 
-import {Connection} from '~/pagination/connection.interface';
-import {Edge} from '~/pagination/edge.interface';
-import {Node} from '~/pagination/node.interface';
-import {OrderDirection} from '~/pagination/order.enum';
-import {PageInfoEntity} from '~/pagination/page-info.entity';
+import { Connection } from "~/pagination/connection.interface";
+import { Edge } from "~/pagination/edge.interface";
+import { Node } from "~/pagination/node.interface";
+import { OrderDirection } from "~/pagination/order.enum";
+import { PageInfoEntity } from "~/pagination/page-info.entity";
 
-@ObjectType('Answer', {
+@ObjectType("Answer", {
   implements: () => [Node],
 })
 export class AnswerEntity implements Node {
   @Field((type) => ID)
   id!: string;
 
-  type!: 'RIGHT' | 'WRONG';
+  type!: "RIGHT" | "WRONG";
 
   @Field((type) => String)
   comment!: string;
@@ -32,7 +32,7 @@ export class AnswerEntity implements Node {
   @Field((type) => GraphQLISODateTime)
   updatedAt!: Date;
 
-  henken!: {id: string};
+  henken!: { id: string };
 }
 
 export enum AnswerType {
@@ -40,18 +40,18 @@ export enum AnswerType {
   WRONG,
 }
 registerEnumType(AnswerType, {
-  name: 'AnswerType',
+  name: "AnswerType",
 });
 
-@ObjectType('AnswerEdge', {implements: () => [Edge]})
+@ObjectType("AnswerEdge", { implements: () => [Edge] })
 export class AnswerEdgeEntity implements Edge {
   @Field((type) => String)
   cursor!: string;
 
-  node!: {id: string};
+  node!: { id: string };
 }
 
-@ObjectType('AnswerConnection', {implements: () => [Connection]})
+@ObjectType("AnswerConnection", { implements: () => [Connection] })
 export class AnswerConnectionEntity implements Connection {
   @Field((type) => [AnswerEdgeEntity])
   edges!: AnswerEdgeEntity[];
@@ -68,7 +68,7 @@ export enum AnswerOrderField {
   UPDATED_AT,
 }
 registerEnumType(AnswerOrderField, {
-  name: 'AnswerOrderField',
+  name: "AnswerOrderField",
 });
 
 @InputType()

@@ -1,7 +1,7 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-import {PrismaService} from '~/prisma/prisma.service';
-import {UserEntity} from '~/users/user.entity';
+import { PrismaService } from "~/prisma/prisma.service";
+import { UserEntity } from "~/users/user.entity";
 
 @Injectable()
 export class AccountsService {
@@ -9,24 +9,24 @@ export class AccountsService {
 
   async isExists(id: string): Promise<boolean> {
     return this.prisma.account
-      .findUnique({where: {id}})
+      .findUnique({ where: { id } })
       .then((result) => Boolean(result));
   }
 
   async getUserId(accountId: string): Promise<string> {
     return this.prisma.account
       .findUnique({
-        where: {id: accountId},
-        select: {userId: true},
+        where: { id: accountId },
+        select: { userId: true },
         rejectOnNotFound: true,
       })
-      .then(({userId}) => userId);
+      .then(({ userId }) => userId);
   }
 
   async findUser(accountId: string): Promise<UserEntity | null> {
     return this.prisma.account
       .findUnique({
-        where: {id: accountId},
+        where: { id: accountId },
         select: {
           user: {
             select: {
@@ -43,14 +43,14 @@ export class AccountsService {
 
   async createUser(
     accountId: string,
-    data: {alias: string; displayName: string; avatar: string},
+    data: { alias: string; displayName: string; avatar: string },
   ): Promise<UserEntity> {
     return this.prisma.account
       .create({
         data: {
           id: accountId,
           user: {
-            create: {...data},
+            create: { ...data },
           },
         },
         select: {

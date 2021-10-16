@@ -6,16 +6,16 @@ import {
   Int,
   ObjectType,
   registerEnumType,
-} from '@nestjs/graphql';
+} from "@nestjs/graphql";
 
-import {Content} from '~/content/content.entities';
-import {Connection} from '~/pagination/connection.interface';
-import {Edge} from '~/pagination/edge.interface';
-import {Node} from '~/pagination/node.interface';
-import {OrderDirection} from '~/pagination/order.enum';
-import {PageInfoEntity} from '~/pagination/page-info.entity';
+import { Content } from "~/content/content.entities";
+import { Connection } from "~/pagination/connection.interface";
+import { Edge } from "~/pagination/edge.interface";
+import { Node } from "~/pagination/node.interface";
+import { OrderDirection } from "~/pagination/order.enum";
+import { PageInfoEntity } from "~/pagination/page-info.entity";
 
-@ObjectType('Henken', {
+@ObjectType("Henken", {
   implements: () => [Node],
 })
 export class HenkenEntity implements Node {
@@ -31,24 +31,24 @@ export class HenkenEntity implements Node {
   @Field((type) => GraphQLISODateTime)
   updatedAt!: Date;
 
-  from!: {id: string};
-  to!: {id: string};
+  from!: { id: string };
+  to!: { id: string };
 
-  answer!: {id: string} | null;
+  answer!: { id: string } | null;
 
   @Field(() => Content)
   content!: Content;
 }
 
-@ObjectType('HenkenEdge', {implements: () => [Edge]})
+@ObjectType("HenkenEdge", { implements: () => [Edge] })
 export class HenkenEdgeEntity implements Edge {
   @Field((type) => String)
   cursor!: string;
 
-  node!: {id: string};
+  node!: { id: string };
 }
 
-@ObjectType('HenkenConnection', {implements: () => [Connection]})
+@ObjectType("HenkenConnection", { implements: () => [Connection] })
 export class HenkenConnectionEntity implements Connection {
   @Field((type) => [HenkenEdgeEntity])
   edges!: HenkenEdgeEntity[];
@@ -65,7 +65,7 @@ export enum HenkenOrderField {
   UPDATED_AT,
 }
 registerEnumType(HenkenOrderField, {
-  name: 'HenkenOrderField',
+  name: "HenkenOrderField",
 });
 
 @InputType()

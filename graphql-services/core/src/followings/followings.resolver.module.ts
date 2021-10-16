@@ -1,12 +1,12 @@
-import {Module} from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import {FollowingsModule} from './followings.module';
+import { FollowingsModule } from "./followings.module";
 import {
   FollowingEdgesResolver,
   FollowingsResolver,
-} from './followings.resolver';
+} from "./followings.resolver";
 
-import {UsersModule} from '~/users/users.module';
+import { UsersModule } from "~/users/users.module";
 
 @Module({
   imports: [FollowingsModule, UsersModule],

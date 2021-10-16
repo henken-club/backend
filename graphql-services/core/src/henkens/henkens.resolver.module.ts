@@ -1,11 +1,11 @@
-import {Module} from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import {HenkenEdgesResolver, HenkensResolver} from './henkens.resolver';
-import {HenkensModule} from './henkens.module';
+import { HenkensModule } from "./henkens.module";
+import { HenkenEdgesResolver, HenkensResolver } from "./henkens.resolver";
 
-import {AnswersModule} from '~/answers/answers.module';
-import {UsersModule} from '~/users/users.module';
-import {AccountsModule} from '~/account/accounts.module';
+import { AccountsModule } from "~/account/accounts.module";
+import { AnswersModule } from "~/answers/answers.module";
+import { UsersModule } from "~/users/users.module";
 
 @Module({
   imports: [HenkensModule, UsersModule, AnswersModule, AccountsModule],
