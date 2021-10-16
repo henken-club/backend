@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: streetsidesoftware/cspell-action@v1.3.4
         with:
-          config: ".cspell.json"
+          config: "cspell.json"
