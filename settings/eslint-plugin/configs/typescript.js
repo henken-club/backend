@@ -21,6 +21,9 @@ module.exports = {
     // quotes
     "quotes": [0],
     "@typescript-eslint/quotes": [2, "double"],
+    // brace-style
+    "brace-style": 0,
+    "@typescript-eslint/brace-style": [2],
     // curly-spacing
     "object-curly-spacing": 0,
     "babel/object-curly-spacing": 0,

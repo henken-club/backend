@@ -3,7 +3,8 @@
   "typescript": {
     "lineWidth": 80,
     "indentWidth": 2,
-    "quoteStyle": "alwaysDouble"
+    "quoteStyle": "alwaysDouble",
+    "classDeclaration.bracePosition": "sameLine"
   },
   "json": {},
   "markdown": {},
