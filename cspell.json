@@ -20,7 +20,8 @@
     "upserter",
     "workdir",
     "authrorization",
-    "logfiles"
+    "logfiles",
+    "oneof"
   ],
   "ignoreWords": [
     "nestjs",
@@ -31,12 +32,14 @@
     "henkenclub",
     "grpc",
     "proto",
+    "protoc",
     "protobuf",
     "protobufs",
     "protogen",
     "meilisearch",
     "eslintcache",
     "scripty",
+    "getmeili",
     "meilisearch",
     "protolint",
     "streetsidesoftware",
@@ -46,7 +49,8 @@
     "reviewdog",
     "jwks",
     "singleline",
-    "bahmutov"
+    "bahmutov",
+    "plexsystems"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }
