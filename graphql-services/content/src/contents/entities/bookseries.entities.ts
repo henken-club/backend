@@ -1,12 +1,12 @@
 import {
+  Directive,
   Field,
   ID,
+  InputType,
   Int,
   ObjectType,
-  Directive,
   registerEnumType,
-  InputType,
-} from '@nestjs/graphql';
+} from "@nestjs/graphql";
 
 import {
   Connection,
@@ -14,10 +14,10 @@ import {
   Node,
   OrderDirection,
   PageInfoEntity,
-} from '~/pagination/pagination.types';
+} from "~/pagination/pagination.types";
 
-@ObjectType('BookSeries', {implements: () => [Node]})
-@Directive('@key(fields: "id")')
+@ObjectType("BookSeries", { implements: () => [Node] })
+@Directive("@key(fields: \"id\")")
 export class BookSeriesEntity implements Node {
   @Field((type) => ID)
   id!: string;
@@ -26,15 +26,15 @@ export class BookSeriesEntity implements Node {
   title!: string;
 }
 
-@ObjectType('BookSeriesEdge', {implements: () => [Edge]})
+@ObjectType("BookSeriesEdge", { implements: () => [Edge] })
 export class BookSeriesEdgeEntity implements Edge {
   @Field((type) => String)
   cursor!: string;
 
-  node!: {id: string};
+  node!: { id: string };
 }
 
-@ObjectType('BookSeriesConnection', {implements: () => [Connection]})
+@ObjectType("BookSeriesConnection", { implements: () => [Connection] })
 export class BookSeriesConnectionEntity implements Connection {
   @Field((type) => [BookSeriesEdgeEntity])
   edges!: BookSeriesEdgeEntity[];
@@ -50,7 +50,7 @@ export enum BookSeriesOrderField {
   ID,
 }
 registerEnumType(BookSeriesOrderField, {
-  name: 'BookSeriesOrderField',
+  name: "BookSeriesOrderField",
 });
 
 @InputType()

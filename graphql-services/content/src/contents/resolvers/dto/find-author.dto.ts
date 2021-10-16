@@ -1,6 +1,6 @@
-import {ArgsType, Field, ID, ObjectType} from '@nestjs/graphql';
+import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
 
-import {AuthorEntity} from '~/contents/entities/author.entities';
+import { AuthorEntity } from "~/contents/entities/author.entities";
 
 @ArgsType()
 export class FindAuthorArgs {
@@ -10,6 +10,6 @@ export class FindAuthorArgs {
 
 @ObjectType()
 export class FindAuthorPayload {
-  @Field(() => AuthorEntity, {nullable: true})
+  @Field(() => AuthorEntity, { nullable: true })
   author!: AuthorEntity | null;
 }

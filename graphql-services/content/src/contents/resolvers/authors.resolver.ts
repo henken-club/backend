@@ -6,33 +6,32 @@ import {
   ResolveField,
   Resolver,
   ResolveReference,
-} from '@nestjs/graphql';
+} from "@nestjs/graphql";
 
-import {AuthorWritingsArgs} from './dto/authors-writings.dto';
-import {FindAuthorArgs, FindAuthorPayload} from './dto/find-author.dto';
-import {ManyAuthorsArgs} from './dto/many-authors.dto';
+import { AuthorWritingsArgs } from "./dto/authors-writings.dto";
+import { FindAuthorArgs, FindAuthorPayload } from "./dto/find-author.dto";
+import { ManyAuthorsArgs } from "./dto/many-authors.dto";
 
-import {AuthorsService} from '~/contents/services/authors.service';
 import {
   AuthorConnectionEntity,
   AuthorEntity,
-} from '~/contents/entities/author.entities';
-import {WritingConnectionEntity} from '~/contents/entities/writings.entities';
+} from "~/contents/entities/author.entities";
+import { WritingConnectionEntity } from "~/contents/entities/writings.entities";
+import { AuthorsService } from "~/contents/services/authors.service";
 
 @Resolver(() => AuthorEntity)
 export class AuthorsResolver {
   constructor(private readonly authors: AuthorsService) {}
 
   @ResolveReference()
-  resolveReference(reference: {id: string}) {
+  resolveReference(reference: { id: string }) {
     return this.authors.getById(reference.id);
   }
 
-  @ResolveField(() => WritingConnectionEntity, {name: 'writings'})
+  @ResolveField(() => WritingConnectionEntity, { name: "writings" })
   resolveWritings(
-    @Parent() {id}: AuthorEntity,
-    @Args()
-    {orderBy, ...pagination}: AuthorWritingsArgs,
+    @Parent() { id }: AuthorEntity,
+    @Args() { orderBy, ...pagination }: AuthorWritingsArgs,
   ) {
     return this.authors.getWritings(
       id,
@@ -41,25 +40,25 @@ export class AuthorsResolver {
     );
   }
 
-  @Query(() => AuthorEntity, {name: 'author'})
+  @Query(() => AuthorEntity, { name: "author" })
   async getAuthor(
-    @Args('id', {type: () => ID}) id: string,
+    @Args("id", { type: () => ID }) id: string,
   ): Promise<AuthorEntity> {
     return this.authors.getById(id);
   }
 
-  @Query(() => FindAuthorPayload, {name: 'findAuthor'})
+  @Query(() => FindAuthorPayload, { name: "findAuthor" })
   async findAuthor(
-    @Args({type: () => FindAuthorArgs}) {id}: FindAuthorArgs,
+    @Args({ type: () => FindAuthorArgs }) { id }: FindAuthorArgs,
   ): Promise<FindAuthorPayload> {
-    const result = await this.authors.findById({id});
-    return {author: result};
+    const result = await this.authors.findById({ id });
+    return { author: result };
   }
 
-  @Query(() => AuthorConnectionEntity, {name: 'manyAuthors'})
+  @Query(() => AuthorConnectionEntity, { name: "manyAuthors" })
   async manyAuthors(
-    @Args({type: () => ManyAuthorsArgs})
-    {orderBy, ...pagination}: ManyAuthorsArgs,
+    @Args({ type: () => ManyAuthorsArgs }) { orderBy, ...pagination }:
+      ManyAuthorsArgs,
   ): Promise<AuthorConnectionEntity> {
     return this.authors.getMany(
       pagination,

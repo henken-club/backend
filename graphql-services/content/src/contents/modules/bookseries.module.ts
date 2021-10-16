@@ -1,7 +1,7 @@
-import {Module} from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import {BookSeriesService} from '~/contents/services/bookseries.service';
-import {PrismaModule} from '~/prisma/prisma.module';
+import { BookSeriesService } from "~/contents/services/bookseries.service";
+import { PrismaModule } from "~/prisma/prisma.module";
 
 @Module({
   imports: [PrismaModule],

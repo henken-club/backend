@@ -5,9 +5,9 @@ import {
   InterfaceType,
   ObjectType,
   registerEnumType,
-} from '@nestjs/graphql';
+} from "@nestjs/graphql";
 
-@ObjectType('PageInfo')
+@ObjectType("PageInfo")
 export class PageInfoEntity {
   @Field((type) => Boolean)
   hasNextPage!: boolean;
@@ -15,19 +15,19 @@ export class PageInfoEntity {
   @Field((type) => Boolean)
   hasPreviousPage!: boolean;
 
-  @Field((type) => String, {nullable: true})
+  @Field((type) => String, { nullable: true })
   startCursor?: string;
 
-  @Field((type) => String, {nullable: true})
+  @Field((type) => String, { nullable: true })
   endCursor?: string;
 }
 
 export enum OrderDirection {
-  ASC = 'asc',
-  DESC = 'desc',
+  ASC = "asc",
+  DESC = "desc",
 }
 registerEnumType(OrderDirection, {
-  name: 'OrderDirection',
+  name: "OrderDirection",
 });
 
 export abstract class PaginationArgs {

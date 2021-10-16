@@ -1,32 +1,32 @@
-import {Field, ID, Int, ObjectType, Directive} from '@nestjs/graphql';
+import { Directive, Field, ID, Int, ObjectType } from "@nestjs/graphql";
 
 import {
   Connection,
   Edge,
   Node,
   PageInfoEntity,
-} from '~/pagination/pagination.types';
+} from "~/pagination/pagination.types";
 
-@ObjectType('Writing', {implements: () => [Node]})
-@Directive('@key(fields: "id")')
+@ObjectType("Writing", { implements: () => [Node] })
+@Directive("@key(fields: \"id\")")
 export class WritingEntity implements Node {
   @Field((type) => ID)
   id!: string;
 
-  author!: {id: string};
+  author!: { id: string };
 
-  book!: {id: string};
+  book!: { id: string };
 }
 
-@ObjectType('WritingEdge', {implements: () => [Edge]})
+@ObjectType("WritingEdge", { implements: () => [Edge] })
 export class WritingEdgeEntity implements Edge {
   @Field((type) => String)
   cursor!: string;
 
-  node!: {id: string};
+  node!: { id: string };
 }
 
-@ObjectType('WritingConnection', {implements: () => [Connection]})
+@ObjectType("WritingConnection", { implements: () => [Connection] })
 export class WritingConnectionEntity implements Connection {
   @Field((type) => [WritingEdgeEntity])
   edges!: WritingEdgeEntity[];

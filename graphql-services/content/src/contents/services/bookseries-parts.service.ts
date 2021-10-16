@@ -1,7 +1,7 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-import {BookSeriesPartEntity} from '~/contents/entities/bookseries-parts.entities';
-import {PrismaService} from '~/prisma/prisma.service';
+import { BookSeriesPartEntity } from "~/contents/entities/bookseries-parts.entities";
+import { PrismaService } from "~/prisma/prisma.service";
 
 @Injectable()
 export class BookSeriesPartsService {
@@ -9,11 +9,11 @@ export class BookSeriesPartsService {
 
   async getById(id: string): Promise<BookSeriesPartEntity> {
     return this.prisma.bookSeriesPart.findUnique({
-      where: {id},
+      where: { id },
       select: {
         id: true,
-        series: {select: {id: true}},
-        book: {select: {id: true}},
+        series: { select: { id: true } },
+        book: { select: { id: true } },
       },
       rejectOnNotFound: true,
     });
