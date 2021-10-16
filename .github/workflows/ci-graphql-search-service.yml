@@ -1,4 +1,4 @@
-name: CI(graphql-services/search)
+name: CI(graphql-search-service)
 
 on:
   push:
@@ -32,6 +32,7 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: graphql-services/search
+      - run: yarn run generate
       - run: yarn run typecheck
 
   build:
@@ -42,4 +43,5 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: graphql-services/search
+      - run: yarn run generate
       - run: yarn run build
