@@ -1,7 +1,0 @@
-proto_outdir = "./src/protobuf"
-
-[[dependencies]]
-target = "github.com/henken-club/search-grpc-service/src/protobuf"
-branch = "main"
-path = "search"
-ignores = ["upserter.proto"]
