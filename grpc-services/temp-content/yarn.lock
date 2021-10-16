@@ -609,6 +609,10 @@
     protobufjs "^6.10.0"
     yargs "^16.1.1"
 
+"@henken-club/eslint-plugin@link:../../settings/eslint-plugin":
+  version "0.0.0"
+  uid ""
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
@@ -1010,7 +1014,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@shopify/eslint-plugin@40.4.0":
+"@shopify/eslint-plugin@^40.4.0":
   version "40.4.0"
   resolved "https://registry.yarnpkg.com/@shopify/eslint-plugin/-/eslint-plugin-40.4.0.tgz#2a3828999bd9650e176ffad2096cef8dfd6000f6"
   integrity sha512-kXhhd07HFApWa0m0SYKv5aGbEcvpRrr3E69ky4iQiBC7xPekdNBK+54J40hyiAZ4HB0w5fniJc0Cw434zBHuVA==
@@ -2859,7 +2863,7 @@ eslint-plugin-sort-class-members@1.11.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-sort-class-members/-/eslint-plugin-sort-class-members-1.11.0.tgz#4290c57eba8991521fbca3430e002da8ab860729"
   integrity sha512-kobZtUOyzyYVotc/GDnlmQ6sSaxYuVElwEowD5RQ6Kajq4Lfb3CPE1THaXbDl97HLNthThRZWtdNx1GrFhCm7Q==
 
-eslint-plugin-unused-imports@1.1.5:
+eslint-plugin-unused-imports@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-1.1.5.tgz#a2b992ef0faf6c6c75c3815cc47bde76739513c2"
   integrity sha512-TeV8l8zkLQrq9LBeYFCQmYVIXMjfHgdRQLw7dEZp4ZB3PeR10Y5Uif11heCsHRmhdRIYMoewr1d9ouUHLbLHew==
