@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "files": ["schema.prisma", "src/**/*"],
+  "words": [
+    "bookseries",
+    "datamodel",
+    "datasource",
+    "followee",
+    "followees",
+    "henken",
+    "henkens"
+  ],
+  "ignoreWords": ["nestjs", "dmmf", "cuid", "GraphQLISODateTime", "devoxa"]
+}
