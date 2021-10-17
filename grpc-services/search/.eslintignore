@@ -5,5 +5,9 @@ junit/
 # output
 dist/
 
+# generated
 src/protogen/
 src/types/graphql.ts
+
+# external
+external/
