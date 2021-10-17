@@ -52,8 +52,11 @@
     "singleline",
     "bahmutov",
     "plexsystems",
-    "citext",
     "openbd",
+    // postgresql
+    "citext",
+    // imageproxy
+    "darthsim",
     "imgproxy"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
