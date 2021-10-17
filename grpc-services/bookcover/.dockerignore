@@ -1,0 +1,5 @@
+# protogen
+src/protogen/*
+
+# ignore keep
+!.keep

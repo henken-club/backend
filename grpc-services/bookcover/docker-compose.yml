@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - published: 5001
+        target: 5001
+    environment:
+      PORT: 5001
+      IMGPROXY_BASE_URL: $IMGPROXY_BASE_URL
+      IMGPROXY_KEY: $IMGPROXY_KEY
+      IMGPROXY_SALT: $IMGPROXY_SALT
+
+  imgproxy:
+    image: darthsim/imgproxy:latest
+    ports:
+      - published: $IMGPROXY_PORT
+        target: 8080
+    environment:
+      IMGPROXY_KEY: $IMGPROXY_KEY
+      IMGPROXY_SALT: $IMGPROXY_SALT
