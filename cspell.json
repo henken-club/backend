@@ -55,7 +55,7 @@
     "openbd",
     // postgresql
     "citext",
-    // imageproxy
+    // imgproxy
     "darthsim",
     "imgproxy"
   ],
