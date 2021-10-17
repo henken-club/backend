@@ -1,0 +1,95 @@
+version: "3.9"
+
+services:
+  graphql-gateway:
+    build:
+      context: ./graphql-gateway
+      dockerfile: Dockerfile
+    networks:
+      - graphql-core
+      - graphql-content
+      - graphql-search
+    ports:
+      - published: 4000
+        target: 4000
+    environment:
+      PORT: 4000
+      JWKS_URI: $JWKS_URI
+      AUDIENCE: $AUDIENCE
+      ISSUER: $ISSUER
+      SERVICE_URL_CORE: http://graphql-core:8000/graphql
+      SERVICE_URL_CONTENT: http://graphql-contain:8000/graphql
+      SERVICE_URL_SEARCH: http://graphql-search:8000/graphql
+
+  graphql-core:
+    build:
+      context: ./graphql-services/core
+      dockerfile: Dockerfile
+    networks:
+      - graphql-core
+    environment:
+      PORT: 8000
+
+  graphql-content:
+    build:
+      context: ./graphql-services/content
+      dockerfile: Dockerfile
+    networks:
+      - graphql-content
+    environment:
+      PORT: 8000
+
+  graphql-search:
+    build:
+      context: ./graphql-services/search
+      dockerfile: Dockerfile
+    networks:
+      - graphql-search
+    environment:
+      PORT: 8000
+
+  grpc-auth:
+    build:
+      context: ./grpc-services/auth
+      dockerfile: Dockerfile
+    networks:
+      - grpc-auth
+    environment:
+      CONNECTION_URL: localhost:5000
+
+  grpc-bookcover:
+    build:
+      context: ./grpc-services/bookcover
+      dockerfile: Dockerfile
+    networks:
+      - grpc-bookcover
+    environment:
+      CONNECTION_URL: localhost:5000
+
+  grpc-search:
+    build:
+      context: ./grpc-services/search
+      dockerfile: Dockerfile
+    networks:
+      - grpc-search
+    environment:
+      CONNECTION_URL: localhost:5000
+
+  grpc-temp-content:
+    build:
+      context: ./grpc-services/temp-content
+      dockerfile: Dockerfile
+    networks:
+      - grpc-temp-content
+    environment:
+      CONNECTION_URL: localhost:5000
+
+networks:
+  graphql-core:
+  graphql-content:
+  graphql-search:
+
+  grpc-auth:
+  grpc-bookcover:
+  grpc-search:
+  grpc-temp-content:
