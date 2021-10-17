@@ -1,0 +1,24 @@
+name: CI(grpc-protobufs)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - .github/workflows/ci-grpc-protobufs.yml
+      - grpc-services/protobufs/**
+
+defaults:
+  run:
+    working-directory: grpc-services/auth
+
+jobs:
+  protolint:
+    name: protolint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: plexsystems/protolint-action@v0.4.0
+        with:
+          configDirectory: grpc-services/protobufs
