@@ -1,7 +1,7 @@
-import {Server, ServerCredentials} from '@grpc/grpc-js';
+import { Server, ServerCredentials } from "@grpc/grpc-js";
 
-import {FetcherService} from './protogen/bookcover';
-import {impl as fetcherServer} from './fetcher';
+import { impl as fetcherServer } from "./fetcher";
+import { FetcherService } from "./protogen/bookcover";
 
 function main() {
   const server = new Server();
