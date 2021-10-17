@@ -21,7 +21,8 @@
     "workdir",
     "authrorization",
     "logfiles",
-    "oneof"
+    "oneof",
+    "bookcover"
   ],
   "ignoreWords": [
     "nestjs",
@@ -51,7 +52,9 @@
     "singleline",
     "bahmutov",
     "plexsystems",
-    "citext"
+    "citext",
+    "openbd",
+    "imgproxy"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }
