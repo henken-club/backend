@@ -1,7 +1,7 @@
 import got from "got";
 
 import { proxy } from "./imgproxy";
-import { FetcherServer } from "./protogen/bookcover";
+import { BookcoverServer } from "./protogen/bookcover";
 
 export const openbd = (isbn: string) =>
   got
@@ -9,7 +9,7 @@ export const openbd = (isbn: string) =>
     .json<[null | { summary: { cover?: string } }]>()
     .then((result) => result[0]?.summary.cover);
 
-export const findFromISBN: FetcherServer["findFromISBN"] = async (
+export const findFromISBN: BookcoverServer["findFromISBN"] = async (
   { request: { isbn } },
   callback,
 ) => {
@@ -17,6 +17,6 @@ export const findFromISBN: FetcherServer["findFromISBN"] = async (
   return callback(null, url ? { url: proxy(url) } : {});
 };
 
-export const impl: FetcherServer = {
+export const impl: BookcoverServer = {
   findFromISBN,
 };

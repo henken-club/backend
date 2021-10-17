@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package henkenclub.bookcover;
+package henkenclub.bookcover.v1;
 
-service Fetcher {
-  rpc FindFromISBN(BookcoverFromISBNRequest) returns (BookcoverResponse);
+service Bookcover {
+  rpc FindFromISBN(FindFromISBNRequest) returns (FindFromISBNResponse);
 }
 
-message BookcoverFromISBNRequest { string isbn = 1; }
+message FindFromISBNRequest { string isbn = 1; }
 
-message BookcoverResponse { optional string url = 1; }
+message FindFromISBNResponse { optional string url = 1; }
