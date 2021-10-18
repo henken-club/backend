@@ -8,8 +8,16 @@ service Content {
 }
 
 message CreateTempContentRequest {
+  enum TempContentType {
+    UNKNOWN_UNSPECIFIED  = 0;
+    AUTHOR = 1;
+    BOOK = 2;
+    BOOK_SERIES = 3;
+  }
+
   string user_id = 1;
   string title = 2;
+	TempContentType type = 3;
 }
 
 message CreateTempContentResponse {
