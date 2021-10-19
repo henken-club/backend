@@ -3,6 +3,7 @@ FROM node:16.9.1-slim AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock ./
+COPY external ./external
 RUN yarn install --frozen-lockfile && yarn cache clean
 
 # production only dependencies
@@ -10,6 +11,7 @@ FROM node:16.9.1-slim AS deps-production
 WORKDIR /app
 
 COPY package.json yarn.lock ./
+COPY external ./external
 RUN yarn install --frozen-lockfile --production && yarn cache clean
 
 # builder
