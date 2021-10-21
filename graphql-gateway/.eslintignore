@@ -4,3 +4,6 @@ junit/
 
 # output
 dist/
+
+# external
+external/
