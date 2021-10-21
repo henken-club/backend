@@ -1,0 +1,47 @@
+name: CI(graphql-activities)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - .github/workflows/ci-graphql-activities.yml
+      - graphql-services/activities/**
+
+defaults:
+  run:
+    working-directory: graphql-services/activities
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: graphql-services/activities
+      - run: yarn run lint:eslint
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: graphql-services/activities
+      - run: yarn run generate
+      - run: yarn run typecheck
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: graphql-services/activities
+      - run: yarn run generate
+      - run: yarn run build
