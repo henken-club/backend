@@ -4,6 +4,7 @@ import { GraphQLFederationModule } from "@nestjs/graphql";
 
 import { AppConfig } from "./app.config";
 import { HealthModule } from "./health/health.module";
+import { UsersResolversModule } from "./users/users-resolvers.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { HealthModule } from "./health/health.module";
       }),
     }),
     HealthModule,
+    UsersResolversModule,
   ],
 })
 export class AppModule {}
