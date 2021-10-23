@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package henkenclub.bookcover.v1;
+
+service Recorder {
+  rpc CreateHenken(CreateHenkenRequest) returns (RecordReponse);
+  rpc RecievedHenken(ReceivedHenkenRequest) returns (RecordReponse);
+  rpc CreateAnswer(CreateAnswerRequest) returns (RecordReponse);
+  rpc RecievedAnswer(ReceivedAnswerRequest) returns (RecordReponse);
+}
+
+message RecordReponse {
+	bool ok = 1;
+}
+
+message CreateHenkenRequest {
+  google.protobuf.Timestamp created_at = 1;
+	string user_id = 2;
+  string henken_id = 3;
+}
+
+message ReceivedHenkenRequest {
+  google.protobuf.Timestamp created_at = 1;
+	string user_id = 2;
+  string henken_id = 3;
+}
+
+message CreateAnswerRequest {
+  google.protobuf.Timestamp created_at = 1;
+	string user_id = 2;
+  string answer_id = 3;
+}
+
+message ReceivedAnswerRequest {
+  google.protobuf.Timestamp created_at = 1;
+	string user_id = 2;
+  string answer_id = 3;
+}
