@@ -31,12 +31,6 @@
     "GraphQLISODateTime",
     "devoxa",
     "henkenclub",
-    "grpc",
-    "proto",
-    "protoc",
-    "protobuf",
-    "protobufs",
-    "protogen",
     "meilisearch",
     "eslintcache",
     "scripty",
@@ -57,7 +51,15 @@
     "citext",
     // imgproxy
     "darthsim",
-    "imgproxy"
+    "imgproxy",
+    // grpc
+    "grpc",
+    "grpcurl",
+    "proto",
+    "protoc",
+    "protobuf",
+    "protobufs",
+    "protogen"
   ],
   "ignorePaths": ["**/node_modules", "**/dist"]
 }

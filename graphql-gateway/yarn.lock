@@ -671,7 +671,7 @@
     tslib "~2.3.0"
     value-or-promise "1.0.10"
 
-"@henken-club/eslint-plugin@link:../settings/eslint-plugin":
+"@henken-club/eslint-plugin@link:./external/eslint-plugin":
   version "0.0.0"
   uid ""
 

@@ -23,7 +23,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/schema-ast": "^2.2.0",
-    "@henken-club/eslint-plugin": "link:../settings/eslint-plugin",
+    "@henken-club/eslint-plugin": "link:./external/eslint-plugin",
     "@tsconfig/node16": "^1.0.2",
     "@types/node": "16.10.2",
     "eslint": "7.32.0",

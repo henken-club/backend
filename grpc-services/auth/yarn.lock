@@ -609,7 +609,7 @@
     protobufjs "^6.10.0"
     yargs "^16.1.1"
 
-"@henken-club/eslint-plugin@link:../../settings/eslint-plugin":
+"@henken-club/eslint-plugin@link:./external/eslint-plugin":
   version "0.0.0"
   uid ""
 
