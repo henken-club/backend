@@ -2,7 +2,9 @@ import { createHmac } from "crypto";
 import { URL } from "url";
 
 export const createPath = (source: string) =>
-  `/${Buffer.from(source).toString("base64url")}`;
+  `/resize:fit:128:160:t/extend:t/background:000000/${
+    Buffer.from(source).toString("base64url")
+  }`;
 
 export const sign = (path: string) => {
   return createHmac(
