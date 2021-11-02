@@ -5,11 +5,11 @@ import { WritingsResolver } from "./writings.resolver";
 
 import { AuthorsModule } from "~/services/content/authors/authors.module";
 import { BooksModule } from "~/services/content/books/books.module";
-import { BookSeriesModule } from "~/services/content/bookseries/bookseries.module";
+import { WritingsModule } from "~/services/content/writings/writings.module";
 
 @Module({
   imports: [
-    BookSeriesModule,
+    WritingsModule,
     AuthorsModule,
     BooksModule,
   ],
