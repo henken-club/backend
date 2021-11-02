@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import { Writing } from "~/entities/content/writings.entities";
+import { Writing } from "~/entities/writings.entities";
 
 @Injectable()
 export class WritingsService {

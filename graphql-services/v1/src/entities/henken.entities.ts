@@ -8,7 +8,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { Content } from "./content/content.entities";
+import { Content } from "./content.entities";
 import {
   Connection,
   Edge,

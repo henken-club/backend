@@ -1,7 +1,7 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 
-import { Writing, WritingEdge } from "~/entities/content/writings.entities";
-import { WritingsService } from "~/services/content/writings/writings.service";
+import { Writing, WritingEdge } from "~/entities/writings.entities";
+import { WritingsService } from "~/services/writings/writings.service";
 
 @Resolver(() => WritingEdge)
 export class WritingEdgesResolver {

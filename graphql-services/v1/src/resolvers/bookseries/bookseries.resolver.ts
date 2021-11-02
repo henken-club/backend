@@ -5,8 +5,8 @@ import {
   FindBookSeriesPayload,
 } from "./dto/find-bookseries.dto";
 
-import { BookSeries } from "~/entities/content/bookseries.entities";
-import { BookSeriesService } from "~/services/content/bookseries/bookseries.service";
+import { BookSeries } from "~/entities/bookseries.entities";
+import { BookSeriesService } from "~/services/bookseries/bookseries.service";
 
 @Resolver(() => BookSeries)
 export class BookSeriesResolver {

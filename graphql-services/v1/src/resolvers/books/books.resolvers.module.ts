@@ -3,7 +3,7 @@ import { Module } from "@nestjs/common";
 import { BookEdgesResolver } from "./book-edges.resolver";
 import { BooksResolver } from "./books.resolver";
 
-import { BooksModule } from "~/services/content/books/books.module";
+import { BooksModule } from "~/services/books/books.module";
 
 @Module({
   imports: [

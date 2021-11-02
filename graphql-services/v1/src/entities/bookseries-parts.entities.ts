@@ -1,11 +1,6 @@
 import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
 
-import {
-  Connection,
-  Edge,
-  Node,
-  PageInfo,
-} from "../pagination/pagination.types";
+import { Connection, Edge, Node, PageInfo } from "./pagination.entities";
 
 @ObjectType("BookSeriesPart", { implements: () => [Node] })
 export class BookSeriesPart implements Node {

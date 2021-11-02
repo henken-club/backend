@@ -8,7 +8,7 @@ import {
   SearchContentPayload,
 } from "./dto/search-content.dto";
 
-import { Content } from "~/entities/content/content.entities";
+import { Content } from "~/entities/content.entities";
 import { SearchContentResult } from "~/entities/search.entities";
 import { SearchService } from "~/services/search/search.service";
 

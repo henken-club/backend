@@ -7,15 +7,14 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
+import { Content } from "./content.entities";
 import {
   Connection,
   Edge,
   Node,
   OrderDirection,
   PageInfo,
-} from "../pagination/pagination.types";
-
-import { Content } from "./content.entities";
+} from "./pagination.entities";
 
 @ObjectType("BookSeries", { implements: () => [Content, Node] })
 export class BookSeries implements Content, Node {

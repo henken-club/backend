@@ -2,7 +2,7 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { Content } from "~/entities/content/content.entities";
+import { Content } from "~/entities/content.entities";
 import {
   SearchAllResponse_SearchResultType,
   SEARCHER_SERVICE_NAME,

@@ -2,8 +2,8 @@ import { Args, ID, Query, Resolver } from "@nestjs/graphql";
 
 import { FindBookArgs, FindBookPayload } from "./dto/find-book.dto";
 
-import { Book } from "~/entities/content/books.entities";
-import { BooksService } from "~/services/content/books/books.service";
+import { Book } from "~/entities/books.entities";
+import { BooksService } from "~/services/books/books.service";
 
 @Resolver(() => Book)
 export class BooksResolver {

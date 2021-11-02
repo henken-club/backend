@@ -1,6 +1,6 @@
 import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
 
-import { Book } from "~/entities/content/books.entities";
+import { Book } from "~/entities/books.entities";
 
 @ArgsType()
 export class FindBookArgs {
