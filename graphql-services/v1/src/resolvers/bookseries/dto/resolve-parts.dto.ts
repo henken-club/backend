@@ -6,29 +6,26 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import {
-  OrderDirection,
-  PaginationArgs,
-} from "~/entities/pagination/pagination.types";
+import { OrderDirection, PaginationArgs } from "~/entities/pagination.entities";
 
-export enum BookWritingsOrderField {
-  AUTHOR_NAME,
+export enum BookSeriesPartsOrderField {
+  ORDER,
 }
-registerEnumType(BookWritingsOrderField, {
-  name: "BookWritingsOrderField",
+registerEnumType(BookSeriesPartsOrderField, {
+  name: "BookSeriesPartsOrderField",
 });
 
 @InputType()
-export class BookWritingsOrder {
+export class BookSeriesPartsOrder {
   @Field((type) => OrderDirection)
   direction!: OrderDirection;
 
-  @Field((type) => BookWritingsOrderField)
-  field!: BookWritingsOrderField;
+  @Field((type) => BookSeriesPartsOrderField)
+  field!: BookSeriesPartsOrderField;
 }
 
 @ArgsType()
-export class BookWritingsArgs extends PaginationArgs {
+export class BookSeriesPartsArgs extends PaginationArgs {
   @Field(() => Int, { nullable: true })
   first!: number | null;
 
@@ -41,6 +38,6 @@ export class BookWritingsArgs extends PaginationArgs {
   @Field(() => String, { nullable: true })
   before!: string | null;
 
-  @Field(() => BookWritingsOrder)
-  orderBy!: BookWritingsOrder;
+  @Field(() => BookSeriesPartsOrder)
+  orderBy!: BookSeriesPartsOrder;
 }

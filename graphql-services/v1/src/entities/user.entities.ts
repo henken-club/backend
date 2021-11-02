@@ -13,7 +13,7 @@ import {
   Node,
   OrderDirection,
   PageInfo,
-} from "./pagination/pagination.types";
+} from "./pagination.entities";
 
 @ObjectType("User", { implements: () => [Node] })
 export class User implements Node {

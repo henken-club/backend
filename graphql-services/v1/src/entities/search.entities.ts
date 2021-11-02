@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 
-import { Content } from "../content/content.entities";
-import { User } from "../user.entities";
+import { Content } from "./content.entities";
+import { User } from "./user.entities";
 
 @ObjectType("SearchContentResult")
 export class SearchContentResult {

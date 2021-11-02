@@ -1,7 +1,7 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 
-import { Author, AuthorEdge } from "~/entities/content/author.entities";
-import { AuthorsService } from "~/services/content/authors/authors.service";
+import { Author, AuthorEdge } from "~/entities/author.entities";
+import { AuthorsService } from "~/services/authors/authors.service";
 
 @Resolver(() => AuthorEdge)
 export class AuthorEdgesResolver {

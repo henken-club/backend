@@ -2,8 +2,8 @@ import { Args, ID, Query, Resolver } from "@nestjs/graphql";
 
 import { FindAuthorArgs, FindAuthorPayload } from "./dto/find-author.dto";
 
-import { Author } from "~/entities/content/author.entities";
-import { AuthorsService } from "~/services/content/authors/authors.service";
+import { Author } from "~/entities/author.entities";
+import { AuthorsService } from "~/services/authors/authors.service";
 
 @Resolver(() => Author)
 export class AuthorsResolver {

@@ -7,7 +7,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { SearchContentResult } from "~/entities/search/search.entities";
+import { SearchContentResult } from "~/entities/search.entities";
 
 export enum SearchContentFilterType {
   AUTHOR,

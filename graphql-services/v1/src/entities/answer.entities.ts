@@ -14,7 +14,7 @@ import {
   Node,
   OrderDirection,
   PageInfo,
-} from "./pagination/pagination.types";
+} from "./pagination.entities";
 
 @ObjectType("Answer", {
   implements: () => [Node],

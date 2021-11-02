@@ -9,7 +9,7 @@ import {
 } from "./dto/search-content.dto";
 
 import { Content } from "~/entities/content/content.entities";
-import { SearchContentResult } from "~/entities/search/search.entities";
+import { SearchContentResult } from "~/entities/search.entities";
 import { SearchService } from "~/services/search/search.service";
 
 @Resolver(() => SearchContentResult)

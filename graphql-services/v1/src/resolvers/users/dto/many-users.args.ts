@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from "@nestjs/graphql";
 
-import { PaginationArgs } from "~/entities/pagination/pagination.types";
+import { PaginationArgs } from "~/entities/pagination.entities";
 import { UserOrder } from "~/entities/user.entities";
 
 @ArgsType()

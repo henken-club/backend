@@ -1,10 +1,10 @@
 import { ArgsType, Field, Int } from "@nestjs/graphql";
 
-import { BookOrder } from "~/entities/content/books.entities";
-import { PaginationArgs } from "~/entities/pagination/pagination.types";
+import { AuthorOrder } from "~/entities/author.entities";
+import { PaginationArgs } from "~/entities/pagination.entities";
 
 @ArgsType()
-export class ManyBooksArgs extends PaginationArgs {
+export class ManyAuthorsArgs extends PaginationArgs {
   @Field(() => Int, { nullable: true })
   first!: number | null;
 
@@ -17,6 +17,6 @@ export class ManyBooksArgs extends PaginationArgs {
   @Field(() => String, { nullable: true })
   before!: string | null;
 
-  @Field(() => BookOrder)
-  orderBy!: BookOrder;
+  @Field(() => AuthorOrder)
+  orderBy!: AuthorOrder;
 }

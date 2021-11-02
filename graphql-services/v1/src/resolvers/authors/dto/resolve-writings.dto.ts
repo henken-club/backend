@@ -6,10 +6,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import {
-  OrderDirection,
-  PaginationArgs,
-} from "~/entities/pagination/pagination.types";
+import { OrderDirection, PaginationArgs } from "~/entities/pagination.entities";
 
 export enum AuthorWritingsOrderField {
   BOOK_TITLE,

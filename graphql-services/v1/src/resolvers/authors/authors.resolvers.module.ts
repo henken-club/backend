@@ -3,7 +3,7 @@ import { Module } from "@nestjs/common";
 import { AuthorEdgesResolver } from "./author-edges.resolver";
 import { AuthorsResolver } from "./authors.resolver";
 
-import { AuthorsModule } from "~/services/content/authors/authors.module";
+import { AuthorsModule } from "~/services/authors/authors.module";
 
 @Module({
   imports: [

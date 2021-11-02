@@ -15,7 +15,7 @@ import {
   Node,
   OrderDirection,
   PageInfo,
-} from "./pagination/pagination.types";
+} from "./pagination.entities";
 
 @ObjectType("Henken", {
   implements: () => [Node],
