@@ -4,9 +4,12 @@ import { GraphQLFederationModule } from "@nestjs/graphql";
 
 import { AppConfig } from "./app.config";
 import { HealthModule } from "./health/health.module";
+import { AnswersResolversModule } from "./resolvers/answers/answers.resolvers.module";
+import { HenkensResolversModule } from "./resolvers/henkens/henkens.resolvers.module";
 
 @Module({
   imports: [
+    HealthModule,
     GraphQLFederationModule.forRootAsync({
       imports: [ConfigModule.forFeature(AppConfig)],
       inject: [AppConfig.KEY],
@@ -14,7 +17,8 @@ import { HealthModule } from "./health/health.module";
         ...config.graphql,
       }),
     }),
-    HealthModule,
+    AnswersResolversModule,
+    HenkensResolversModule,
   ],
 })
 export class AppModule {}
