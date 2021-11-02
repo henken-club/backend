@@ -3,9 +3,9 @@ import { Args, Query, Resolver } from "@nestjs/graphql";
 import { map, Observable } from "rxjs";
 
 import {
+  SearchContentArgs,
   SearchContentFilterType,
-  SearchContentsArgs,
-  SearchContentsPayload,
+  SearchContentPayload,
 } from "./dto/search-content.dto";
 
 import { Content } from "~/entities/content/content.entities";
@@ -16,10 +16,15 @@ import { SearchService } from "~/services/search/search.service";
 export class SearchContentResolver {
   constructor(private readonly search: SearchService) {}
 
-  @Query((type) => SearchContentsPayload, { name: "searchContents" })
-  searchContents(
-    @Args() { filter: { type }, skip, limit, query }: SearchContentsArgs,
-  ): Observable<SearchContentsPayload> {
+  @Query((type) => SearchContentPayload, { name: "searchContent" })
+  searchContent(
+    @Args() {
+      filter: { type },
+      skip,
+      limit,
+      query,
+    }: SearchContentArgs,
+  ): Observable<SearchContentPayload> {
     if (type === null) {
       return this.search.searchContentMixed(query, { skip, limit }).pipe(
         map((val) => ({

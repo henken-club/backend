@@ -28,7 +28,7 @@ export class SearchContentFilter {
 }
 
 @ArgsType()
-export class SearchContentsArgs {
+export class SearchContentArgs {
   @Field(() => String)
   query!: string;
 
@@ -42,8 +42,8 @@ export class SearchContentsArgs {
   filter!: SearchContentFilter;
 }
 
-@ObjectType()
-export class SearchContentsPayload {
+@ObjectType("SearchContentPayload")
+export class SearchContentPayload {
   @Field(() => [SearchContentResult])
   results!: SearchContentResult[];
 }

@@ -9,4 +9,4 @@ import { SearchModule } from "~/services/search/search.module";
   providers: [SearchContentResolver],
   exports: [SearchContentResolver],
 })
-export class SearchResolverModule {}
+export class SearchResolversModule {}
