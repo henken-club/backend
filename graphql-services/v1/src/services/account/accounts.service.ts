@@ -1,14 +1,15 @@
 import { Injectable } from "@nestjs/common";
+import { from, Observable } from "rxjs";
 
 @Injectable()
 export class AccountsService {
   constructor() {}
 
-  async isUserExists(accountId: string): Promise<boolean> {
-    return false;
+  isUserExists(accountId: string): Observable<boolean> {
+    return from([false]);
   }
 
-  async getUserId(accountId: string): Promise<string | null> {
-    return "";
+  getUserId(accountId: string): Observable<string | null> {
+    return from([null]);
   }
 }

@@ -7,6 +7,7 @@ import { Args, ID, Query, Resolver } from "@nestjs/graphql";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 
+import { from, map, Observable, switchMap } from "rxjs";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { User } from "~/entities/user.entities";
@@ -21,24 +22,24 @@ export class UsersResolver {
   ) {}
 
   @Query(() => User, { name: "user" })
-  async getUser(@Args("id", { type: () => ID }) id: string): Promise<User> {
-    const result = await this.users.getById(id);
-
-    if (!result) {
-      throw new NotFoundException();
-    }
+  getUser(@Args("id", { type: () => ID }) id: string): Observable<User> {
+    const result = this.users.getById(id);
 
     return result;
   }
 
   @Query(() => FindUserPayload, { name: "findUser" })
-  async findUser(
+  findUser(
     @Args({ type: () => FindUserArgs }) args: FindUserArgs,
-  ): Promise<FindUserPayload> {
+  ): Observable<FindUserPayload> {
     if (args.alias) {
-      return { user: await this.users.findByAlias(args.alias) };
+      return this.users.findByAlias(args.alias).pipe(
+        map((user) => ({ user: user })),
+      );
     } else if (args.id) {
-      return { user: await this.users.findById(args.id) };
+      return this.users.findByAlias(args.id).pipe(
+        map((user) => ({ user: user })),
+      );
     }
     throw new BadRequestException();
   }
@@ -49,14 +50,15 @@ export class UsersResolver {
     description: "Return current user. Return `null` if user not registered",
   })
   @UseGuards(ViewerGuard)
-  async getViewer(
+  getViewer(
     @Viewer() { accountId }: ViewerType,
-  ): Promise<User | null> {
-    const userId = await this.accounts.getUserId(accountId);
-
-    if (!userId) {
-      return null;
-    }
-    return this.users.getById(userId);
+  ): Observable<User | null> {
+    return this.accounts.getUserId(accountId)
+      .pipe(
+        switchMap((userId) => {
+          if (!userId) return from([null]);
+          else return this.users.getById(userId);
+        }),
+      );
   }
 }

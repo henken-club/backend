@@ -1,4 +1,5 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
+import { Observable } from "rxjs";
 
 import { User, UserEdge } from "~/entities/user.entities";
 import { UsersService } from "~/services/users/users.service";
@@ -8,7 +9,7 @@ export class UserEdgesResolver {
   constructor(private readonly users: UsersService) {}
 
   @ResolveField((type) => User, { name: "node" })
-  async resolveNode(@Parent() { node }: UserEdge): Promise<User> {
+  resolveNode(@Parent() { node }: UserEdge): Observable<User> {
     return this.users.getById(node.id);
   }
 }
