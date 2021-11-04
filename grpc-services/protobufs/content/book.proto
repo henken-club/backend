@@ -16,17 +16,6 @@ message BookEntity {
   optional string isbn = 3;
 }
 
-message BookEdgeEntity {
-  henkenclub.common.PaginationEdgeNode node = 1;
-  string cursor = 2;
-}
-
-message BookConnectionEntity {
-  repeated BookEdgeEntity edges = 1;
-
-  henkenclub.common.CursorBasedPaginationPageInfo page_info = 2;
-  int32 total_count = 3;
-}
 
 
 enum BookOrderField {
@@ -59,5 +48,5 @@ message ManyBooksRequest {
 }
 
 message ManyBooksResponse {
-  BookConnectionEntity connection = 2;
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
 }
