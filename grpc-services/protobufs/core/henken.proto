@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.core.v1;
+package henkenclub.core;
 
 import "google/protobuf/timestamp.proto";
 
@@ -15,7 +15,7 @@ service Henken {
 message HenkenEntity {
   message RealContent {
     string id = 1;
-    henkenclub.content.v1.ContentType type = 2;
+    henkenclub.content.ContentType type = 2;
   }
   message TempContent { string id = 1; }
 

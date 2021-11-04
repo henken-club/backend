@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.bookcover.v1;
+package henkenclub.bookcover;
 
 service Bookcover {
   rpc FindFromISBN(FindFromISBNRequest) returns (FindFromISBNResponse);

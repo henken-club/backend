@@ -5,11 +5,11 @@ import {
   ContentControllerMethods,
   CreateTempContentRequest,
   CreateTempContentResponse,
-  HENKENCLUB_TEMPCONTENT_V1_PACKAGE_NAME,
-} from "~/protogen/content";
+  HENKENCLUB_TEMPCONTENT_PACKAGE_NAME,
+} from "~/protogen/temp-content/content";
 
 @ContentControllerMethods()
-@Controller(HENKENCLUB_TEMPCONTENT_V1_PACKAGE_NAME)
+@Controller(HENKENCLUB_TEMPCONTENT_PACKAGE_NAME)
 export class ContentController implements ContentControllerInterface {
   constructor() {}
 

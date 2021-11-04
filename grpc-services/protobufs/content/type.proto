@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.content.v1;
+package henkenclub.content;
 
 enum ContentType {
   UNKNOWN = 0;
