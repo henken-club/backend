@@ -51,7 +51,7 @@ export class BookConnection implements Connection {
 }
 
 export enum BookOrderField {
-  ID,
+  NAME,
 }
 registerEnumType(BookOrderField, {
   name: "BookOrderField",

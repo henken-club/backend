@@ -1,13 +1,24 @@
 import { BadRequestException, UseGuards } from "@nestjs/common";
-import { Args, ID, Query, Resolver } from "@nestjs/graphql";
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from "@nestjs/graphql";
 import { from, map, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
+import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
+import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
+import { HenkenConnection } from "~/entities/henken.entities";
 import { User } from "~/entities/user.entities";
 import { AccountsService } from "~/services/account/accounts.service";
+import { HenkensService } from "~/services/henkens/henkens.service";
 import { UsersService } from "~/services/users/users.service";
 
 @Resolver(() => User)
@@ -15,7 +26,46 @@ export class UsersResolver {
   constructor(
     private readonly users: UsersService,
     private readonly accounts: AccountsService,
+    private readonly henkens: HenkensService,
   ) {}
+
+  @ResolveField((type) => HenkenConnection, { name: "postsHenkens" })
+  resolvePostsHenkens(
+    @Parent() { id }: User,
+    @Args({ type: () => PostsHenkensArgs }) {
+      orderBy,
+      filter,
+      ...pagination
+    }: PostsHenkensArgs,
+  ): Observable<HenkenConnection> {
+    return this.henkens.getMany(
+      pagination,
+      orderBy,
+      {
+        fromId: id,
+        toId: filter?.to || null,
+      },
+    );
+  }
+
+  @ResolveField((type) => HenkenConnection, { name: "receivedHenkens" })
+  resolveReceivedHenkens(
+    @Parent() { id }: User,
+    @Args({ type: () => ReceivedHenkensArgs }) {
+      orderBy,
+      filter,
+      ...pagination
+    }: ReceivedHenkensArgs,
+  ): Observable<HenkenConnection> {
+    return this.henkens.getMany(
+      pagination,
+      orderBy,
+      {
+        fromId: filter?.from || null,
+        toId: id,
+      },
+    );
+  }
 
   @Query(() => User, { name: "user" })
   getUser(@Args("id", { type: () => ID }) id: string): Observable<User> {

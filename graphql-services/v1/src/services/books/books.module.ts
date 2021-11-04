@@ -2,6 +2,8 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 
+import { PaginationModule } from "../pagination/pagination.module";
+
 import { BooksConfig } from "./books.config";
 import { BooksService } from "./books.service";
 
@@ -18,6 +20,7 @@ import { BooksService } from "./books.service";
         }),
       },
     ]),
+    PaginationModule,
   ],
   providers: [BooksService],
   exports: [BooksService],

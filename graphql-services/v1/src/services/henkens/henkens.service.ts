@@ -2,15 +2,23 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
+import { PaginationService } from "../pagination/pagination.service";
 import { TimestampService } from "../timestamp/timestamp.service";
 
+import { BookConnection } from "~/entities/books.entities";
 import { ContentType } from "~/entities/content.entities";
-import { Henken } from "~/entities/henken.entities";
+import {
+  Henken,
+  HenkenOrder,
+  HenkenOrderField,
+} from "~/entities/henken.entities";
+import { PaginationArgs } from "~/entities/pagination.entities";
 import { ContentType as GrpcContentType } from "~/protogen/content/type";
 import {
   HENKEN_SERVICE_NAME,
   HenkenClient,
   HenkenEntity,
+  HenkenOrderField as GrpcHenkenOrderField,
 } from "~/protogen/core/henken";
 
 @Injectable()
@@ -20,6 +28,7 @@ export class HenkensService {
   constructor(
     @Inject("CoreGrpcClient") private readonly grpcClient: ClientGrpc,
     private readonly timestamp: TimestampService,
+    private readonly pagination: PaginationService,
   ) {
     this.client = this.grpcClient.getService<HenkenClient>(HENKEN_SERVICE_NAME);
   }
@@ -97,6 +106,71 @@ export class HenkensService {
             updatedAt: this.timestamp.convert(henken.updatedAt),
             answerId: henken.answerId || null,
             content: this.convertContent(henken),
+          });
+        }),
+      );
+  }
+
+  convertGrpcHenkenOrderField(
+    direction: HenkenOrderField,
+  ): GrpcHenkenOrderField {
+    switch (direction) {
+      case HenkenOrderField.CREATED_AT:
+        return GrpcHenkenOrderField.CREATED_AT;
+      case HenkenOrderField.UPDATED_AT:
+        return GrpcHenkenOrderField.UPDATED_AT;
+      default:
+        throw new Error("Invalid order direction");
+    }
+  }
+
+  convertGrpcHenkenOrder({ direction, field }: HenkenOrder) {
+    return {
+      direction: this.pagination.convertGrpcOrderDirection(direction),
+      field: this.convertGrpcHenkenOrderField(field),
+    };
+  }
+
+  getMany(
+    pagination: PaginationArgs,
+    order: HenkenOrder,
+    filter: {
+      fromId: string | null;
+      toId: string | null;
+    },
+  ): Observable<BookConnection> {
+    const convertedPagination = this.pagination.convertGrpcPagination(
+      pagination,
+    );
+    const convertedOrder = this.convertGrpcHenkenOrder(order);
+    return this.client.manyHenkens({
+      ...convertedPagination,
+      order: convertedOrder,
+    })
+      .pipe(
+        map(({ connection }) => {
+          if (!connection) {
+            throw new Error();
+          }
+          if (!connection.edges) {
+            throw new Error();
+          }
+          if (!connection.pageInfo) {
+            throw new Error();
+          }
+          if (!connection.totalCount) {
+            throw new Error();
+          }
+          return ({
+            edges: connection.edges.map(({ node, cursor }) => {
+              if (!node) {
+                throw new Error();
+              }
+
+              return ({ node, cursor });
+            }),
+            pageInfo: connection.pageInfo,
+            totalCount: connection.totalCount,
           });
         }),
       );

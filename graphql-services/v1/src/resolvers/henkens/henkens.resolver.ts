@@ -2,9 +2,10 @@ import { Args, ID, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { from, map, Observable } from "rxjs";
 
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
+import { ManyHenkensArgs } from "./dto/many-henkens.dto";
 
 import { Answer } from "~/entities/answer.entities";
-import { Henken } from "~/entities/henken.entities";
+import { Henken, HenkenConnection } from "~/entities/henken.entities";
 import { User } from "~/entities/user.entities";
 import { AnswersService } from "~/services/answers/answers.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
@@ -49,5 +50,20 @@ export class HenkensResolver {
     @Args({ type: () => FindHenkenArgs }) { id }: FindHenkenArgs,
   ): Observable<FindHenkenPayload> {
     return this.henkens.findById(id).pipe(map((henken) => ({ henken })));
+  }
+
+  @Query(() => HenkenConnection, { name: "manyHenkens" })
+  manyBooks(
+    @Args({ type: () => ManyHenkensArgs }) { orderBy, ...pagination }:
+      ManyHenkensArgs,
+  ): Observable<HenkenConnection> {
+    return this.henkens.getMany(
+      pagination,
+      orderBy,
+      {
+        fromId: null,
+        toId: null,
+      },
+    );
   }
 }

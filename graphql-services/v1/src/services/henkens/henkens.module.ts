@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 
+import { PaginationModule } from "../pagination/pagination.module";
 import { TimestampModule } from "../timestamp/timestamp.module";
 
 import { HenkensConfig } from "./henkens.config";
@@ -21,6 +22,7 @@ import { HenkensService } from "./henkens.service";
       },
     ]),
     TimestampModule,
+    PaginationModule,
   ],
   providers: [HenkensService],
   exports: [HenkensService],

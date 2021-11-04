@@ -8,6 +8,7 @@ export const BooksConfig = registerAs("books", () => ({
       url: process.env.CONTENT_SERVICE_URL!,
       package: "henkenclub.content",
       protoPath: [
+        path.resolve(__dirname, "../../protobufs/common/pagination.proto"),
         path.resolve(__dirname, "../../protobufs/content/book.proto"),
       ],
     },
