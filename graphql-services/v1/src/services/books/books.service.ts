@@ -1,18 +1,34 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
+import { ClientGrpc } from "@nestjs/microservices";
+import { map, Observable } from "rxjs";
 
 import { Book } from "~/entities/books.entities";
+import { BOOK_SERVICE_NAME, BookClient } from "~/protogen/content/book";
 
 @Injectable()
 export class BooksService {
-  constructor() {}
+  private client!: BookClient;
 
-  async getById(id: string): Promise<Book> {
-    return {} as Book;
+  constructor(
+    @Inject("GrpcContentClient") private readonly grpcClient: ClientGrpc,
+  ) {
+    this.client = this.grpcClient.getService<BookClient>(BOOK_SERVICE_NAME);
   }
 
-  async findById(
-    id: string,
-  ): Promise<Book | null> {
-    return {} as Book;
+  getById(id: string): Observable<Book> {
+    return this.client.getBook({ id })
+      .pipe(
+        map(({ book }) => {
+          if (!book) {
+            throw new Error();
+          }
+          return ({
+            ...book,
+            type: "BOOK",
+            title: book.name,
+            isbn: book.isbn || null,
+          });
+        }),
+      );
   }
 }

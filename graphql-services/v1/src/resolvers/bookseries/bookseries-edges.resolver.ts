@@ -1,16 +1,17 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
+import { Observable } from "rxjs";
 
 import { BookSeries, BookSeriesEdge } from "~/entities/bookseries.entities";
 import { BookSeriesService } from "~/services/bookseries/bookseries.service";
 
 @Resolver(() => BookSeriesEdge)
 export class BookSeriesEdgesResolver {
-  constructor(private readonly service: BookSeriesService) {}
+  constructor(private readonly bookSeries: BookSeriesService) {}
 
   @ResolveField((type) => BookSeries, { name: "node" })
-  async resolveNode(
+  resolveNode(
     @Parent() { node }: BookSeriesEdge,
-  ): Promise<BookSeries> {
-    return this.service.getById(node.id);
+  ): Observable<BookSeries> {
+    return this.bookSeries.getById(node.id);
   }
 }

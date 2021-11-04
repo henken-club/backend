@@ -1,4 +1,5 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
+import { Observable } from "rxjs";
 
 import { Book } from "~/entities/books.entities";
 import { BookSeriesPart } from "~/entities/bookseries-parts.entities";
@@ -14,16 +15,12 @@ export class BookSeriesPartsResolver {
   ) {}
 
   @ResolveField(() => Book, { name: "book" })
-  async resolveAuthor(
-    @Parent() { book }: BookSeriesPart,
-  ): Promise<Book> {
+  resolveAuthor(@Parent() { book }: BookSeriesPart): Observable<Book> {
     return this.books.getById(book.id);
   }
 
   @ResolveField(() => BookSeries, { name: "series" })
-  async resolveBook(
-    @Parent() { series }: BookSeriesPart,
-  ): Promise<BookSeries> {
+  resolveBook(@Parent() { series }: BookSeriesPart): Observable<BookSeries> {
     return this.series.getById(series.id);
   }
 }

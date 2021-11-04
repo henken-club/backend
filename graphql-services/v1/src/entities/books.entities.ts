@@ -25,6 +25,9 @@ export class Book implements Content, Node {
 
   @Field((type) => String)
   title!: string;
+
+  @Field((type) => String, { nullable: true })
+  isbn!: string | null;
 }
 
 @ObjectType("BookEdge", { implements: () => [Edge] })

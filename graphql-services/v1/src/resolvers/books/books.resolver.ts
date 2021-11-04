@@ -1,6 +1,5 @@
 import { Args, ID, Query, Resolver } from "@nestjs/graphql";
-
-import { FindBookArgs, FindBookPayload } from "./dto/find-book.dto";
+import { Observable } from "rxjs";
 
 import { Book } from "~/entities/books.entities";
 import { BooksService } from "~/services/books/books.service";
@@ -10,17 +9,7 @@ export class BooksResolver {
   constructor(private readonly books: BooksService) {}
 
   @Query(() => Book, { name: "book" })
-  async getBook(
-    @Args("id", { type: () => ID }) id: string,
-  ): Promise<Book> {
+  getBook(@Args("id", { type: () => ID }) id: string): Observable<Book> {
     return this.books.getById(id);
-  }
-
-  @Query(() => FindBookPayload, { name: "findBook" })
-  async findBook(
-    @Args({ type: () => FindBookArgs }) { id }: FindBookArgs,
-  ): Promise<FindBookPayload> {
-    const result = await this.books.findById(id);
-    return { book: result };
   }
 }
