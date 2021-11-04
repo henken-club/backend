@@ -5,7 +5,12 @@ import { map, Observable } from "rxjs";
 import { TimestampService } from "../timestamp/timestamp.service";
 
 import { Henken } from "~/entities/henken.entities";
-import { HENKEN_SERVICE_NAME, HenkenClient } from "~/protogen/core/henken";
+import { ContentType } from "~/protogen/content/type";
+import {
+  HENKEN_SERVICE_NAME,
+  HenkenClient,
+  HenkenEntity,
+} from "~/protogen/core/henken";
 
 @Injectable()
 export class HenkensService {
@@ -16,6 +21,36 @@ export class HenkensService {
     private readonly timestamp: TimestampService,
   ) {
     this.client = this.grpcClient.getService<HenkenClient>(HENKEN_SERVICE_NAME);
+  }
+
+  convertContentType(type: ContentType) {
+    switch (type) {
+      case ContentType.BOOK:
+        return "BOOK";
+      case ContentType.BOOK_SERIES:
+        return "BOOK_SERIES";
+      case ContentType.AUTHOR:
+        return "AUTHOR";
+      default:
+        throw new Error("Unrecognized content type");
+    }
+  }
+
+  convertContent(henken: HenkenEntity): Henken["content"] {
+    if (henken.realContent) {
+      return {
+        type: "real",
+        contentId: henken.realContent.id,
+        contentType: this.convertContentType(henken.realContent.type),
+      };
+    } else if (henken.tempContent) {
+      return {
+        type: "temp",
+        contentId: henken.tempContent.id,
+      };
+    } else {
+      throw new Error("Not related content");
+    }
   }
 
   getById(id: string): Observable<Henken> {
@@ -31,12 +66,13 @@ export class HenkensService {
           if (!henken.updatedAt) {
             throw new Error();
           }
+          const content = this.convertContent(henken);
           return ({
             ...henken,
             createdAt: this.timestamp.convert(henken.createdAt),
             updatedAt: this.timestamp.convert(henken.updatedAt),
             answerId: henken.answerId || null,
-            contentId: henken.contentId,
+            content,
           });
         }),
       );
@@ -55,12 +91,16 @@ export class HenkensService {
           if (!henken.updatedAt) {
             throw new Error();
           }
+          const content = this.convertContent(henken);
+          if (!content) {
+            throw new Error();
+          }
           return ({
             ...henken,
             createdAt: this.timestamp.convert(henken.createdAt),
             updatedAt: this.timestamp.convert(henken.updatedAt),
             answerId: henken.answerId || null,
-            contentId: henken.contentId,
+            content,
           });
         }),
       );

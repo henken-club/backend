@@ -35,7 +35,17 @@ export class Henken implements Node {
   fromUserId!: string;
   toUserId!: string;
   answerId!: string | null;
-  contentId!: string;
+
+  content!:
+    | {
+      type: "real";
+      contentId: string;
+      contentType: "BOOK" | "BOOK_SERIES" | "AUTHOR";
+    }
+    | {
+      type: "temp";
+      contentId: string;
+    };
 }
 
 @ObjectType("HenkenEdge", { implements: () => [Edge] })
