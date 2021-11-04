@@ -29,15 +29,23 @@ message AnswerEntity {
   string henken_id = 6;
 }
 
-message GetAnswerRequest { string id = 1; }
-
-message GetAnswerResponse { AnswerEntity answer = 2; }
-
-message FindAnswerRequest {
-  oneof query { string id = 1; }
+message GetAnswerRequest {
+  string id = 1;
 }
 
-message FindAnswerResponse { optional AnswerEntity answer = 2; }
+message GetAnswerResponse {
+  AnswerEntity answer = 2;
+}
+
+message FindAnswerRequest {
+  oneof query {
+    string id = 1;
+  }
+}
+
+message FindAnswerResponse {
+  optional AnswerEntity answer = 2;
+}
 
 message CreateAnswerRequest {
   string comment = 1;
@@ -46,4 +54,6 @@ message CreateAnswerRequest {
   string henken_id = 3;
 }
 
-message CreateAnswerResponse { AnswerEntity answer = 2; }
+message CreateAnswerResponse {
+  AnswerEntity answer = 2;
+}

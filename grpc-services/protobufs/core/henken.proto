@@ -17,7 +17,9 @@ message HenkenEntity {
     string id = 1;
     henkenclub.content.ContentType type = 2;
   }
-  message TempContent { string id = 1; }
+  message TempContent {
+    string id = 1;
+  }
 
   string id = 1;
 
@@ -37,15 +39,23 @@ message HenkenEntity {
   }
 }
 
-message GetHenkenRequest { string id = 1; }
-
-message GetHenkenResponse { HenkenEntity henken = 2; }
-
-message FindHenkenRequest {
-  oneof query { string id = 1; }
+message GetHenkenRequest {
+  string id = 1;
 }
 
-message FindHenkenResponse { optional HenkenEntity henken = 2; }
+message GetHenkenResponse {
+  HenkenEntity henken = 2;
+}
+
+message FindHenkenRequest {
+  oneof query {
+    string id = 1;
+  }
+}
+
+message FindHenkenResponse {
+  optional HenkenEntity henken = 2;
+}
 
 message CreateHenkenRequest {
   string comment = 1;
@@ -56,4 +66,6 @@ message CreateHenkenRequest {
   string content_id = 4;
 }
 
-message CreateHenkenResponse { HenkenEntity henken = 2; }
+message CreateHenkenResponse {
+  HenkenEntity henken = 2;
+}

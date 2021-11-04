@@ -3,7 +3,7 @@ syntax = "proto3";
 package henkenclub.content;
 
 enum ContentType {
-  UNKNOWN = 0;
+  INVALID_CONTENT_TYPE = 0;
 
   BOOK = 1;
   BOOK_SERIES = 2;

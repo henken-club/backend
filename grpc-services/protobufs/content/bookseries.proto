@@ -11,6 +11,10 @@ message BookSeriesEntity {
   string name = 2;
 }
 
-message GetBookSeriesRequest { string id = 1; }
+message GetBookSeriesRequest {
+  string id = 1;
+}
 
-message GetBookSeriesResponse { BookSeriesEntity book_series = 2; }
+message GetBookSeriesResponse {
+  BookSeriesEntity book_series = 2;
+}

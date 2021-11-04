@@ -2,13 +2,19 @@ syntax = "proto3";
 
 package henkenclub.content;
 
-service Author { rpc GetAuthor(GetAuthorRequest) returns (GetAuthorResponse); }
+service Author {
+  rpc GetAuthor(GetAuthorRequest) returns (GetAuthorResponse);
+}
 
 message AuthorEntity {
   string id = 1;
   string name = 2;
 }
 
-message GetAuthorRequest { string id = 1; }
+message GetAuthorRequest {
+  string id = 1;
+}
 
-message GetAuthorResponse { AuthorEntity author = 2; }
+message GetAuthorResponse {
+  AuthorEntity author = 2;
+}

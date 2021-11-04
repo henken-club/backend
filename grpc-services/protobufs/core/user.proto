@@ -3,42 +3,42 @@ syntax = "proto3";
 package henkenclub.core;
 
 service User {
-	rpc GetUser(GetUserRequest) returns (GetUserResponse);
-	rpc FindUser(FindUserRequest) returns (FindUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc FindUser(FindUserRequest) returns (FindUserResponse);
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
 }
 
 message UserEntity {
   string id = 1;
 
-	string alias = 2;
-	string display_name = 3;
-	string avatar_url = 4;
+  string alias = 2;
+  string display_name = 3;
+  string avatar_url = 4;
 }
 
 message GetUserRequest {
-	string id = 1;
+  string id = 1;
 }
 
 message GetUserResponse {
-	UserEntity user = 2;
+  UserEntity user = 2;
 }
 
 message FindUserRequest {
-	oneof query {
-		string id = 1;
-		string alias = 2;
-	}
+  oneof query {
+    string id = 1;
+    string alias = 2;
+  }
 }
 
 message FindUserResponse {
-	optional UserEntity user = 2;
+  optional UserEntity user = 2;
 }
 
 message CreateUserRequest {
   string alias = 1;
-	string display_name = 2;
-	string avatar_url = 3;
+  string display_name = 2;
+  string avatar_url = 3;
 }
 
 message CreateUserResponse {
