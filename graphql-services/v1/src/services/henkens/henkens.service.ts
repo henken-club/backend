@@ -5,10 +5,10 @@ import { map, Observable } from "rxjs";
 import { PaginationService } from "../pagination/pagination.service";
 import { TimestampService } from "../timestamp/timestamp.service";
 
-import { BookConnection } from "~/entities/books.entities";
 import { ContentType } from "~/entities/content.entities";
 import {
   Henken,
+  HenkenConnection,
   HenkenOrder,
   HenkenOrderField,
 } from "~/entities/henken.entities";
@@ -116,9 +116,9 @@ export class HenkensService {
   ): GrpcHenkenOrderField {
     switch (direction) {
       case HenkenOrderField.CREATED_AT:
-        return GrpcHenkenOrderField.CREATED_AT;
+        return GrpcHenkenOrderField.HENKEN_CREATED_AT;
       case HenkenOrderField.UPDATED_AT:
-        return GrpcHenkenOrderField.UPDATED_AT;
+        return GrpcHenkenOrderField.HENKEN_UPDATED_AT;
       default:
         throw new Error("Invalid order direction");
     }
@@ -138,7 +138,7 @@ export class HenkensService {
       fromId: string | null;
       toId: string | null;
     },
-  ): Observable<BookConnection> {
+  ): Observable<HenkenConnection> {
     const convertedPagination = this.pagination.convertGrpcPagination(
       pagination,
     );

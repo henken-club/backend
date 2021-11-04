@@ -2,8 +2,20 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { User } from "~/entities/user.entities";
-import { USER_SERVICE_NAME, UserClient } from "~/protogen/core/user";
+import { PaginationService } from "../pagination/pagination.service";
+
+import { PaginationArgs } from "~/entities/pagination.entities";
+import {
+  User,
+  UserConnection,
+  UserOrder,
+  UserOrderField,
+} from "~/entities/user.entities";
+import {
+  USER_SERVICE_NAME,
+  UserClient,
+  UserOrderField as GrpcUserOrderField,
+} from "~/protogen/core/user";
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -11,6 +23,7 @@ export class UsersService implements OnModuleInit {
 
   constructor(
     @Inject("CoreGrpcClient") private readonly grpcClient: ClientGrpc,
+    private readonly pagination: PaginationService,
   ) {}
 
   onModuleInit() {
@@ -50,5 +63,66 @@ export class UsersService implements OnModuleInit {
         return ({ avatar: user.avatarUrl, ...user });
       }),
     );
+  }
+
+  convertGrpcHenkenOrderField(
+    direction: UserOrderField,
+  ): GrpcUserOrderField {
+    switch (direction) {
+      case UserOrderField.CREATED_AT:
+        return GrpcUserOrderField.USER_CREATED_AT;
+      case UserOrderField.UPDATED_AT:
+        return GrpcUserOrderField.USER_UPDATED_AT;
+      default:
+        throw new Error("Invalid order direction");
+    }
+  }
+
+  convertGrpcHenkenOrder({ direction, field }: UserOrder) {
+    return {
+      direction: this.pagination.convertGrpcOrderDirection(direction),
+      field: this.convertGrpcHenkenOrderField(field),
+    };
+  }
+
+  getMany(
+    pagination: PaginationArgs,
+    order: UserOrder,
+  ): Observable<UserConnection> {
+    const convertedPagination = this.pagination.convertGrpcPagination(
+      pagination,
+    );
+    const convertedOrder = this.convertGrpcHenkenOrder(order);
+    return this.client.manyUsers({
+      ...convertedPagination,
+      order: convertedOrder,
+    })
+      .pipe(
+        map(({ connection }) => {
+          if (!connection) {
+            throw new Error();
+          }
+          if (!connection.edges) {
+            throw new Error();
+          }
+          if (!connection.pageInfo) {
+            throw new Error();
+          }
+          if (!connection.totalCount) {
+            throw new Error();
+          }
+          return ({
+            edges: connection.edges.map(({ node, cursor }) => {
+              if (!node) {
+                throw new Error();
+              }
+
+              return ({ node, cursor });
+            }),
+            pageInfo: connection.pageInfo,
+            totalCount: connection.totalCount,
+          });
+        }),
+      );
   }
 }

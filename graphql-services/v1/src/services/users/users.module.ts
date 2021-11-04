@@ -2,6 +2,8 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 
+import { PaginationModule } from "../pagination/pagination.module";
+
 import { UsersConfig } from "./users.config";
 import { UsersService } from "./users.service";
 
@@ -18,6 +20,7 @@ import { UsersService } from "./users.service";
         }),
       },
     ]),
+    PaginationModule,
   ],
   providers: [UsersService],
   exports: [UsersService],

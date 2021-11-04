@@ -8,6 +8,7 @@ export const UsersConfig = registerAs("users", () => ({
       url: process.env.CORE_SERVICE_URL!,
       package: "henkenclub.core",
       protoPath: [
+        path.resolve(__dirname, "../../protobufs/common/pagination.proto"),
         path.resolve(__dirname, "../../protobufs/core/user.proto"),
       ],
     },

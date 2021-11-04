@@ -52,6 +52,7 @@ export class UserConnection implements Connection {
 
 export enum UserOrderField {
   CREATED_AT,
+  UPDATED_AT,
 }
 registerEnumType(UserOrderField, {
   name: "UserOrderField",

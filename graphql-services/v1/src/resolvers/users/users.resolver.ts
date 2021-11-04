@@ -10,13 +10,14 @@ import {
 import { from, map, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
+import { ManyUsersArgs } from "./dto/many-users.args";
 import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
 import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { HenkenConnection } from "~/entities/henken.entities";
-import { User } from "~/entities/user.entities";
+import { User, UserConnection } from "~/entities/user.entities";
 import { AccountsService } from "~/services/account/accounts.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
 import { UsersService } from "~/services/users/users.service";
@@ -107,5 +108,16 @@ export class UsersResolver {
           }
         }),
       );
+  }
+
+  @Query(() => UserConnection, { name: "manyUsers" })
+  manyUsers(
+    @Args({ type: () => ManyUsersArgs }) { orderBy, ...pagination }:
+      ManyUsersArgs,
+  ): Observable<HenkenConnection> {
+    return this.users.getMany(
+      pagination,
+      orderBy,
+    );
   }
 }

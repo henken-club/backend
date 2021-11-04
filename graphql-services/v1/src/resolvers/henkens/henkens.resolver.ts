@@ -53,7 +53,7 @@ export class HenkensResolver {
   }
 
   @Query(() => HenkenConnection, { name: "manyHenkens" })
-  manyBooks(
+  manyHenkens(
     @Args({ type: () => ManyHenkensArgs }) { orderBy, ...pagination }:
       ManyHenkensArgs,
   ): Observable<HenkenConnection> {
