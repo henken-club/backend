@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package henkenclub.content.v1;
+
+service BookSeries {
+  rpc GetBookSeries(GetBookSeriesRequest) returns (GetBookSeriesResponse);
+}
+
+message BookSeriesEntity {
+  string id = 1;
+  string name = 2;
+}
+
+message GetBookSeriesRequest { string id = 1; }
+
+message GetBookSeriesResponse { BookSeriesEntity book_series = 2; }
