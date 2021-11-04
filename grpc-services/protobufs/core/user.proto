@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.core.v1;
+package henkenclub.core;
 
 service User {
 	rpc GetUser(GetUserRequest) returns (GetUserResponse);

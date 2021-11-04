@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.tempcontent.v1;
+package henkenclub.tempcontent;
 
 service Content {
   rpc CreateTempContent(CreateTempContentRequest)

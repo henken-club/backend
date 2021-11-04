@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.auth.v1;
+package henkenclub.auth;
 
 service Account {
   rpc Connect(ConnectRequest) returns (ConnectResponse);

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package henkenclub.search.v1;
+package henkenclub.search;
 
 service Searcher {
   rpc SearchAll(SearchAuthorRequest) returns (SearchAllResponse);
