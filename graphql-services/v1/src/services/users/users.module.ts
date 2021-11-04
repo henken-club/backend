@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+
 import { UsersConfig } from "./users.config";
 import { UsersService } from "./users.service";
 

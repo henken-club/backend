@@ -1,21 +1,24 @@
-import {
-  Args,
-  ID,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from "@nestjs/graphql";
+import { Args, ID, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { map, Observable } from "rxjs";
 
 import { FindAnswerArgs, FindAnswerPayload } from "./dto/find-answer.dto";
 
-import { Answer, AnswerEdge } from "~/entities/answer.entities";
+import { Answer } from "~/entities/answer.entities";
+import { Henken } from "~/entities/henken.entities";
 import { AnswersService } from "~/services/answers/answers.service";
+import { HenkensService } from "~/services/henkens/henkens.service";
 
 @Resolver(() => Answer)
 export class AnswersResolver {
-  constructor(private readonly answers: AnswersService) {}
+  constructor(
+    private readonly answers: AnswersService,
+    private readonly henkens: HenkensService,
+  ) {}
+
+  @ResolveField((type) => Henken, { name: "henken" })
+  resolveHenken({ henkenId }: Answer): Observable<Henken> {
+    return this.henkens.getById(henkenId);
+  }
 
   @Query(() => Answer, { name: "answer" })
   getAnswer(
@@ -29,15 +32,5 @@ export class AnswersResolver {
     @Args({ type: () => FindAnswerArgs }) { id }: FindAnswerArgs,
   ): Observable<FindAnswerPayload> {
     return this.answers.findById(id).pipe(map((answer) => ({ answer })));
-  }
-}
-
-@Resolver(() => AnswerEdge)
-export class AnswerEdgesResolver {
-  constructor(private readonly answers: AnswersService) {}
-
-  @ResolveField((type) => Answer, { name: "node" })
-  resolveNode(@Parent() { node }: AnswerEdge): Observable<Answer> {
-    return this.answers.getById(node.id);
   }
 }
