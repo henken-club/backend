@@ -32,8 +32,8 @@ message HenkenEntity {
   optional string answer_id = 7;
 
   oneof content {
-    RealContent real = 8;
-    TempContent temp = 9;
+    RealContent real_content = 8;
+    TempContent temp_content = 9;
   }
 }
 
