@@ -6,9 +6,10 @@ export const HenkensConfig = registerAs("henkens", () => ({
   client: {
     options: {
       url: process.env.CORE_SERVICE_URL!,
-      package: "henkenclub.core.v1",
+      package: "henkenclub.core",
       protoPath: [
-        path.resolve(__dirname, "../../protobuf/core/henken.proto"),
+        path.resolve(__dirname, "../../protobufs/content/type.proto"),
+        path.resolve(__dirname, "../../protobufs/core/henken.proto"),
       ],
     },
   },

@@ -6,10 +6,10 @@ export const SearchConfig = registerAs("search", () => ({
   client: {
     options: {
       url: process.env.SEARCH_SERVICE_URL!,
-      package: "henkenclub.search.v1",
+      package: "henkenclub.search",
       protoPath: path.resolve(
         __dirname,
-        "../../protobuf/search/searcher.proto",
+        "../../protobufs/search/searcher.proto",
       ),
     },
   },

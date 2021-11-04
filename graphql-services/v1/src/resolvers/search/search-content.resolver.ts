@@ -1,6 +1,6 @@
 import { BadRequestException } from "@nestjs/common";
 import { Args, Query, Resolver } from "@nestjs/graphql";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 import {
   SearchContentArgs,
@@ -8,7 +8,6 @@ import {
   SearchContentPayload,
 } from "./dto/search-content.dto";
 
-import { Content } from "~/entities/content.entities";
 import { SearchContentResult } from "~/entities/search.entities";
 import { SearchService } from "~/services/search/search.service";
 
@@ -26,41 +25,15 @@ export class SearchContentResolver {
     }: SearchContentArgs,
   ): Observable<SearchContentPayload> {
     if (type === null) {
-      return this.search.searchContentMixed(query, { skip, limit }).pipe(
-        map((val) => ({
-          results: val.results
-            .filter((value): value is Content => value !== null)
-            .map(({ id, type }) => ({
-              content: { id, type },
-            })),
-        })),
-      );
+      return this.search.searchContentMixed(query, { skip, limit });
     }
     switch (type) {
       case SearchContentFilterType.AUTHOR:
-        return this.search.searchAuthors(query, { skip, limit }).pipe(
-          map((val) => ({
-            results: val.results.map(({ id }) => ({
-              content: { id, type: "AUTHOR" },
-            })),
-          })),
-        );
+        return this.search.searchAuthors(query, { skip, limit });
       case SearchContentFilterType.BOOK:
-        return this.search.searchBooks(query, { skip, limit }).pipe(
-          map((val) => ({
-            results: val.results.map(({ id }) => ({
-              content: { id, type: "BOOK" },
-            })),
-          })),
-        );
+        return this.search.searchBooks(query, { skip, limit });
       case SearchContentFilterType.BOOK_SERIES:
-        return this.search.searchBookSeries(query, { skip, limit }).pipe(
-          map((val) => ({
-            results: val.results.map(({ id }) => ({
-              content: { id, type: "BOOK_SERIES" },
-            })),
-          })),
-        );
+        return this.search.searchBookSeries(query, { skip, limit });
     }
     throw new BadRequestException();
   }

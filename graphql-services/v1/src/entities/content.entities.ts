@@ -4,22 +4,28 @@ import { Author } from "./author.entities";
 import { Book } from "./books.entities";
 import { BookSeries } from "./bookseries.entities";
 
+export enum ContentType {
+  BOOK,
+  BOOK_SERIES,
+  AUTHOR,
+}
+
 @InterfaceType("Content", {
   resolveType(value: Content) {
     switch (value.type) {
-      case "BOOK":
+      case ContentType.BOOK:
         return Book;
-      case "BOOK_SERIES":
+      case ContentType.BOOK_SERIES:
         return BookSeries;
-      case "AUTHOR":
+      case ContentType.AUTHOR:
         return Author;
     }
     return null;
   },
 })
-export abstract class Content {
+export abstract class Content<TType extends ContentType = ContentType> {
   @Field((type) => ID)
   id!: string;
 
-  type!: "BOOK" | "BOOK_SERIES" | "AUTHOR";
+  type!: TType;
 }

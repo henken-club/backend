@@ -8,6 +8,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
+import { ContentType } from "./content.entities";
 import {
   Connection,
   Edge,
@@ -40,7 +41,7 @@ export class Henken implements Node {
     | {
       type: "real";
       contentId: string;
-      contentType: "BOOK" | "BOOK_SERIES" | "AUTHOR";
+      contentType: ContentType;
     }
     | {
       type: "temp";

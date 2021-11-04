@@ -6,9 +6,9 @@ export const AnswersConfig = registerAs("answers", () => ({
   client: {
     options: {
       url: process.env.CORE_SERVICE_URL!,
-      package: "henkenclub.core.v1",
+      package: "henkenclub.core",
       protoPath: [
-        path.resolve(__dirname, "../../protobuf/core/answer.proto"),
+        path.resolve(__dirname, "../../protobufs/core/answer.proto"),
       ],
     },
   },

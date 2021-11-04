@@ -3,6 +3,7 @@ import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
 import { Author } from "~/entities/author.entities";
+import { ContentType } from "~/entities/content.entities";
 import { AUTHOR_SERVICE_NAME, AuthorClient } from "~/protogen/content/author";
 
 @Injectable()
@@ -24,7 +25,7 @@ export class AuthorsService {
           }
           return ({
             ...author,
-            type: "AUTHOR",
+            type: ContentType.AUTHOR,
           });
         }),
       );

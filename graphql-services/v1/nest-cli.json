@@ -2,7 +2,7 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["protobuf/**/*.proto"],
+    "assets": ["protobufs/**/*.proto"],
     "watchAssets": true
   }
 }

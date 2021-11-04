@@ -3,6 +3,7 @@ import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
 import { Book } from "~/entities/books.entities";
+import { ContentType } from "~/entities/content.entities";
 import { BOOK_SERVICE_NAME, BookClient } from "~/protogen/content/book";
 
 @Injectable()
@@ -24,7 +25,7 @@ export class BooksService {
           }
           return ({
             ...book,
-            type: "BOOK",
+            type: ContentType.BOOK,
             title: book.name,
             isbn: book.isbn || null,
           });

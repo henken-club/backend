@@ -3,6 +3,7 @@ import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
 import { BookSeries } from "~/entities/bookseries.entities";
+import { ContentType } from "~/entities/content.entities";
 import {
   BOOK_SERIES_SERVICE_NAME,
   BookSeriesClient,
@@ -29,7 +30,7 @@ export class BookSeriesService {
           }
           return ({
             ...bookSeries,
-            type: "BOOK_SERIES",
+            type: ContentType.BOOK_SERIES,
             title: bookSeries.name,
           });
         }),

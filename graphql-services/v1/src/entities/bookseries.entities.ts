@@ -7,7 +7,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { Content } from "./content.entities";
+import { Content, ContentType } from "./content.entities";
 import {
   Connection,
   Edge,
@@ -17,8 +17,8 @@ import {
 } from "./pagination.entities";
 
 @ObjectType("BookSeries", { implements: () => [Content, Node] })
-export class BookSeries implements Content, Node {
-  type!: "BOOK_SERIES";
+export class BookSeries implements Content<ContentType.BOOK_SERIES>, Node {
+  type!: ContentType.BOOK_SERIES;
 
   @Field((type) => ID)
   id!: string;
