@@ -2,18 +2,42 @@ syntax = "proto3";
 
 package henkenclub.core;
 
+import "google/protobuf/timestamp.proto";
+
+import "common/pagination.proto";
+
 service User {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc FindUser(FindUserRequest) returns (FindUserResponse);
+  rpc ManyUsers(ManyUsersRequest) returns (ManyUsersResponse);
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
 }
 
 message UserEntity {
   string id = 1;
 
-  string alias = 2;
-  string display_name = 3;
-  string avatar_url = 4;
+
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+
+  string alias = 4;
+  string display_name = 5;
+  string avatar_url = 6;
+
+}
+
+
+enum UserOrderField {
+  INVALID_USER_ORDER_FIELD = 0;
+
+  USER_CREATED_AT = 1;
+	USER_UPDATED_AT = 2;
+}
+
+
+message UserOrder {
+  henkenclub.common.PaginationDirection direction = 1;
+  UserOrderField field = 2;
 }
 
 message GetUserRequest {
@@ -43,4 +67,17 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   UserEntity user = 2;
+}
+
+
+message ManyUsersRequest {
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+  UserOrder order = 3;
+}
+
+message ManyUsersResponse {
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
 }

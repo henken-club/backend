@@ -5,10 +5,12 @@ package henkenclub.core;
 import "google/protobuf/timestamp.proto";
 
 import "content/type.proto";
+import "common/pagination.proto";
 
 service Henken {
   rpc GetHenken(GetHenkenRequest) returns (GetHenkenResponse);
   rpc FindHenken(FindHenkenRequest) returns (FindHenkenResponse);
+  rpc ManyHenkens(ManyHenkensRequest) returns (ManyHenkensResponse);
   rpc CreateHenken(CreateHenkenRequest) returns (CreateHenkenResponse);
 }
 
@@ -39,6 +41,21 @@ message HenkenEntity {
   }
 }
 
+
+enum HenkenOrderField {
+  INVALID_HENKEN_ORDER_FIELD = 0;
+
+  HENKEN_CREATED_AT = 1;
+	HENKEN_UPDATED_AT = 2;
+}
+
+
+message HenkenOrder {
+  henkenclub.common.PaginationDirection direction = 1;
+  HenkenOrderField field = 2;
+}
+
+
 message GetHenkenRequest {
   string id = 1;
 }
@@ -68,4 +85,16 @@ message CreateHenkenRequest {
 
 message CreateHenkenResponse {
   HenkenEntity henken = 2;
+}
+
+message ManyHenkensRequest {
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+  HenkenOrder order = 3;
+}
+
+message ManyHenkensResponse {
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
 }
