@@ -1,16 +1,1 @@
-syntax = "proto3";
-
-package henkenclub.content.v1;
-
-service Book { rpc GetBook(GetBookRequest) returns (GetBookResponse); }
-
-message BookEntity {
-  string id = 1;
-  string name = 2;
-
-  optional string isbn = 3;
-}
-
-message GetBookRequest { string id = 1; }
-
-message GetBookResponse { BookEntity book = 2; }
+../../../../protobufs/content/book.proto

@@ -1,14 +1,1 @@
-syntax = "proto3";
-
-package henkenclub.content.v1;
-
-service Author { rpc GetAuthor(GetAuthorRequest) returns (GetAuthorResponse); }
-
-message AuthorEntity {
-  string id = 1;
-  string name = 2;
-}
-
-message GetAuthorRequest { string id = 1; }
-
-message GetAuthorResponse { AuthorEntity author = 2; }
+../../../../protobufs/content/author.proto
