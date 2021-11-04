@@ -8,7 +8,6 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { Content } from "./content.entities";
 import {
   Connection,
   Edge,
@@ -28,18 +27,15 @@ export class Henken implements Node {
   comment!: string;
 
   @Field((type) => GraphQLISODateTime)
-  createdAt!: Date;
+  createdAt!: string;
 
   @Field((type) => GraphQLISODateTime)
-  updatedAt!: Date;
+  updatedAt!: string;
 
-  from!: { id: string };
-  to!: { id: string };
-
-  answer!: { id: string } | null;
-
-  @Field(() => Content)
-  content!: Content;
+  fromUserId!: string;
+  toUserId!: string;
+  answerId!: string | null;
+  contentId!: string;
 }
 
 @ObjectType("HenkenEdge", { implements: () => [Edge] })

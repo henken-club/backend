@@ -1,4 +1,3 @@
-import { NotFoundException } from "@nestjs/common";
 import {
   Args,
   ID,
@@ -7,6 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
+import { map, Observable } from "rxjs";
 
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
 
@@ -18,25 +18,17 @@ export class HenkensResolver {
   constructor(private readonly henkens: HenkensService) {}
 
   @Query(() => Henken, { name: "henken" })
-  async getHenken(
+  getHenken(
     @Args("id", { type: () => ID }) id: string,
-  ): Promise<Henken> {
-    const result = await this.henkens.getById(id);
-
-    if (!result) {
-      throw new NotFoundException();
-    }
-
-    return result;
+  ): Observable<Henken> {
+    return this.henkens.getById(id);
   }
 
   @Query(() => FindHenkenPayload, { name: "findHenken" })
-  async findHenken(
+  findHenken(
     @Args({ type: () => FindHenkenArgs }) { id }: FindHenkenArgs,
-  ): Promise<FindHenkenPayload> {
-    const result = await this.henkens.findById(id);
-
-    return { henken: result };
+  ): Observable<FindHenkenPayload> {
+    return this.henkens.findById(id).pipe(map((henken) => ({ henken })));
   }
 }
 
@@ -45,9 +37,7 @@ export class HenkenEdgesResolver {
   constructor(private readonly henkens: HenkensService) {}
 
   @ResolveField((type) => Henken, { name: "node" })
-  async resolveNode(
-    @Parent() { node }: HenkenEdge,
-  ): Promise<Henken> {
+  resolveNode(@Parent() { node }: HenkenEdge): Observable<Henken> {
     return this.henkens.getById(node.id);
   }
 }

@@ -1,13 +1,9 @@
-import {
-  BadRequestException,
-  NotFoundException,
-  UseGuards,
-} from "@nestjs/common";
+import { BadRequestException, UseGuards } from "@nestjs/common";
 import { Args, ID, Query, Resolver } from "@nestjs/graphql";
+import { from, map, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 
-import { from, map, Observable, switchMap } from "rxjs";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { User } from "~/entities/user.entities";
@@ -23,9 +19,7 @@ export class UsersResolver {
 
   @Query(() => User, { name: "user" })
   getUser(@Args("id", { type: () => ID }) id: string): Observable<User> {
-    const result = this.users.getById(id);
-
-    return result;
+    return this.users.getById(id);
   }
 
   @Query(() => FindUserPayload, { name: "findUser" })
@@ -34,11 +28,11 @@ export class UsersResolver {
   ): Observable<FindUserPayload> {
     if (args.alias) {
       return this.users.findByAlias(args.alias).pipe(
-        map((user) => ({ user: user })),
+        map((user) => ({ user })),
       );
     } else if (args.id) {
       return this.users.findByAlias(args.id).pipe(
-        map((user) => ({ user: user })),
+        map((user) => ({ user })),
       );
     }
     throw new BadRequestException();
@@ -56,8 +50,11 @@ export class UsersResolver {
     return this.accounts.getUserId(accountId)
       .pipe(
         switchMap((userId) => {
-          if (!userId) return from([null]);
-          else return this.users.getById(userId);
+          if (userId) {
+            return this.users.getById(userId);
+          } else {
+            return from([null]);
+          }
         }),
       );
   }

@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
-import { filter, map, Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 
 import { User } from "~/entities/user.entities";
 import { USER_SERVICE_NAME, UserClient } from "~/protogen/core/user";
@@ -21,7 +21,9 @@ export class UsersService implements OnModuleInit {
     return this.client.getUser({ id })
       .pipe(
         map(({ user }) => {
-          if (!user) throw new Error();
+          if (!user) {
+            throw new Error();
+          }
           return ({ avatar: user.avatarUrl, ...user });
         }),
       );
@@ -31,7 +33,9 @@ export class UsersService implements OnModuleInit {
     return this.client.findUser({ id, alias: undefined })
       .pipe(
         map(({ user }) => {
-          if (!user) return null;
+          if (!user) {
+            return null;
+          }
           return ({ avatar: user.avatarUrl, ...user });
         }),
       );
@@ -40,7 +44,9 @@ export class UsersService implements OnModuleInit {
   findByAlias(alias: string): Observable<User | null> {
     return this.client.findUser({ alias, id: undefined }).pipe(
       map(({ user }) => {
-        if (!user) return null;
+        if (!user) {
+          return null;
+        }
         return ({ avatar: user.avatarUrl, ...user });
       }),
     );
