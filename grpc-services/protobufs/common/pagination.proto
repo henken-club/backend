@@ -2,9 +2,6 @@ syntax = "proto3";
 
 package henkenclub.common;
 
-message PaginationEdgeNode {
-	string id = 1;
-}
 
 enum PaginationDirection {
   UNKNOWN = 0;
@@ -32,4 +29,21 @@ message CursorBasedPaginationBackwardQuery {
 
   int32 last = 1;
   optional string before = 2;
+}
+
+
+message CursorBasedPaginationConnection {
+	message Edge {
+		message Node {
+			string id = 1;
+		}
+
+		Node node = 1;
+		string cursor = 2;
+	}
+
+  repeated Edge edges = 1;
+
+  CursorBasedPaginationPageInfo page_info = 2;
+  int32 total_count = 3;
 }
