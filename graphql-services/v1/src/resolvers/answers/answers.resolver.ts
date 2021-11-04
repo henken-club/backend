@@ -1,4 +1,3 @@
-import { NotFoundException } from "@nestjs/common";
 import {
   Args,
   ID,
@@ -7,6 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
+import { map, Observable } from "rxjs";
 
 import { FindAnswerArgs, FindAnswerPayload } from "./dto/find-answer.dto";
 
@@ -18,25 +18,17 @@ export class AnswersResolver {
   constructor(private readonly answers: AnswersService) {}
 
   @Query(() => Answer, { name: "answer" })
-  async getAnswer(
+  getAnswer(
     @Args("id", { type: () => ID }) id: string,
-  ): Promise<Answer> {
-    const result = await this.answers.getById(id);
-
-    if (!result) {
-      throw new NotFoundException();
-    }
-
-    return result;
+  ): Observable<Answer> {
+    return this.answers.getById(id);
   }
 
   @Query(() => FindAnswerPayload, { name: "findAnswer" })
-  async findAnswer(
+  findAnswer(
     @Args({ type: () => FindAnswerArgs }) { id }: FindAnswerArgs,
-  ): Promise<FindAnswerPayload> {
-    const result = await this.answers.findById(id);
-
-    return { answer: result };
+  ): Observable<FindAnswerPayload> {
+    return this.answers.findById(id).pipe(map((answer) => ({ answer })));
   }
 }
 
@@ -45,9 +37,7 @@ export class AnswerEdgesResolver {
   constructor(private readonly answers: AnswersService) {}
 
   @ResolveField((type) => Answer, { name: "node" })
-  async resolveNode(
-    @Parent() { node }: AnswerEdge,
-  ): Promise<Answer> {
+  resolveNode(@Parent() { node }: AnswerEdge): Observable<Answer> {
     return this.answers.getById(node.id);
   }
 }

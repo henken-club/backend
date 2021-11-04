@@ -23,18 +23,19 @@ export class Answer implements Node {
   @Field((type) => ID)
   id!: string;
 
-  type!: "RIGHT" | "WRONG";
+  @Field((type) => AnswerType)
+  type!: AnswerType;
 
   @Field((type) => String)
   comment!: string;
 
   @Field((type) => GraphQLISODateTime)
-  createdAt!: Date;
+  createdAt!: string;
 
   @Field((type) => GraphQLISODateTime)
-  updatedAt!: Date;
+  updatedAt!: string;
 
-  henken!: { id: string };
+  henkenId!: string;
 }
 
 export enum AnswerType {
