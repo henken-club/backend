@@ -20,9 +20,8 @@ export class Following implements Node {
   @Field((type) => ID)
   id!: string;
 
-  from!: { id: string };
-
-  to!: { id: string };
+  fromId!: string;
+  toId!: string;
 }
 
 @ObjectType("FollowingEdge", { implements: () => [Edge] })
@@ -46,7 +45,7 @@ export class FollowingConnection implements Connection {
 }
 
 export enum FollowingOrderField {
-  CREATED_AT,
+  FOLLOWED_AT,
 }
 registerEnumType(FollowingOrderField, {
   name: "FollowingOrderField",

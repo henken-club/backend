@@ -11,14 +11,18 @@ import { from, map, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 import { ManyUsersArgs } from "./dto/many-users.args";
+import { FolloweesArgs } from "./dto/resolve-followees.dto";
+import { FollowersArgs } from "./dto/resolve-followers.dto";
 import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
 import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
+import { FollowingConnection } from "~/entities/following.entities";
 import { HenkenConnection } from "~/entities/henken.entities";
 import { User, UserConnection } from "~/entities/user.entities";
 import { AccountsService } from "~/services/account/accounts.service";
+import { FollowingsService } from "~/services/followings/followings.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
 import { UsersService } from "~/services/users/users.service";
 
@@ -28,7 +32,38 @@ export class UsersResolver {
     private readonly users: UsersService,
     private readonly accounts: AccountsService,
     private readonly henkens: HenkensService,
+    private readonly followings: FollowingsService,
   ) {}
+
+  @ResolveField((type) => FollowingConnection, { name: "followees" })
+  resolveFollowees(
+    @Parent() { id }: User,
+    @Args({ type: () => FolloweesArgs }) {
+      orderBy,
+      ...pagination
+    }: FolloweesArgs,
+  ): Observable<HenkenConnection> {
+    return this.followings.getMany(
+      pagination,
+      orderBy,
+      { fromId: id, toId: null },
+    );
+  }
+
+  @ResolveField((type) => FollowingConnection, { name: "followers" })
+  resolveFollowers(
+    @Parent() { id }: User,
+    @Args({ type: () => FollowersArgs }) {
+      orderBy,
+      ...pagination
+    }: FollowersArgs,
+  ): Observable<HenkenConnection> {
+    return this.followings.getMany(
+      pagination,
+      orderBy,
+      { fromId: null, toId: id },
+    );
+  }
 
   @ResolveField((type) => HenkenConnection, { name: "postsHenkens" })
   resolvePostsHenkens(

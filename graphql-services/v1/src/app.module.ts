@@ -9,6 +9,7 @@ import { AuthorsResolversModule } from "./resolvers/authors/authors.resolvers.mo
 import { BooksResolversModule } from "./resolvers/books/books.resolvers.module";
 import { BookSeriesPartsResolversModule } from "./resolvers/bookseries-parts/bookseries-parts.resolvers.module";
 import { BookSeriesResolversModule } from "./resolvers/bookseries/bookseries.resolvers.module";
+import { FollowingsResolversModule } from "./resolvers/followings/followings.resolvers.module";
 import { HenkensResolversModule } from "./resolvers/henkens/henkens.resolvers.module";
 import { SearchResolversModule } from "./resolvers/search/search.resolvers.module";
 import { UsersResolversModule } from "./resolvers/users/users.resolvers.module";
@@ -27,6 +28,7 @@ import { WritingsResolversModule } from "./resolvers/writings/writings.resolvers
     AnswersResolversModule,
     HenkensResolversModule,
     UsersResolversModule,
+    FollowingsResolversModule,
     SearchResolversModule,
     // content
     BooksResolversModule,

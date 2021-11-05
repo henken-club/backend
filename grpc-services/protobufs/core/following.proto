@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package henkenclub.core;
+
+import "google/protobuf/timestamp.proto";
+
+import "common/pagination.proto";
+
+service Following {
+  rpc GetFollowing(GetFollowingRequest) returns (GetFollowingResponse);
+  rpc ManyFollowings(ManyFollowingsRequest) returns (ManyFollowingsResponse);
+  rpc FollowUser(FollowUserRequest) returns (FollowUserResponse);
+}
+
+message FollowingEntity {
+  string id = 1;
+
+  google.protobuf.Timestamp  followed_at = 2;
+
+  string from_id = 3;
+  string to_id = 4;
+}
+
+
+
+message FollowingOrder {
+	enum  OrderField {
+		INVALID_FIELD = 0;
+
+		FOLLOWED_AT = 1;
+	}
+
+  henkenclub.common.PaginationDirection direction = 1;
+  OrderField field = 2;
+}
+
+message GetFollowingRequest {
+  string id = 1;
+}
+
+message GetFollowingResponse {
+  FollowingEntity following = 2;
+}
+
+
+message ManyFollowingsRequest {
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+  FollowingOrder order = 3;
+}
+
+message ManyFollowingsResponse {
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
+}
+
+
+message FollowUserRequest {
+  string from_id = 1;
+  string to_id = 2;
+}
+
+message FollowUserResponse {
+  FollowingEntity following = 2;
+}
+

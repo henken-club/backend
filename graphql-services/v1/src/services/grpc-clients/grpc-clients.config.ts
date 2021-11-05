@@ -14,6 +14,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
           path.resolve(__dirname, "../../protobufs/core/henken.proto"),
           path.resolve(__dirname, "../../protobufs/core/answer.proto"),
           path.resolve(__dirname, "../../protobufs/core/user.proto"),
+          path.resolve(__dirname, "../../protobufs/core/following.proto"),
         ],
       },
     },
