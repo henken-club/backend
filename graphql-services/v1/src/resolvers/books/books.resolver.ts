@@ -1,14 +1,54 @@
-import { Args, ID, Query, Resolver } from "@nestjs/graphql";
+import { BadRequestException } from "@nestjs/common";
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from "@nestjs/graphql";
 import { Observable } from "rxjs";
 
 import { ManyBooksArgs } from "./dto/many-books.dto";
+import {
+  BookWritingsArgs,
+  BookWritingsOrderField,
+} from "./dto/resolve-writings.dto";
 
 import { Book, BookConnection } from "~/entities/books.entities";
+import {
+  WritingConnection,
+  WritingOrderField,
+} from "~/entities/writings.entities";
 import { BooksService } from "~/services/books/books.service";
+import { WritingsService } from "~/services/writings/writings.service";
 
 @Resolver(() => Book)
 export class BooksResolver {
-  constructor(private readonly books: BooksService) {}
+  constructor(
+    private readonly books: BooksService,
+    private readonly writings: WritingsService,
+  ) {}
+
+  @ResolveField(() => WritingConnection, { name: "writings" })
+  resolveWritings(
+    @Parent() { id }: Book,
+    @Args() { orderBy, ...pagination }: BookWritingsArgs,
+  ): Observable<WritingConnection> {
+    const filter = { bookId: id, authorId: null };
+    switch (orderBy.field) {
+      case BookWritingsOrderField.AUTHOR_NAME:
+        return this.writings.getMany(
+          pagination,
+          {
+            direction: orderBy.direction,
+            field: WritingOrderField.AUTHOR_NAME,
+          },
+          filter,
+        );
+    }
+    throw new BadRequestException();
+  }
 
   @Query(() => Book, { name: "book" })
   getBook(@Args("id", { type: () => ID }) id: string): Observable<Book> {

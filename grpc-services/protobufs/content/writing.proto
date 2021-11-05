@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package henkenclub.content;
+
+import "common/pagination.proto";
+
+service Writing {
+  rpc GetWriting(GetWritingRequest) returns (GetWritingResponse);
+  rpc ManyWritings(ManyWritingsRequest) returns (ManyWritingsResponse);
+}
+
+message WritingEntity {
+  string id = 1;
+
+  string author_id = 2;
+  string book_id = 3;
+}
+
+message GetWritingRequest { string id = 1; }
+
+message GetWritingResponse { WritingEntity writing = 2; }
+
+message ManyWritingsRequest {
+  message Order {
+    enum OrderField {
+      INVALID_FIELD = 0;
+      AUTHOR_NAME = 1;
+      BOOK_NAME = 2;
+    }
+
+    henkenclub.common.PaginationDirection direction = 1;
+    OrderField field = 2;
+  }
+
+  message Filter {
+    optional string author_id = 1;
+    optional string book_id = 2;
+  }
+
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+
+  Order order = 3;
+  Filter filter = 4;
+}
+
+message ManyWritingsResponse {
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
+}

@@ -1,6 +1,19 @@
-import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
+import {
+  Field,
+  ID,
+  InputType,
+  Int,
+  ObjectType,
+  registerEnumType,
+} from "@nestjs/graphql";
 
-import { Connection, Edge, Node, PageInfo } from "./pagination.entities";
+import {
+  Connection,
+  Edge,
+  Node,
+  OrderDirection,
+  PageInfo,
+} from "./pagination.entities";
 
 @ObjectType("Writing", { implements: () => [Node] })
 export class Writing implements Node {
@@ -30,4 +43,21 @@ export class WritingConnection implements Connection {
 
   @Field(() => Int)
   totalCount!: number;
+}
+
+export enum WritingOrderField {
+  AUTHOR_NAME,
+  BOOK_NAME,
+}
+registerEnumType(WritingOrderField, {
+  name: "WritingOrderField",
+});
+
+@InputType()
+export class WritingOrder {
+  @Field((type) => OrderDirection)
+  direction!: OrderDirection;
+
+  @Field((type) => WritingOrderField)
+  field!: WritingOrderField;
 }
