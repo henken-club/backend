@@ -1,4 +1,4 @@
-import { Field, ID, InterfaceType } from "@nestjs/graphql";
+import { createUnionType, registerEnumType } from "@nestjs/graphql";
 
 import { Author } from "./author.entities";
 import { Book } from "./books.entities";
@@ -9,10 +9,13 @@ export enum ContentType {
   BOOK_SERIES,
   AUTHOR,
 }
+registerEnumType(ContentType, { name: "ContentType" });
 
-@InterfaceType("Content", {
-  resolveType(value: Content) {
-    switch (value.type) {
+export const ContentUnion = createUnionType({
+  name: "ContentUnion",
+  types: () => [Book, Author, BookSeries],
+  resolveType({ type }: { type: ContentType }) {
+    switch (type) {
       case ContentType.BOOK:
         return Book;
       case ContentType.BOOK_SERIES:
@@ -22,10 +25,4 @@ export enum ContentType {
     }
     return null;
   },
-})
-export abstract class Content<TType extends ContentType = ContentType> {
-  @Field((type) => ID)
-  id!: string;
-
-  type!: TType;
-}
+});

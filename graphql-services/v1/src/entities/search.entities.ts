@@ -1,12 +1,14 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 
-import { Content } from "./content.entities";
+import { ContentType, ContentUnion } from "./content.entities";
 import { User } from "./user.entities";
 
 @ObjectType("SearchContentResult")
-export class SearchContentResult {
-  @Field((type) => Content)
-  content!: Content;
+export class SearchContentResult<
+  TContentType extends ContentType = ContentType,
+> {
+  @Field((type) => ContentUnion)
+  content!: { id: string; type: TContentType };
 }
 
 @ObjectType("SearchUserResult")

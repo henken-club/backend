@@ -49,14 +49,14 @@ export class HenkensService {
   convertContent(henken: HenkenEntity): Henken["content"] {
     if (henken.realContent) {
       return {
-        type: "real",
-        contentId: henken.realContent.id,
-        contentType: this.convertContentType(henken.realContent.type),
+        attribute: "real",
+        id: henken.realContent.id,
+        type: this.convertContentType(henken.realContent.type),
       };
     } else if (henken.tempContent) {
       return {
-        type: "temp",
-        contentId: henken.tempContent.id,
+        attribute: "temp",
+        id: henken.tempContent.id,
       };
     } else {
       throw new Error("Not related content");

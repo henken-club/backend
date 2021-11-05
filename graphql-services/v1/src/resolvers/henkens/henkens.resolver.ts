@@ -1,11 +1,23 @@
-import { Args, ID, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { InternalServerErrorException } from "@nestjs/common";
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from "@nestjs/graphql";
 import { from, map, Observable } from "rxjs";
 
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
 import { ManyHenkensArgs } from "./dto/many-henkens.dto";
 
 import { Answer } from "~/entities/answer.entities";
-import { Henken, HenkenConnection } from "~/entities/henken.entities";
+import {
+  Henken,
+  HenkenConnection,
+  HenkenContentUnion,
+} from "~/entities/henken.entities";
 import { User } from "~/entities/user.entities";
 import { AnswersService } from "~/services/answers/answers.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
@@ -18,6 +30,16 @@ export class HenkensResolver {
     private readonly users: UsersService,
     private readonly answers: AnswersService,
   ) {}
+
+  @ResolveField(() => HenkenContentUnion, { name: "content" })
+  resolveContent(@Parent() { content }: Henken) {
+    if (content.attribute === "real") {
+      return { attribute: "real", id: content.id, type: content.type };
+    } else if (content.attribute === "temp") {
+      return { attribute: "temp", id: content.id };
+    }
+    throw new InternalServerErrorException();
+  }
 
   @ResolveField((type) => User, { name: "postedBy" })
   resolvePostedBy({ fromUserId }: Henken): Observable<User> {

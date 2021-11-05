@@ -29,9 +29,9 @@ export class SearchContentResolver {
     }
     switch (type) {
       case SearchContentFilterType.AUTHOR:
-        return this.search.searchAuthors(query, { skip, limit });
+        return this.search.searchAuthor(query, { skip, limit });
       case SearchContentFilterType.BOOK:
-        return this.search.searchBooks(query, { skip, limit });
+        return this.search.searchBook(query, { skip, limit });
       case SearchContentFilterType.BOOK_SERIES:
         return this.search.searchBookSeries(query, { skip, limit });
     }

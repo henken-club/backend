@@ -1,4 +1,5 @@
 import {
+  createUnionType,
   Field,
   GraphQLISODateTime,
   ID,
@@ -8,6 +9,9 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
+import { Author } from "./author.entities";
+import { Book } from "./books.entities";
+import { BookSeries } from "./bookseries.entities";
 import { ContentType } from "./content.entities";
 import {
   Connection,
@@ -16,6 +20,31 @@ import {
   OrderDirection,
   PageInfo,
 } from "./pagination.entities";
+import { TempContent } from "./temp-content.entities";
+
+export const HenkenContentUnion = createUnionType({
+  name: "HenkenContentUnion",
+  types: () => [TempContent, Book, BookSeries, Author],
+  resolveType(
+    value:
+      | { attribute: "real"; type: ContentType }
+      | { attribute: "temp" },
+  ) {
+    if (value.attribute === "real") {
+      switch (value.type) {
+        case ContentType.BOOK:
+          return Book;
+        case ContentType.BOOK_SERIES:
+          return BookSeries;
+        case ContentType.AUTHOR:
+          return Author;
+      }
+    } else if (value.attribute === "temp") {
+      return TempContent;
+    }
+    return null;
+  },
+});
 
 @ObjectType("Henken", {
   implements: () => [Node],
@@ -39,13 +68,13 @@ export class Henken implements Node {
 
   content!:
     | {
-      type: "real";
-      contentId: string;
-      contentType: ContentType;
+      attribute: "real";
+      id: string;
+      type: ContentType;
     }
     | {
-      type: "temp";
-      contentId: string;
+      attribute: "temp";
+      id: string;
     };
 }
 

@@ -2,7 +2,8 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { Content, ContentType } from "~/entities/content.entities";
+import { ContentType } from "~/entities/content.entities";
+import { SearchContentResult } from "~/entities/search.entities";
 import {
   SearchAllResponse_SearchResultType,
   SEARCHER_SERVICE_NAME,
@@ -26,7 +27,7 @@ export class SearchService implements OnModuleInit {
   searchContentMixed(
     query: string,
     { skip, limit }: { skip: number; limit: number },
-  ): Observable<{ results: ({ content: Content })[] }> {
+  ): Observable<{ results: SearchContentResult<ContentType>[] }> {
     return this.searcher.searchAll({ query, skip, limit }).pipe(
       map(({ results }) => ({
         results: results.map(({ id, type }) => {
@@ -45,10 +46,10 @@ export class SearchService implements OnModuleInit {
     );
   }
 
-  searchAuthors(
+  searchAuthor(
     query: string,
     { skip, limit }: { skip: number; limit: number },
-  ): Observable<{ results: { content: Content<ContentType.AUTHOR> }[] }> {
+  ): Observable<{ results: SearchContentResult<ContentType.AUTHOR>[] }> {
     return this.searcher.searchAuthor({ query, skip, limit }).pipe(
       map(({ results }) => ({
         results: results.map(({ id }) => ({
@@ -58,12 +59,10 @@ export class SearchService implements OnModuleInit {
     );
   }
 
-  searchBooks(
+  searchBook(
     query: string,
     { skip, limit }: { skip: number; limit: number },
-  ): Observable<{
-    results: { content: (Content<ContentType.BOOK>) }[];
-  }> {
+  ): Observable<{ results: SearchContentResult<ContentType.BOOK>[] }> {
     return this.searcher.searchBook({ query, skip, limit }).pipe(
       map(({ results }) => ({
         results: results.map(({ id }) => ({
@@ -76,9 +75,7 @@ export class SearchService implements OnModuleInit {
   searchBookSeries(
     query: string,
     { skip, limit }: { skip: number; limit: number },
-  ): Observable<
-    { results: { content: (Content<ContentType.BOOK_SERIES>) }[] }
-  > {
+  ): Observable<{ results: SearchContentResult<ContentType.BOOK_SERIES>[] }> {
     return this.searcher.searchBookSeries({ query, skip, limit }).pipe(
       map(({ results }) => ({
         results: results.map(({ id }) => ({
