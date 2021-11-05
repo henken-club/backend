@@ -13,6 +13,10 @@ import {
 import { ContentType } from "~/entities/content.entities";
 import { PaginationArgs } from "~/entities/pagination.entities";
 import {
+  BOOKCOVER_SERVICE_NAME,
+  BookcoverClient,
+} from "~/protogen/bookcover/bookcover";
+import {
   BOOK_SERVICE_NAME,
   BookClient,
   BookOrderField as GrpcBookOrderField,
@@ -20,17 +24,27 @@ import {
 
 @Injectable()
 export class BooksService {
-  private client!: BookClient;
+  private bookClient!: BookClient;
+  private bookcoverClient!: BookcoverClient;
 
   constructor(
-    @Inject("GrpcContentClient") private readonly grpcClient: ClientGrpc,
+    @Inject("GrpcContentClient") private readonly grpcContentClient: ClientGrpc,
+    @Inject("GrpcBookcoverClient") private readonly grpcBookcoverClient:
+      ClientGrpc,
     private readonly pagination: PaginationService,
   ) {
-    this.client = this.grpcClient.getService<BookClient>(BOOK_SERVICE_NAME);
+    this.bookClient = this.grpcContentClient
+      .getService<BookClient>(
+        BOOK_SERVICE_NAME,
+      );
+    this.bookcoverClient = this.grpcBookcoverClient
+      .getService<BookcoverClient>(
+        BOOKCOVER_SERVICE_NAME,
+      );
   }
 
   getById(id: string): Observable<Book> {
-    return this.client.getBook({ id })
+    return this.bookClient.getBook({ id })
       .pipe(
         map(({ book }) => {
           if (!book) {
@@ -70,7 +84,7 @@ export class BooksService {
       pagination,
     );
     const convertedOrder = this.convertGrpcBookOrder(order);
-    return this.client.manyBooks({
+    return this.bookClient.manyBooks({
       ...convertedPagination,
       order: convertedOrder,
     })
@@ -101,5 +115,11 @@ export class BooksService {
           });
         }),
       );
+  }
+
+  findBookcoverFromISBN(isbn: string): Observable<string | null> {
+    return this.bookcoverClient.findFromISBN({ isbn }).pipe(
+      map(({ url }) => url || null),
+    );
   }
 }

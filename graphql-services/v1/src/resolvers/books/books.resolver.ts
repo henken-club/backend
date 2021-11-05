@@ -7,7 +7,7 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
 
 import { ManyBooksArgs } from "./dto/many-books.dto";
 import {
@@ -29,6 +29,14 @@ export class BooksResolver {
     private readonly books: BooksService,
     private readonly writings: WritingsService,
   ) {}
+
+  @ResolveField(() => String, { name: "cover", nullable: true })
+  resolveBookcover(@Parent() { isbn }: Book): Observable<string | null> {
+    if (isbn) {
+      return this.books.findBookcoverFromISBN(isbn);
+    }
+    return from([null]);
+  }
 
   @ResolveField(() => WritingConnection, { name: "writings" })
   resolveWritings(
