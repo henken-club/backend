@@ -1,24 +1,11 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigType } from "@nestjs/config";
-import { ClientsModule, Transport } from "@nestjs/microservices";
 
-import { SearchConfig } from "./search.config";
+import { GrpcClientsModule } from "../grpc-clients/grpc-clients.module";
+
 import { SearchService } from "./search.service";
 
 @Module({
-  imports: [
-    ClientsModule.registerAsync([
-      {
-        name: "SearchGrpcClient",
-        imports: [ConfigModule.forFeature(SearchConfig)],
-        inject: [SearchConfig.KEY],
-        useFactory: async (config: ConfigType<typeof SearchConfig>) => ({
-          transport: Transport.GRPC,
-          options: config.client.options,
-        }),
-      },
-    ]),
-  ],
+  imports: [GrpcClientsModule],
   providers: [SearchService],
   exports: [SearchService],
 })

@@ -16,7 +16,7 @@ export class AnswersService {
   private client: AnswerClient;
 
   constructor(
-    @Inject("CoreGrpcClient") private readonly grpcClient: ClientGrpc,
+    @Inject("GrpcCoreClient") private readonly grpcClient: ClientGrpc,
     private readonly timestamp: TimestampService,
   ) {
     this.client = this.grpcClient.getService<AnswerClient>(ANSWER_SERVICE_NAME);

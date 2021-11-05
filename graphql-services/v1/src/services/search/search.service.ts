@@ -15,7 +15,7 @@ export class SearchService implements OnModuleInit {
   private searcher!: SearcherClient;
 
   constructor(
-    @Inject("SearchGrpcClient") private readonly grpcClient: ClientGrpc,
+    @Inject("GrpcSearchClient") private readonly grpcClient: ClientGrpc,
   ) {}
 
   onModuleInit() {

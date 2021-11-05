@@ -22,7 +22,7 @@ export class WritingsService {
   private client: WritingClient;
 
   constructor(
-    @Inject("ContentGrpcClient") private readonly grpcClient: ClientGrpc,
+    @Inject("GrpcContentClient") private readonly grpcClient: ClientGrpc,
     private readonly pagination: PaginationService,
   ) {
     this.client = this.grpcClient.getService<WritingClient>(

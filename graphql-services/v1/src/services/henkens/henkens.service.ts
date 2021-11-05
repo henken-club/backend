@@ -26,7 +26,7 @@ export class HenkensService {
   private client: HenkenClient;
 
   constructor(
-    @Inject("CoreGrpcClient") private readonly grpcClient: ClientGrpc,
+    @Inject("GrpcCoreClient") private readonly grpcClient: ClientGrpc,
     private readonly timestamp: TimestampService,
     private readonly pagination: PaginationService,
   ) {

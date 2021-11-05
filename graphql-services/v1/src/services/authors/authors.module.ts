@@ -1,24 +1,11 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigType } from "@nestjs/config";
-import { ClientsModule, Transport } from "@nestjs/microservices";
 
-import { AuthorsConfig } from "./authors.config";
+import { GrpcClientsModule } from "../grpc-clients/grpc-clients.module";
+
 import { AuthorsService } from "./authors.service";
 
 @Module({
-  imports: [
-    ClientsModule.registerAsync([
-      {
-        name: "GrpcContentClient",
-        imports: [ConfigModule.forFeature(AuthorsConfig)],
-        inject: [AuthorsConfig.KEY],
-        useFactory: async (config: ConfigType<typeof AuthorsConfig>) => ({
-          transport: Transport.GRPC,
-          options: config.client.options,
-        }),
-      },
-    ]),
-  ],
+  imports: [GrpcClientsModule],
   providers: [AuthorsService],
   exports: [AuthorsService],
 })
