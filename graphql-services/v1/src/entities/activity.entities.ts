@@ -18,7 +18,7 @@ import {
 } from "./pagination.entities";
 
 @InterfaceType("Activity", { implements: [Node] })
-export abstract class Activity implements Node {
+export abstract class Activity {
   @Field((type) => ID)
   id!: string;
 
@@ -26,16 +26,16 @@ export abstract class Activity implements Node {
   createdAt!: string;
 }
 
-@ObjectType("ActivityEdge", { implements: () => [Edge] })
-export class ActivityEdge implements Edge {
+@ObjectType("ActivityEdge", { implements: [Edge] })
+export class ActivityEdge {
   @Field((type) => String)
   cursor!: string;
 
   node!: { id: string };
 }
 
-@ObjectType("ActivityConnection", { implements: () => [Connection] })
-export class ActivityConnection implements Connection {
+@ObjectType("ActivityConnection", { implements: [Connection] })
+export class ActivityConnection {
   @Field((type) => [ActivityEdge])
   edges!: ActivityEdge[];
 
@@ -62,11 +62,46 @@ export class ActivityOrder {
   field!: ActivityOrderField;
 }
 
-@ObjectType("CreateHenkenActivity", { implements: () => [Node, Activity] })
-export class CreateHenkenActivity extends Activity {
+@ObjectType("SendHenkenActivity", { implements: () => [Activity] })
+export class SendHenkenActivity extends Activity {
   @Field((type) => ID)
   id!: string;
 
   @Field((type) => GraphQLISODateTime)
   createdAt!: string;
+
+  henkenId!: string;
+}
+
+@ObjectType("ReceivedHenkenActivity", { implements: () => [Activity] })
+export class ReceivedHenkenActivity extends Activity {
+  @Field((type) => ID)
+  id!: string;
+
+  @Field((type) => GraphQLISODateTime)
+  createdAt!: string;
+
+  henkenId!: string;
+}
+
+@ObjectType("PostAnswerActivity", { implements: () => [Activity] })
+export class PostAnswerActivity extends Activity {
+  @Field((type) => ID)
+  id!: string;
+
+  @Field((type) => GraphQLISODateTime)
+  createdAt!: string;
+
+  answerId!: string;
+}
+
+@ObjectType("ReceivedAnswerActivity", { implements: () => [Activity] })
+export class ReceivedAnswerActivity extends Activity {
+  @Field((type) => ID)
+  id!: string;
+
+  @Field((type) => GraphQLISODateTime)
+  createdAt!: string;
+
+  answerId!: string;
 }

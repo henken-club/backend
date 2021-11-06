@@ -11,6 +11,8 @@ import { from, map, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 import { ManyUsersArgs } from "./dto/many-users.args";
+import { GetNotificationsArgs } from "./dto/notifications.args";
+import { ResolveActivitiesArgs } from "./dto/resolve-activities.args";
 import { FolloweesArgs } from "./dto/resolve-followees.dto";
 import { FollowersArgs } from "./dto/resolve-followers.dto";
 import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
@@ -18,12 +20,16 @@ import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
+import { ActivityConnection } from "~/entities/activity.entities";
 import { FollowingConnection } from "~/entities/following.entities";
 import { HenkenConnection } from "~/entities/henken.entities";
+import { NotificationConnection } from "~/entities/notification.entities";
 import { User, UserConnection } from "~/entities/user.entities";
 import { AccountsService } from "~/services/account/accounts.service";
+import { ActivitiesService } from "~/services/activities/activities.service";
 import { FollowingsService } from "~/services/followings/followings.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
+import { NotificationsService } from "~/services/notifications/notifications.service";
 import { UsersService } from "~/services/users/users.service";
 
 @Resolver(() => User)
@@ -33,6 +39,8 @@ export class UsersResolver {
     private readonly accounts: AccountsService,
     private readonly henkens: HenkensService,
     private readonly followings: FollowingsService,
+    private readonly activities: ActivitiesService,
+    private readonly notifications: NotificationsService,
   ) {}
 
   @ResolveField((type) => FollowingConnection, { name: "followees" })
@@ -42,7 +50,7 @@ export class UsersResolver {
       orderBy,
       ...pagination
     }: FolloweesArgs,
-  ): Observable<HenkenConnection> {
+  ): Observable<FollowingConnection> {
     return this.followings.getMany(
       pagination,
       orderBy,
@@ -57,7 +65,7 @@ export class UsersResolver {
       orderBy,
       ...pagination
     }: FollowersArgs,
-  ): Observable<HenkenConnection> {
+  ): Observable<FollowingConnection> {
     return this.followings.getMany(
       pagination,
       orderBy,
@@ -103,6 +111,21 @@ export class UsersResolver {
     );
   }
 
+  @ResolveField((type) => ActivityConnection, { name: "activities" })
+  resolveActivities(
+    @Parent() { id: userId }: User,
+    @Args({ type: () => ResolveActivitiesArgs }) {
+      orderBy,
+      ...pagination
+    }: ResolveActivitiesArgs,
+  ): Observable<ActivityConnection> {
+    return this.activities.getMany(
+      pagination,
+      orderBy,
+      { userId },
+    );
+  }
+
   @Query(() => User, { name: "user" })
   getUser(@Args("id", { type: () => ID }) id: string): Observable<User> {
     return this.users.getById(id);
@@ -122,6 +145,17 @@ export class UsersResolver {
       );
     }
     throw new BadRequestException();
+  }
+
+  @Query(() => UserConnection, { name: "manyUsers" })
+  manyUsers(
+    @Args({ type: () => ManyUsersArgs }) { orderBy, ...pagination }:
+      ManyUsersArgs,
+  ): Observable<UserConnection> {
+    return this.users.getMany(
+      pagination,
+      orderBy,
+    );
   }
 
   @Query(() => User, {
@@ -145,12 +179,16 @@ export class UsersResolver {
       );
   }
 
-  @Query(() => UserConnection, { name: "manyUsers" })
-  manyUsers(
-    @Args({ type: () => ManyUsersArgs }) { orderBy, ...pagination }:
-      ManyUsersArgs,
-  ): Observable<HenkenConnection> {
-    return this.users.getMany(
+  @Query(() => NotificationConnection, {
+    name: "notifications",
+  })
+  @UseGuards(ViewerGuard)
+  getNotifications(
+    @Viewer() { accountId }: ViewerType,
+    @Args({ type: () => GetNotificationsArgs }) { orderBy, ...pagination }:
+      GetNotificationsArgs,
+  ): Observable<NotificationConnection> {
+    return this.notifications.getMany(
       pagination,
       orderBy,
     );

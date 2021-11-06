@@ -4,6 +4,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 
 import { AppConfig } from "./app.config";
 import { HealthModule } from "./health/health.module";
+import { ActivitiesResolversModule } from "./resolvers/activities/activities.resolvers.module";
 import { AnswersResolversModule } from "./resolvers/answers/answers.resolvers.module";
 import { AuthorsResolversModule } from "./resolvers/authors/authors.resolvers.module";
 import { BooksResolversModule } from "./resolvers/books/books.resolvers.module";
@@ -11,6 +12,7 @@ import { BookSeriesPartsResolversModule } from "./resolvers/bookseries-parts/boo
 import { BookSeriesResolversModule } from "./resolvers/bookseries/bookseries.resolvers.module";
 import { FollowingsResolversModule } from "./resolvers/followings/followings.resolvers.module";
 import { HenkensResolversModule } from "./resolvers/henkens/henkens.resolvers.module";
+import { NotificationsResolversModule } from "./resolvers/notifications/notifications.resolvers.module";
 import { SearchResolversModule } from "./resolvers/search/search.resolvers.module";
 import { UsersResolversModule } from "./resolvers/users/users.resolvers.module";
 import { WritingsResolversModule } from "./resolvers/writings/writings.resolvers.module";
@@ -29,6 +31,8 @@ import { WritingsResolversModule } from "./resolvers/writings/writings.resolvers
     HenkensResolversModule,
     UsersResolversModule,
     FollowingsResolversModule,
+    ActivitiesResolversModule,
+    NotificationsResolversModule,
     SearchResolversModule,
     // content
     BooksResolversModule,
