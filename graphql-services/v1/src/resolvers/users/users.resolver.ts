@@ -13,7 +13,7 @@ import { from, map, mergeMap, Observable, switchMap } from "rxjs";
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 import { ManyUsersArgs } from "./dto/many-users.args";
 import { GetNotificationsArgs } from "./dto/notifications.args";
-import { RegisterUserArgs } from "./dto/register-user.dto";
+import { RegisterUserArgs, RegisterUserPayload } from "./dto/register-user.dto";
 import { ResolveActivitiesArgs } from "./dto/resolve-activities.args";
 import { FolloweesArgs } from "./dto/resolve-followees.dto";
 import { FollowersArgs } from "./dto/resolve-followers.dto";
@@ -197,14 +197,14 @@ export class UsersResolver {
     );
   }
 
-  @Mutation(() => User, {
+  @Mutation(() => RegisterUserPayload, {
     name: "registerUser",
   })
   @UseGuards(AuthnGuard)
   createUser(
     @Viewer() { accountId }: ViewerType,
     @Args({ type: () => RegisterUserArgs }) { ...data }: RegisterUserArgs,
-  ): Observable<User> {
+  ): Observable<RegisterUserPayload> {
     return this.accounts.isUserExists(accountId).pipe(
       mergeMap(
         (value) => {
@@ -215,6 +215,7 @@ export class UsersResolver {
           }
         },
       ),
+      map((user) => ({ user })),
     );
   }
 }
