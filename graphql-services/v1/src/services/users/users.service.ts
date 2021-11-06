@@ -37,7 +37,7 @@ export class UsersService implements OnModuleInit {
           if (!user) {
             throw new Error();
           }
-          return ({ avatar: user.avatarUrl, ...user });
+          return ({ ...user });
         }),
       );
   }
@@ -49,7 +49,7 @@ export class UsersService implements OnModuleInit {
           if (!user) {
             return null;
           }
-          return ({ avatar: user.avatarUrl, ...user });
+          return ({ ...user });
         }),
       );
   }
@@ -60,7 +60,7 @@ export class UsersService implements OnModuleInit {
         if (!user) {
           return null;
         }
-        return ({ avatar: user.avatarUrl, ...user });
+        return ({ ...user });
       }),
     );
   }
@@ -124,5 +124,20 @@ export class UsersService implements OnModuleInit {
           });
         }),
       );
+  }
+
+  createUser(
+    data: { alias: string; displayName: string; avatar: string },
+  ): Observable<User> {
+    return this.client.createUser({
+      alias: data.alias,
+      displayName: data.avatar,
+      avatar: data.avatar,
+    }).pipe(map(({ user }) => {
+      if (!user) {
+        throw new Error("Failed to create user");
+      }
+      return user;
+    }));
   }
 }

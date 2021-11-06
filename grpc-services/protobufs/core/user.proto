@@ -22,7 +22,7 @@ message UserEntity {
 
   string alias = 4;
   string display_name = 5;
-  string avatar_url = 6;
+  string avatar = 6;
 
 }
 
@@ -62,7 +62,7 @@ message FindUserResponse {
 message CreateUserRequest {
   string alias = 1;
   string display_name = 2;
-  string avatar_url = 3;
+  string avatar = 3;
 }
 
 message CreateUserResponse {

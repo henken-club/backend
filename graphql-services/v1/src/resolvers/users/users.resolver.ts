@@ -2,22 +2,25 @@ import { BadRequestException, UseGuards } from "@nestjs/common";
 import {
   Args,
   ID,
+  Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { from, map, Observable, switchMap } from "rxjs";
+import { from, map, mergeMap, Observable, switchMap } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 import { ManyUsersArgs } from "./dto/many-users.args";
 import { GetNotificationsArgs } from "./dto/notifications.args";
+import { RegisterUserArgs } from "./dto/register-user.dto";
 import { ResolveActivitiesArgs } from "./dto/resolve-activities.args";
 import { FolloweesArgs } from "./dto/resolve-followees.dto";
 import { FollowersArgs } from "./dto/resolve-followers.dto";
 import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
 import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
+import { AuthnGuard } from "~/auth/authn.guard";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { ActivityConnection } from "~/entities/activity.entities";
@@ -191,6 +194,27 @@ export class UsersResolver {
     return this.notifications.getMany(
       pagination,
       orderBy,
+    );
+  }
+
+  @Mutation(() => User, {
+    name: "registerUser",
+  })
+  @UseGuards(AuthnGuard)
+  createUser(
+    @Viewer() { accountId }: ViewerType,
+    @Args({ type: () => RegisterUserArgs }) { ...data }: RegisterUserArgs,
+  ): Observable<User> {
+    return this.accounts.isUserExists(accountId).pipe(
+      mergeMap(
+        (value) => {
+          if (value) {
+            throw new BadRequestException("Already registered");
+          } else {
+            return this.users.createUser(data);
+          }
+        },
+      ),
     );
   }
 }
