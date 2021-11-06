@@ -3,16 +3,21 @@ import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
 import { ContentType } from "~/entities/content.entities";
-import { SearchContentResult } from "~/entities/search.entities";
+import {
+  SearchContentResult,
+  SearchUserResult,
+} from "~/entities/search.entities";
 import {
   SearchAllResponse_SearchResultType,
   SEARCHER_SERVICE_NAME,
   SearcherClient,
 } from "~/protogen/search/searcher";
+import { USER_SERVICE_NAME, UserClient } from "~/protogen/search/user";
 
 @Injectable()
 export class SearchService implements OnModuleInit {
   private searcher!: SearcherClient;
+  private user!: UserClient;
 
   constructor(
     @Inject("GrpcSearchClient") private readonly grpcClient: ClientGrpc,
@@ -21,6 +26,9 @@ export class SearchService implements OnModuleInit {
   onModuleInit() {
     this.searcher = this.grpcClient.getService<SearcherClient>(
       SEARCHER_SERVICE_NAME,
+    );
+    this.user = this.grpcClient.getService<UserClient>(
+      USER_SERVICE_NAME,
     );
   }
 
@@ -81,6 +89,17 @@ export class SearchService implements OnModuleInit {
         results: results.map(({ id }) => ({
           content: { id, type: ContentType.BOOK_SERIES },
         })),
+      })),
+    );
+  }
+
+  searchUser(
+    query: string,
+    { skip, limit }: { skip: number; limit: number },
+  ): Observable<{ results: SearchUserResult[] }> {
+    return this.user.searchUser({ query, skip, limit }).pipe(
+      map(({ results }) => ({
+        results: results.map(({ id }) => ({ userId: id })),
       })),
     );
   }
