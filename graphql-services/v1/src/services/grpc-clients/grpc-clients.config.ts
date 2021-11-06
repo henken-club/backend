@@ -6,7 +6,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
   core: {
     client: {
       options: {
-        url: process.env.CORE_SERVICE_URL!,
+        url: process.env.GRPC_SERVICE_URL_CORE!,
         package: "henkenclub.core",
         protoPath: [
           path.resolve(__dirname, "../../protobufs/common/pagination.proto"),
@@ -22,7 +22,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
   content: {
     client: {
       options: {
-        url: process.env.CONTENT_SERVICE_URL!,
+        url: process.env.GRPC_SERVICE_URL_CONTENT!,
         package: "henkenclub.content",
         protoPath: [
           path.resolve(__dirname, "../../protobufs/common/pagination.proto"),
@@ -37,7 +37,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
   search: {
     client: {
       options: {
-        url: process.env.SEARCH_SERVICE_URL!,
+        url: process.env.GRPC_SERVICE_URL_SEARCH!,
         package: "henkenclub.search",
         protoPath: [
           path.resolve(__dirname, "../../protobufs/search/searcher.proto"),
@@ -48,7 +48,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
   bookcover: {
     client: {
       options: {
-        url: process.env.BOOKCOVER_SERVICE_URL!,
+        url: process.env.GRPC_SERVICE_URL_BOOKCOVER!,
         package: "henkenclub.bookcover",
         protoPath: [
           path.resolve(__dirname, "../../protobufs/bookcover/bookcover.proto"),
