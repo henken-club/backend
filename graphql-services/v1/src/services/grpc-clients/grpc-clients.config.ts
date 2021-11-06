@@ -41,6 +41,7 @@ export const GrpcClientClientConfig = registerAs("grpc-client", () => ({
         package: "henkenclub.search",
         protoPath: [
           path.resolve(__dirname, "../../protobufs/search/searcher.proto"),
+          path.resolve(__dirname, "../../protobufs/search/user.proto"),
         ],
       },
     },
