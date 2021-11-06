@@ -16,9 +16,13 @@ message WritingEntity {
   string book_id = 3;
 }
 
-message GetWritingRequest { string id = 1; }
+message GetWritingRequest {
+  string id = 1;
+}
 
-message GetWritingResponse { WritingEntity writing = 2; }
+message GetWritingResponse {
+  WritingEntity writing = 2;
+}
 
 message ManyWritingsRequest {
   message Order {

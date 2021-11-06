@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: grpc-services/auth
+    working-directory: grpc-services/protobufs
 
 jobs:
   protolint:

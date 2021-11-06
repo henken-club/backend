@@ -31,7 +31,7 @@ enum UserOrderField {
   INVALID_USER_ORDER_FIELD = 0;
 
   USER_CREATED_AT = 1;
-	USER_UPDATED_AT = 2;
+  USER_UPDATED_AT = 2;
 }
 
 

@@ -33,14 +33,14 @@ message CursorBasedPaginationBackwardQuery {
 
 
 message CursorBasedPaginationConnection {
-	message Edge {
-		message Node {
-			string id = 1;
-		}
+  message Edge {
+    message Node {
+      string id = 1;
+    }
 
-		Node node = 1;
-		string cursor = 2;
-	}
+    Node node = 1;
+    string cursor = 2;
+  }
 
   repeated Edge edges = 1;
 

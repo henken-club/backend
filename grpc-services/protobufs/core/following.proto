@@ -24,11 +24,11 @@ message FollowingEntity {
 
 
 message FollowingOrder {
-	enum  OrderField {
-		INVALID_FIELD = 0;
+  enum  OrderField {
+    INVALID_FIELD = 0;
 
-		FOLLOWED_AT = 1;
-	}
+    FOLLOWED_AT = 1;
+  }
 
   henkenclub.common.PaginationDirection direction = 1;
   OrderField field = 2;

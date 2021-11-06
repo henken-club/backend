@@ -4,8 +4,8 @@ package henkenclub.core;
 
 import "google/protobuf/timestamp.proto";
 
-import "content/type.proto";
 import "common/pagination.proto";
+import "content/type.proto";
 
 service Henken {
   rpc GetHenken(GetHenkenRequest) returns (GetHenkenResponse);
@@ -46,7 +46,7 @@ enum HenkenOrderField {
   INVALID_HENKEN_ORDER_FIELD = 0;
 
   HENKEN_CREATED_AT = 1;
-	HENKEN_UPDATED_AT = 2;
+  HENKEN_UPDATED_AT = 2;
 }
 
 
