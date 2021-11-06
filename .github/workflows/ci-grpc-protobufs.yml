@@ -30,5 +30,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: DoozyX/clang-format-lint-action@v0.13
         with:
+          source: grpc-services/protobufs
           extensions: "proto"
           clangFormatVersion: 12
