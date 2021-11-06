@@ -9,7 +9,7 @@ export class AccountsService {
     return from([false]);
   }
 
-  getUserId(accountId: string): Observable<string | null> {
-    return from([null]);
+  getUserId(accountId: string): Observable<string> {
+    return from([""]);
   }
 }

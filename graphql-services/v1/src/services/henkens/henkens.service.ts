@@ -33,7 +33,7 @@ export class HenkensService {
     this.client = this.grpcClient.getService<HenkenClient>(HENKEN_SERVICE_NAME);
   }
 
-  convertContentType(type: GrpcContentType) {
+  convertToContentType(type: GrpcContentType) {
     switch (type) {
       case GrpcContentType.BOOK:
         return ContentType.BOOK;
@@ -46,12 +46,24 @@ export class HenkensService {
     }
   }
 
+  convertToGrpcContentType(type: ContentType) {
+    switch (type) {
+      case ContentType.BOOK:
+        return GrpcContentType.BOOK;
+      case ContentType.BOOK_SERIES:
+        return GrpcContentType.BOOK_SERIES;
+      case ContentType.AUTHOR:
+        return GrpcContentType.AUTHOR;
+    }
+    throw new Error("Unrecognized content type");
+  }
+
   convertContent(henken: HenkenEntity): Henken["content"] {
     if (henken.realContent) {
       return {
         attribute: "real",
         id: henken.realContent.id,
-        type: this.convertContentType(henken.realContent.type),
+        type: this.convertToContentType(henken.realContent.type),
       };
     } else if (henken.tempContent) {
       return {
@@ -174,5 +186,54 @@ export class HenkensService {
           });
         }),
       );
+  }
+
+  createHenken(
+    data:
+      | {
+        fromUserId: string;
+        toUserId: string;
+        comment: string;
+        realContent: { id: string; type: ContentType };
+      }
+      | {
+        fromUserId: string;
+        toUserId: string;
+        comment: string;
+        tempContent: { id: string };
+      },
+  ): Observable<Henken> {
+    return this.client.createHenken({
+      realContent: "realContent" in data
+        ? {
+          id: data.realContent.id,
+          type: this.convertToGrpcContentType(data.realContent.type),
+        }
+        : undefined,
+      tempContent: "tempContent" in data
+        ? { id: data.tempContent.id }
+        : undefined,
+      comment: data.comment,
+      fromUserId: data.fromUserId,
+      toUserId: data.toUserId,
+    })
+      .pipe(map(({ henken }) => {
+        if (!henken) {
+          throw new Error("Failed to create henken");
+        }
+        if (!henken.createdAt) {
+          throw new Error();
+        }
+        if (!henken.updatedAt) {
+          throw new Error();
+        }
+        return ({
+          ...henken,
+          createdAt: this.timestamp.convert(henken.createdAt),
+          updatedAt: this.timestamp.convert(henken.updatedAt),
+          answerId: null,
+          content: this.convertContent(henken),
+        });
+      }));
   }
 }

@@ -1,24 +1,38 @@
-import { InternalServerErrorException } from "@nestjs/common";
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  UseGuards,
+} from "@nestjs/common";
 import {
   Args,
   ID,
+  Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { from, map, Observable } from "rxjs";
+import { defer, from, iif, map, mergeMap, Observable, throwError } from "rxjs";
 
+import {
+  CreateHenkenArgs,
+  CreateHenkenArgsContentType,
+  CreateHenkenPayload,
+} from "./dto/create-henken.dto";
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
 import { ManyHenkensArgs } from "./dto/many-henkens.dto";
 
+import { Viewer, ViewerType } from "~/auth/viewer.decorator";
+import { ViewerGuard } from "~/auth/viewer.guard";
 import { Answer } from "~/entities/answer.entities";
+import { ContentType } from "~/entities/content.entities";
 import {
   Henken,
   HenkenConnection,
   HenkenContentUnion,
 } from "~/entities/henken.entities";
 import { User } from "~/entities/user.entities";
+import { AccountsService } from "~/services/account/accounts.service";
 import { AnswersService } from "~/services/answers/answers.service";
 import { HenkensService } from "~/services/henkens/henkens.service";
 import { UsersService } from "~/services/users/users.service";
@@ -29,6 +43,7 @@ export class HenkensResolver {
     private readonly henkens: HenkensService,
     private readonly users: UsersService,
     private readonly answers: AnswersService,
+    private readonly accounts: AccountsService,
   ) {}
 
   @ResolveField(() => HenkenContentUnion, { name: "content" })
@@ -86,6 +101,72 @@ export class HenkensResolver {
         fromId: null,
         toId: null,
       },
+    );
+  }
+
+  @Mutation(() => CreateHenkenPayload, {
+    name: "createHenken",
+  })
+  @UseGuards(ViewerGuard)
+  createUser(
+    @Viewer() { accountId }: ViewerType,
+    @Args({ type: () => CreateHenkenArgs }) {
+      toUserId,
+      comment,
+      contentId,
+      contentType,
+    }: CreateHenkenArgs,
+  ): Observable<CreateHenkenPayload> {
+    return this.accounts.getUserId(accountId).pipe(
+      mergeMap(
+        (fromUserId) => (
+          iif(
+            () => contentType === CreateHenkenArgsContentType.TEMP_CONTENT,
+            this.henkens.createHenken({
+              fromUserId,
+              toUserId,
+              comment,
+              tempContent: { id: contentId },
+            }),
+            defer(() => {
+              const args = {
+                fromUserId,
+                toUserId,
+                comment,
+              };
+              switch (contentType) {
+                case CreateHenkenArgsContentType.BOOK:
+                  return this.henkens.createHenken({
+                    ...args,
+                    realContent: {
+                      id: contentId,
+                      type: ContentType.BOOK,
+                    },
+                  });
+                case CreateHenkenArgsContentType.AUTHOR:
+                  return this.henkens.createHenken({
+                    ...args,
+                    realContent: {
+                      id: contentId,
+                      type: ContentType.AUTHOR,
+                    },
+                  });
+                case CreateHenkenArgsContentType.BOOK_SERIES:
+                  return this.henkens.createHenken({
+                    ...args,
+                    realContent: {
+                      id: contentId,
+                      type: ContentType.BOOK_SERIES,
+                    },
+                  });
+                default:
+                  return throwError(() => new BadRequestException());
+              }
+            }),
+          )
+        ),
+      ),
+      map((henken) => ({ henken })),
     );
   }
 }

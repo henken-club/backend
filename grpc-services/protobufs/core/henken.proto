@@ -75,12 +75,23 @@ message FindHenkenResponse {
 }
 
 message CreateHenkenRequest {
+  message RealContent {
+    string id = 1;
+    henkenclub.content.ContentType type = 2;
+  }
+  message TempContent {
+    string id = 1;
+  }
+
   string comment = 1;
 
   string from_user_id = 2;
   string to_user_id = 3;
 
-  string content_id = 4;
+  oneof content {
+    RealContent real_content = 4;
+    TempContent temp_content = 5;
+  }
 }
 
 message CreateHenkenResponse {
