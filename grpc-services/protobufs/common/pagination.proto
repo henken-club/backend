@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package henkenclub.common;
 
-
 enum PaginationDirection {
   UNKNOWN = 0;
 
