@@ -10,13 +10,11 @@ service Book {
 }
 
 message BookEntity {
-  string id = 1;
+  string id   = 1;
   string name = 2;
 
   optional string isbn = 3;
 }
-
-
 
 enum BookOrderField {
   INVALID_BOOK_ORDER_FIELD = 0;
@@ -24,10 +22,9 @@ enum BookOrderField {
   NAME = 1;
 }
 
-
 message BookOrder {
   henkenclub.common.PaginationDirection direction = 1;
-  BookOrderField field = 2;
+  BookOrderField                        field     = 2;
 }
 
 message GetBookRequest {
@@ -40,7 +37,7 @@ message GetBookResponse {
 
 message ManyBooksRequest {
   oneof pagination_query {
-    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationForwardQuery  forward  = 1;
     henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
   }
 

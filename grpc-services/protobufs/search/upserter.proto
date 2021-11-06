@@ -13,16 +13,16 @@ message UpsertResponse {
 }
 
 message UpsertAuthorRequest {
-  string id = 1;
+  string id   = 1;
   string name = 2;
 }
 
 message UpsertBookRequest {
-  string id = 1;
+  string id    = 1;
   string title = 2;
 }
 
 message UpsertBookSeriesRequest {
-  string id = 1;
+  string id    = 1;
   string title = 2;
 }

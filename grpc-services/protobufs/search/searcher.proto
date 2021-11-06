@@ -7,26 +7,26 @@ service Searcher {
   rpc SearchAuthor(SearchAuthorRequest) returns (FilteredSearchResponse);
   rpc SearchBook(SearchBookRequest) returns (FilteredSearchResponse);
   rpc SearchBookSeries(SearchBookSeriesRequest)
-		returns (FilteredSearchResponse);
+      returns (FilteredSearchResponse);
 }
 
 message SearchAllRequest {
   string query = 1;
 
-  int32 skip = 2;
+  int32 skip  = 2;
   int32 limit = 3;
 }
 
 message SearchAllResponse {
   enum SearchResultType {
-    UNKNOWN = 0;
-    AUTHOR = 1;
-    BOOK = 2;
+    UNKNOWN     = 0;
+    AUTHOR      = 1;
+    BOOK        = 2;
     BOOK_SERIES = 3;
   }
 
   message SearchResult {
-    string id = 1;
+    string           id   = 1;
     SearchResultType type = 2;
   }
 
@@ -44,20 +44,20 @@ message FilteredSearchResponse {
 message SearchAuthorRequest {
   string query = 1;
 
-  int32 skip = 2;
+  int32 skip  = 2;
   int32 limit = 3;
 }
 
 message SearchBookRequest {
   string query = 1;
 
-  int32 skip = 2;
+  int32 skip  = 2;
   int32 limit = 3;
 }
 
 message SearchBookSeriesRequest {
   string query = 1;
 
-  int32 skip = 2;
+  int32 skip  = 2;
   int32 limit = 3;
 }

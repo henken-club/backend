@@ -7,7 +7,7 @@ service Author {
 }
 
 message AuthorEntity {
-  string id = 1;
+  string id   = 1;
   string name = 2;
 }
 

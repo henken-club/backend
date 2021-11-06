@@ -9,7 +9,7 @@ service User {
 message SearchUserRequest {
   string query = 1;
 
-  int32 skip = 2;
+  int32 skip  = 2;
   int32 limit = 3;
 }
 

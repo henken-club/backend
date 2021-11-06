@@ -16,7 +16,7 @@ service Henken {
 
 message HenkenEntity {
   message RealContent {
-    string id = 1;
+    string                         id   = 1;
     henkenclub.content.ContentType type = 2;
   }
   message TempContent {
@@ -29,7 +29,7 @@ message HenkenEntity {
   google.protobuf.Timestamp updated_at = 3;
 
   string from_user_id = 4;
-  string to_user_id = 5;
+  string to_user_id   = 5;
 
   string comment = 6;
 
@@ -41,7 +41,6 @@ message HenkenEntity {
   }
 }
 
-
 enum HenkenOrderField {
   INVALID_HENKEN_ORDER_FIELD = 0;
 
@@ -49,12 +48,10 @@ enum HenkenOrderField {
   HENKEN_UPDATED_AT = 2;
 }
 
-
 message HenkenOrder {
   henkenclub.common.PaginationDirection direction = 1;
-  HenkenOrderField field = 2;
+  HenkenOrderField                      field     = 2;
 }
-
 
 message GetHenkenRequest {
   string id = 1;
@@ -76,7 +73,7 @@ message FindHenkenResponse {
 
 message CreateHenkenRequest {
   message RealContent {
-    string id = 1;
+    string                         id   = 1;
     henkenclub.content.ContentType type = 2;
   }
   message TempContent {
@@ -86,7 +83,7 @@ message CreateHenkenRequest {
   string comment = 1;
 
   string from_user_id = 2;
-  string to_user_id = 3;
+  string to_user_id   = 3;
 
   oneof content {
     RealContent real_content = 4;
@@ -100,7 +97,7 @@ message CreateHenkenResponse {
 
 message ManyHenkensRequest {
   oneof pagination_query {
-    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationForwardQuery  forward  = 1;
     henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
   }
   HenkenOrder order = 3;

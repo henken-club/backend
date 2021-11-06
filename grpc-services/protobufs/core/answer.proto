@@ -23,8 +23,8 @@ message AnswerEntity {
   google.protobuf.Timestamp created_at = 2;
   google.protobuf.Timestamp updated_at = 3;
 
-  string comment = 4;
-  AnswerType type = 5;
+  string     comment = 4;
+  AnswerType type    = 5;
 
   string henken_id = 6;
 }
@@ -48,8 +48,8 @@ message FindAnswerResponse {
 }
 
 message CreateAnswerRequest {
-  string comment = 1;
-  AnswerType type = 2;
+  string     comment = 1;
+  AnswerType type    = 2;
 
   string henken_id = 3;
 }

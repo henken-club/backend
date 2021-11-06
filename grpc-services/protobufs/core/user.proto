@@ -16,16 +16,13 @@ service User {
 message UserEntity {
   string id = 1;
 
-
   google.protobuf.Timestamp created_at = 2;
   google.protobuf.Timestamp updated_at = 3;
 
-  string alias = 4;
+  string alias        = 4;
   string display_name = 5;
-  string avatar = 6;
-
+  string avatar       = 6;
 }
-
 
 enum UserOrderField {
   INVALID_USER_ORDER_FIELD = 0;
@@ -34,10 +31,9 @@ enum UserOrderField {
   USER_UPDATED_AT = 2;
 }
 
-
 message UserOrder {
   henkenclub.common.PaginationDirection direction = 1;
-  UserOrderField field = 2;
+  UserOrderField                        field     = 2;
 }
 
 message GetUserRequest {
@@ -50,7 +46,7 @@ message GetUserResponse {
 
 message FindUserRequest {
   oneof query {
-    string id = 1;
+    string id    = 1;
     string alias = 2;
   }
 }
@@ -60,19 +56,18 @@ message FindUserResponse {
 }
 
 message CreateUserRequest {
-  string alias = 1;
+  string alias        = 1;
   string display_name = 2;
-  string avatar = 3;
+  string avatar       = 3;
 }
 
 message CreateUserResponse {
   UserEntity user = 2;
 }
 
-
 message ManyUsersRequest {
   oneof pagination_query {
-    henkenclub.common.CursorBasedPaginationForwardQuery forward = 1;
+    henkenclub.common.CursorBasedPaginationForwardQuery  forward  = 1;
     henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
   }
   UserOrder order = 3;
