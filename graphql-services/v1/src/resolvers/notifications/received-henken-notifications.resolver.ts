@@ -11,7 +11,7 @@ export class ReceivedHenkenNotificationsResolver {
   ) {}
 
   @ResolveField(() => Henken, { name: "henken" })
-  resolveBookcover(@Parent() { henkenId }: ReceivedHenkenNotification) {
+  resolveHenken(@Parent() { henkenId }: ReceivedHenkenNotification) {
     return this.henkens.getById(henkenId);
   }
 }
