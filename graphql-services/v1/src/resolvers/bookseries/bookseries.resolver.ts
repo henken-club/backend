@@ -8,7 +8,7 @@ import { BookSeriesService } from "~/services/bookseries/bookseries.service";
 export class BookSeriesResolver {
   constructor(private readonly bookSeries: BookSeriesService) {}
 
-  @Query(() => BookSeries, { name: "bookseries" })
+  @Query(() => BookSeries, { name: "bookSeries" })
   getBookSeries(
     @Args("id", { type: () => ID }) id: string,
   ): Observable<BookSeries> {
