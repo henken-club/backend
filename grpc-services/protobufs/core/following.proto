@@ -8,6 +8,7 @@ import "common/pagination.proto";
 
 service Following {
   rpc GetFollowing(GetFollowingRequest) returns (GetFollowingResponse);
+  rpc GetPair(GetPairRequest) returns (GetPairResponse);
   rpc ManyFollowings(ManyFollowingsRequest) returns (ManyFollowingsResponse);
   rpc FollowUser(FollowUserRequest) returns (FollowUserResponse);
 }
@@ -38,6 +39,15 @@ message GetFollowingRequest {
 
 message GetFollowingResponse {
   FollowingEntity following = 2;
+}
+
+message GetPairRequest {
+  string from_id = 1;
+  string to_id   = 2;
+}
+
+message GetPairResponse {
+  optional FollowingEntity following = 2;
 }
 
 message ManyFollowingsRequest {

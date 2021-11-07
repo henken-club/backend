@@ -44,6 +44,18 @@ export class FollowingsService implements OnModuleInit {
       );
   }
 
+  getFromPair(fromId: string, toId: string): Observable<Following | null> {
+    return this.client.getPair({ fromId, toId })
+      .pipe(
+        map(({ following }) => {
+          if (!following) {
+            return null;
+          }
+          return ({ ...following });
+        }),
+      );
+  }
+
   convertGrpcHenkenOrderField(
     direction: FollowingOrderField,
   ): FollowingOrder_OrderField {

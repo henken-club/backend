@@ -24,7 +24,7 @@ import { AuthnGuard } from "~/auth/authn.guard";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { ActivityConnection } from "~/entities/activity.entities";
-import { FollowingConnection } from "~/entities/following.entities";
+import { Following, FollowingConnection } from "~/entities/following.entities";
 import { HenkenConnection } from "~/entities/henken.entities";
 import { NotificationConnection } from "~/entities/notification.entities";
 import { User, UserConnection } from "~/entities/user.entities";
@@ -46,6 +46,17 @@ export class UsersResolver {
     private readonly notifications: NotificationsService,
   ) {}
 
+  @ResolveField((type) => Following, {
+    name: "followee",
+    nullable: true,
+  })
+  resolveFollowee(
+    @Parent() { id: fromId }: User,
+    @Args("to", { type: () => ID }) toId: string,
+  ): Observable<Following | null> {
+    return this.followings.getFromPair(fromId, toId);
+  }
+
   @ResolveField((type) => FollowingConnection, { name: "followees" })
   resolveFollowees(
     @Parent() { id }: User,
@@ -59,6 +70,17 @@ export class UsersResolver {
       orderBy,
       { fromId: id, toId: null },
     );
+  }
+
+  @ResolveField((type) => Following, {
+    name: "follower",
+    nullable: true,
+  })
+  resolveFollower(
+    @Parent() { id: toId }: User,
+    @Args("from", { type: () => ID }) fromId: string,
+  ): Observable<Following | null> {
+    return this.followings.getFromPair(fromId, toId);
   }
 
   @ResolveField((type) => FollowingConnection, { name: "followers" })
