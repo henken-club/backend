@@ -62,8 +62,8 @@ export class ActivityOrder {
   field!: ActivityOrderField;
 }
 
-@ObjectType("SendHenkenActivity", { implements: () => [Activity] })
-export class SendHenkenActivity extends Activity {
+@ObjectType("PostHenkenActivity", { implements: () => [Activity] })
+export class PostHenkenActivity extends Activity {
   @Field((type) => ID)
   id!: string;
 
