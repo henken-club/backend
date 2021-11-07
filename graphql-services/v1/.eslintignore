@@ -1,0 +1,9 @@
+# generated
+src/protogen/
+
+# test
+coverage/
+junit/
+
+# output
+dist/

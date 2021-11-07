@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package henkenclub.search;
+
+service User {
+  rpc SearchUser(SearchUserRequest) returns (SearchUserResponse);
+}
+
+message SearchUserRequest {
+  string query = 1;
+
+  int32 skip  = 2;
+  int32 limit = 3;
+}
+
+message SearchUserResponse {
+  message SearchResult {
+    string id = 1;
+  }
+
+  repeated SearchResult results = 1;
+}

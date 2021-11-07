@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package henkenclub.content;
+
+enum ContentType {
+  INVALID_CONTENT_TYPE = 0;
+
+  BOOK        = 1;
+  BOOK_SERIES = 2;
+  AUTHOR      = 3;
+}

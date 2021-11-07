@@ -1,7 +1,7 @@
 import got from "got";
 
 import { proxy } from "./imgproxy";
-import { BookcoverServer } from "./protogen/bookcover";
+import { BookcoverServer } from "./protogen/bookcover/bookcover";
 
 export const openbd = (isbn: string) =>
   got

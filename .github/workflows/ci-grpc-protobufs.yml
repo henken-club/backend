@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: grpc-services/auth
+    working-directory: grpc-services/protobufs
 
 jobs:
   protolint:
@@ -22,3 +22,14 @@ jobs:
       - uses: plexsystems/protolint-action@v0.4.0
         with:
           configDirectory: grpc-services/protobufs
+
+  clang-format:
+    name: clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: DoozyX/clang-format-lint-action@v0.13
+        with:
+          source: grpc-services/protobufs
+          extensions: "proto"
+          clangFormatVersion: 12

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package henkenclub.core;
+
+import "google/protobuf/timestamp.proto";
+
+service Answer {
+  rpc GetAnswer(GetAnswerRequest) returns (GetAnswerResponse);
+  rpc FindAnswer(FindAnswerRequest) returns (FindAnswerResponse);
+  rpc CreateAnswer(CreateAnswerRequest) returns (CreateAnswerResponse);
+}
+
+enum AnswerType {
+  UNKNOWN = 0;
+
+  RIGHT = 1;
+  WRONG = 2;
+}
+
+message AnswerEntity {
+  string id = 1;
+
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+
+  string     comment = 4;
+  AnswerType type    = 5;
+
+  string henken_id = 6;
+}
+
+message GetAnswerRequest {
+  string id = 1;
+}
+
+message GetAnswerResponse {
+  AnswerEntity answer = 2;
+}
+
+message FindAnswerRequest {
+  oneof query {
+    string id = 1;
+  }
+}
+
+message FindAnswerResponse {
+  optional AnswerEntity answer = 2;
+}
+
+message CreateAnswerRequest {
+  string     comment = 1;
+  AnswerType type    = 2;
+
+  string henken_id = 3;
+}
+
+message CreateAnswerResponse {
+  AnswerEntity answer = 2;
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package henkenclub.common;
+
+enum PaginationDirection {
+  UNKNOWN = 0;
+
+  ASC  = 1;
+  DESC = 2;
+}
+
+message CursorBasedPaginationPageInfo {
+  bool has_next_page     = 1;
+  bool has_previous_page = 2;
+
+  optional string start_cursor = 3;
+  optional string end_cursor   = 4;
+}
+
+message CursorBasedPaginationForwardQuery {
+  int32           first = 1;
+  optional string after = 2;
+}
+
+message CursorBasedPaginationBackwardQuery {
+  int32           last   = 1;
+  optional string before = 2;
+}
+
+message CursorBasedPaginationConnection {
+  message Edge {
+    message Node {
+      string id = 1;
+    }
+
+    Node   node   = 1;
+    string cursor = 2;
+  }
+
+  repeated Edge edges = 1;
+
+  CursorBasedPaginationPageInfo page_info   = 2;
+  int32                         total_count = 3;
+}
