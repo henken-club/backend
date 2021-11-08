@@ -22,7 +22,9 @@
     "authrorization",
     "logfiles",
     "oneof",
-    "bookcover"
+    "bookcover",
+    "backoff",
+    "linebreak"
   ],
   "ignoreWords": [
     "nestjs",
@@ -61,5 +63,10 @@
     "protobufs",
     "protogen"
   ],
-  "ignorePaths": ["**/node_modules", "**/dist"]
+  "ignorePaths": [
+    "**/node_modules",
+    "**/dist",
+    "**/protobufs/google",
+    "**/protogen"
+  ]
 }

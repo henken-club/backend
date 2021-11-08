@@ -13,6 +13,8 @@ module.exports = {
     "unused-imports/no-unused-imports": [2],
 
     /* dprint */
+    // operator-linebreak"
+    "operator-linebreak": [2, "before"],
     // member delimiter
     "@typescript-eslint/member-delimiter-style": [2, {
       "multiline": { "delimiter": "semi", "requireLast": true },

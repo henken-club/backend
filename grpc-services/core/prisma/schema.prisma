@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PRISMA_DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  alias       String @unique @db.Citext
+  displayName String
+  avatar      String
+
+  henkenFrom Henken[] @relation("henkenFrom")
+  henkenTo   Henken[] @relation("henkenTo")
+
+  followFrom Following[] @relation("followFrom")
+  followTo   Following[] @relation("followTo")
+}
+
+model Following {
+  id String @id @default(cuid())
+
+  createdAt DateTime @default(now())
+
+  from   User   @relation("followFrom", fields: [fromId], references: [id])
+  fromId String
+
+  to   User   @relation("followTo", fields: [toId], references: [id])
+  toId String
+
+  @@unique([fromId, toId])
+  @@map("Follow")
+}
+
+model Henken {
+  id String @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comment String @default("")
+
+  from   User   @relation("henkenFrom", fields: [fromId], references: [id])
+  fromId String
+
+  to   User   @relation("henkenTo", fields: [toId], references: [id])
+  toId String
+
+  answer Answer?
+
+  content   Content @relation(fields: [contentId], references: [id])
+  contentId String
+
+  @@unique([toId, contentId])
+}
+
+model Answer {
+  id String @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type AnswerType
+
+  comment String @default("")
+
+  henken   Henken @relation(fields: [henkenId], references: [id])
+  henkenId String @unique
+}
+
+enum AnswerType {
+  RIGHT
+  WRONG
+}
+
+model Content {
+  id   String      @id @default(uuid())
+  type ContentType
+
+  henkens Henken[]
+}
+
+enum ContentType {
+  BOOK
+  BOOK_SERIES
+  AUTHOR
+}
