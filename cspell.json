@@ -22,7 +22,9 @@
     "authrorization",
     "logfiles",
     "oneof",
-    "bookcover"
+    "bookcover",
+    "backoff",
+    "linebreak"
   ],
   "ignoreWords": [
     "nestjs",
