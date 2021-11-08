@@ -3,7 +3,7 @@ syntax = "proto3";
 package henkenclub.core;
 
 import "google/protobuf/timestamp.proto";
-import "google/rpc/code.proto";
+import "google/rpc/status.proto";
 
 import "common/pagination.proto";
 
@@ -42,7 +42,8 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-  optional UserEntity user = 2;
+  google.rpc.Status status = 1;
+  UserEntity        user   = 2;
 }
 
 message FindUserRequest {
@@ -53,7 +54,8 @@ message FindUserRequest {
 }
 
 message FindUserResponse {
-  optional UserEntity user = 2;
+  google.rpc.Status   status = 1;
+  optional UserEntity user   = 2;
 }
 
 message CreateUserRequest {
@@ -63,7 +65,8 @@ message CreateUserRequest {
 }
 
 message CreateUserResponse {
-  optional UserEntity user = 2;
+  google.rpc.Status status = 1;
+  UserEntity        user   = 2;
 }
 
 message ManyUsersRequest {
@@ -75,5 +78,6 @@ message ManyUsersRequest {
 }
 
 message ManyUsersResponse {
-  optional henkenclub.common.CursorBasedPaginationConnection connection = 2;
+  google.rpc.Status                                 status     = 1;
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
 }
