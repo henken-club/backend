@@ -73,4 +73,22 @@ export class UserService {
       pagination,
     );
   }
+
+  async create(data: { alias: string; displayName: string; avatar: string }) {
+    return this.prisma.user.create({
+      data: {
+        alias: data.alias,
+        displayName: data.displayName,
+        avatar: data.avatar,
+      },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        alias: true,
+        displayName: true,
+        avatar: true,
+      },
+    });
+  }
 }

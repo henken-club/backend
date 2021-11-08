@@ -1,6 +1,4 @@
-import { Metadata } from "@grpc/grpc-js";
 import { Controller } from "@nestjs/common";
-import { Observable } from "rxjs";
 
 import { UserService } from "./user.service";
 
@@ -189,10 +187,26 @@ export class UserController implements IUserController {
     }
   }
 
-  createUser(
-    request: CreateUserRequest,
-    metadata?: Metadata,
-  ): Observable<CreateUserResponse> {
-    throw new Error("Method not implemented.");
+  async createUser(
+    { alias, avatar, displayName }: CreateUserRequest,
+  ): Promise<CreateUserResponse> {
+    if (await this.user.findByAlias(alias)) {
+      return this.user
+        .create({ alias, avatar, displayName }).then((user) => ({
+          status: {
+            code: Code.ALREADY_EXISTS,
+            message: "User with this alias already exists",
+          },
+          user,
+        }));
+    }
+    return this.user
+      .create({ alias, avatar, displayName }).then((user) => ({
+        status: { code: Code.OK, message: "Created user successfully" },
+        user,
+      })).catch(() => ({
+        status: { code: Code.INTERNAL, message: "Internal error" },
+        user: undefined,
+      }));
   }
 }
