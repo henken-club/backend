@@ -3,6 +3,7 @@ syntax = "proto3";
 package henkenclub.core;
 
 import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
 
 import "common/pagination.proto";
 import "content/type.proto";
@@ -58,7 +59,8 @@ message GetHenkenRequest {
 }
 
 message GetHenkenResponse {
-  HenkenEntity henken = 2;
+  google.rpc.Status status = 1;
+  HenkenEntity      henken = 2;
 }
 
 message FindHenkenRequest {
@@ -68,6 +70,7 @@ message FindHenkenRequest {
 }
 
 message FindHenkenResponse {
+  google.rpc.Status     status = 1;
   optional HenkenEntity henken = 2;
 }
 
@@ -92,7 +95,8 @@ message CreateHenkenRequest {
 }
 
 message CreateHenkenResponse {
-  HenkenEntity henken = 2;
+  google.rpc.Status status = 1;
+  HenkenEntity      henken = 2;
 }
 
 message ManyHenkensRequest {
@@ -104,5 +108,6 @@ message ManyHenkensRequest {
 }
 
 message ManyHenkensResponse {
+  google.rpc.Status                                 status     = 1;
   henkenclub.common.CursorBasedPaginationConnection connection = 2;
 }
