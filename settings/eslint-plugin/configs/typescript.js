@@ -13,6 +13,7 @@ module.exports = {
     "unused-imports/no-unused-imports": [2],
 
     /* dprint */
+    "indent-legacy": [0],
     // operator-linebreak"
     "operator-linebreak": [2, "before"],
     // member delimiter
