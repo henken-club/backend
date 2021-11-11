@@ -15,8 +15,8 @@ export class AuthnGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
 
-    const accountId: string | undefined =
-      ctx.getContext().req.headers["x-account-id"];
+    const accountId: string | undefined
+      = ctx.getContext().req.headers["x-account-id"];
 
     if (!accountId || !(await this.accounts.isUserExists(accountId))) {
       throw new UnauthorizedException();
