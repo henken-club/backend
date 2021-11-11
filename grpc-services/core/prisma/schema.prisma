@@ -81,13 +81,19 @@ enum AnswerType {
 }
 
 model Content {
-  id   String      @id @default(uuid())
-  type ContentType
+  id String @id @default(uuid())
+
+  contentId   String
+  contentType ContentType
 
   henkens Henken[]
+
+  @@unique([contentId, contentType])
 }
 
 enum ContentType {
+  TEMP_CONTENT
+
   BOOK
   BOOK_SERIES
   AUTHOR
