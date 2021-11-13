@@ -3,6 +3,7 @@ syntax = "proto3";
 package henkenclub.core;
 
 import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
 
 service Answer {
   rpc GetAnswer(GetAnswerRequest) returns (GetAnswerResponse);
@@ -34,7 +35,8 @@ message GetAnswerRequest {
 }
 
 message GetAnswerResponse {
-  AnswerEntity answer = 2;
+  google.rpc.Status status = 1;
+  AnswerEntity      answer = 2;
 }
 
 message FindAnswerRequest {
@@ -44,6 +46,7 @@ message FindAnswerRequest {
 }
 
 message FindAnswerResponse {
+  google.rpc.Status     status = 1;
   optional AnswerEntity answer = 2;
 }
 
@@ -55,5 +58,6 @@ message CreateAnswerRequest {
 }
 
 message CreateAnswerResponse {
-  AnswerEntity answer = 2;
+  google.rpc.Status status = 1;
+  AnswerEntity      answer = 2;
 }
