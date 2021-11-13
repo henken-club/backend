@@ -1,6 +1,14 @@
-import { Args, ID, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import {
+  Args,
+  ID,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+} from "@nestjs/graphql";
 import { map, Observable } from "rxjs";
 
+import { AnswerHenkenArgs, AnswerHenkenPayload } from "./dto/answer-henken.dto";
 import { FindAnswerArgs, FindAnswerPayload } from "./dto/find-answer.dto";
 
 import { Answer } from "~/entities/answer.entities";
@@ -32,5 +40,15 @@ export class AnswersResolver {
     @Args({ type: () => FindAnswerArgs }) { id }: FindAnswerArgs,
   ): Observable<FindAnswerPayload> {
     return this.answers.findById(id).pipe(map((answer) => ({ answer })));
+  }
+
+  @Mutation(() => AnswerHenkenPayload, { name: "answerHenken" })
+  answerHenken(
+    @Args({ type: () => AnswerHenkenArgs }) { answerType, comment, henkenId }:
+      AnswerHenkenArgs,
+  ): Observable<FindAnswerPayload> {
+    return this.answers
+      .createAnswer({ comment, henkenId, answerType })
+      .pipe(map((answer) => ({ answer })));
   }
 }

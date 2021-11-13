@@ -22,14 +22,25 @@ export class AnswersService {
     this.client = this.grpcClient.getService<AnswerClient>(ANSWER_SERVICE_NAME);
   }
 
-  convertType(type: GrpcAnswerType): AnswerType | null {
+  convertType(type: GrpcAnswerType): AnswerType {
     switch (type) {
       case GrpcAnswerType.RIGHT:
         return AnswerType.RIGHT;
       case GrpcAnswerType.WRONG:
         return AnswerType.WRONG;
       default:
-        return null;
+        throw new Error("Invalid grpc answer type");
+    }
+  }
+
+  convertToGrpcType(type: AnswerType): GrpcAnswerType {
+    switch (type) {
+      case AnswerType.RIGHT:
+        return GrpcAnswerType.RIGHT;
+      case AnswerType.WRONG:
+        return GrpcAnswerType.WRONG;
+      default:
+        throw new Error("Invalid answer type");
     }
   }
 
@@ -47,14 +58,9 @@ export class AnswersService {
             throw new Error();
           }
 
-          const type = this.convertType(answer.type);
-          if (!type) {
-            throw new Error();
-          }
-
           return ({
             ...answer,
-            type,
+            type: this.convertType(answer.type),
             createdAt: this.timestamp.convert(answer.createdAt),
             updatedAt: this.timestamp.convert(answer.updatedAt),
           });
@@ -76,14 +82,44 @@ export class AnswersService {
             throw new Error();
           }
 
-          const type = this.convertType(answer.type);
-          if (!type) {
+          return ({
+            ...answer,
+            type: this.convertType(answer.type),
+            createdAt: this.timestamp.convert(answer.createdAt),
+            updatedAt: this.timestamp.convert(answer.updatedAt),
+          });
+        }),
+      );
+  }
+
+  createAnswer(
+    { henkenId, comment, answerType: type }: {
+      henkenId: string;
+      comment: string;
+      answerType: AnswerType;
+    },
+  ): Observable<Answer> {
+    return this.client
+      .createAnswer({
+        henkenId,
+        comment,
+        type: this.convertToGrpcType(type),
+      })
+      .pipe(
+        map(({ answer }) => {
+          if (!answer) {
+            throw new Error();
+          }
+          if (!answer.createdAt) {
+            throw new Error();
+          }
+          if (!answer.updatedAt) {
             throw new Error();
           }
 
           return ({
             ...answer,
-            type,
+            type: this.convertType(answer.type),
             createdAt: this.timestamp.convert(answer.createdAt),
             updatedAt: this.timestamp.convert(answer.updatedAt),
           });
