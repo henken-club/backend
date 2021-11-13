@@ -5,7 +5,9 @@
     "indentWidth": 2,
     "quoteStyle": "alwaysDouble",
     "classDeclaration.bracePosition": "sameLine",
-    "bracePosition": "sameLine"
+    "bracePosition": "sameLine",
+    "operatorPosition": "nextLine",
+    "conditionalExpression.operatorPosition": "nextLine"
   },
   "json": {},
   "markdown": {},
