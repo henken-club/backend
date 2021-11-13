@@ -5,11 +5,11 @@ import {
   AccountControllerMethods,
   ConnectRequest,
   ConnectResponse,
-  HENKENCLUB_AUTH_V1_PACKAGE_NAME,
-} from "~/protogen/account";
+  HENKENCLUB_AUTH_PACKAGE_NAME,
+} from "~/protogen/auth/account";
 
 @AccountControllerMethods()
-@Controller(HENKENCLUB_AUTH_V1_PACKAGE_NAME)
+@Controller(HENKENCLUB_AUTH_PACKAGE_NAME)
 export class AccountController implements AccountControllerInterface {
   constructor() {}
 

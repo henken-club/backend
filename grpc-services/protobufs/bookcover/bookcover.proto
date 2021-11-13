@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package henkenclub.bookcover;
+
+service Bookcover {
+  rpc FindFromISBN(FindFromISBNRequest) returns (FindFromISBNResponse);
+}
+
+message FindFromISBNRequest {
+  string isbn = 1;
+}
+
+message FindFromISBNResponse {
+  optional string url = 1;
+}

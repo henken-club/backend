@@ -1,0 +1,11 @@
+# test
+coverage/
+
+# output
+dist/
+
+# generated
+src/protogen/
+
+# external
+external/

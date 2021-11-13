@@ -1,7 +1,7 @@
 import { Server, ServerCredentials } from "@grpc/grpc-js";
 
 import { impl as bookcoverServer } from "./bookcover";
-import { BookcoverService } from "./protogen/bookcover";
+import { BookcoverService } from "./protogen/bookcover/bookcover";
 
 function main() {
   const server = new Server();

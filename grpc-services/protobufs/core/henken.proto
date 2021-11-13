@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package henkenclub.core;
+
+import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
+
+import "common/pagination.proto";
+import "content/type.proto";
+
+service Henken {
+  rpc GetHenken(GetHenkenRequest) returns (GetHenkenResponse);
+  rpc FindHenken(FindHenkenRequest) returns (FindHenkenResponse);
+  rpc ManyHenkens(ManyHenkensRequest) returns (ManyHenkensResponse);
+  rpc CreateHenken(CreateHenkenRequest) returns (CreateHenkenResponse);
+}
+
+message HenkenEntity {
+  message RealContent {
+    string                         id   = 1;
+    henkenclub.content.ContentType type = 2;
+  }
+  message TempContent {
+    string id = 1;
+  }
+
+  string id = 1;
+
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+
+  string from_user_id = 4;
+  string to_user_id   = 5;
+
+  string comment = 6;
+
+  optional string answer_id = 7;
+
+  oneof content {
+    RealContent real_content = 8;
+    TempContent temp_content = 9;
+  }
+}
+
+enum HenkenOrderField {
+  INVALID_HENKEN_ORDER_FIELD = 0;
+
+  HENKEN_CREATED_AT = 1;
+  HENKEN_UPDATED_AT = 2;
+}
+
+message HenkenOrder {
+  henkenclub.common.PaginationDirection direction = 1;
+  HenkenOrderField                      field     = 2;
+}
+
+message GetHenkenRequest {
+  string id = 1;
+}
+
+message GetHenkenResponse {
+  google.rpc.Status status = 1;
+  HenkenEntity      henken = 2;
+}
+
+message FindHenkenRequest {
+  oneof query {
+    string id = 1;
+  }
+}
+
+message FindHenkenResponse {
+  google.rpc.Status     status = 1;
+  optional HenkenEntity henken = 2;
+}
+
+message CreateHenkenRequest {
+  message RealContent {
+    string                         id   = 1;
+    henkenclub.content.ContentType type = 2;
+  }
+  message TempContent {
+    string id = 1;
+  }
+
+  string comment = 1;
+
+  string from_user_id = 2;
+  string to_user_id   = 3;
+
+  oneof content {
+    RealContent real_content = 4;
+    TempContent temp_content = 5;
+  }
+}
+
+message CreateHenkenResponse {
+  google.rpc.Status status = 1;
+  HenkenEntity      henken = 2;
+}
+
+message ManyHenkensRequest {
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery  forward  = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+  HenkenOrder order = 3;
+}
+
+message ManyHenkensResponse {
+  google.rpc.Status                                 status     = 1;
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
+}

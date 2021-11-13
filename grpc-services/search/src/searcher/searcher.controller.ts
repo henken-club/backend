@@ -5,7 +5,7 @@ import { SearcherService } from "./searcher.service";
 import { ContentDocument } from "~/meilisearch/meilisearch.documents";
 import {
   FilteredSearchResponse,
-  HENKENCLUB_SEARCH_V1_PACKAGE_NAME,
+  HENKENCLUB_SEARCH_PACKAGE_NAME,
   SearchAllRequest,
   SearchAllResponse,
   SearchAllResponse_SearchResultType,
@@ -14,10 +14,10 @@ import {
   SearchBookSeriesRequest,
   SearcherController as SearcherControllerInterface,
   SearcherControllerMethods,
-} from "~/protogen/searcher";
+} from "~/protogen/search/searcher";
 
 @SearcherControllerMethods()
-@Controller(HENKENCLUB_SEARCH_V1_PACKAGE_NAME)
+@Controller(HENKENCLUB_SEARCH_PACKAGE_NAME)
 export class SearcherController implements SearcherControllerInterface {
   constructor(private readonly searcher: SearcherService) {}
 

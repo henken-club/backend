@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package henkenclub.tempcontent;
+
+service Content {
+  rpc CreateTempContent(CreateTempContentRequest)
+      returns (CreateTempContentResponse);
+}
+
+message CreateTempContentRequest {
+  string user_id = 1;
+  string title   = 2;
+}
+
+message CreateTempContentResponse {
+  string content_id = 1;
+}

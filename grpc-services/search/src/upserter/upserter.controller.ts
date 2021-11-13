@@ -3,17 +3,17 @@ import { Controller } from "@nestjs/common";
 import { UpserterService } from "./upserter.service";
 
 import {
-  HENKENCLUB_SEARCH_V1_PACKAGE_NAME,
+  HENKENCLUB_SEARCH_PACKAGE_NAME,
   UpsertAuthorRequest,
   UpsertBookRequest,
   UpsertBookSeriesRequest,
   UpserterController as UpserterControllerInterface,
   UpserterControllerMethods,
   UpsertResponse,
-} from "~/protogen/upserter";
+} from "~/protogen/search/upserter";
 
 @UpserterControllerMethods()
-@Controller(HENKENCLUB_SEARCH_V1_PACKAGE_NAME)
+@Controller(HENKENCLUB_SEARCH_PACKAGE_NAME)
 export class UpserterController implements UpserterControllerInterface {
   constructor(private readonly upserter: UpserterService) {}
 

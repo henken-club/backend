@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package henkenclub.core;
+
+import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
+
+import "common/pagination.proto";
+
+service User {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc FindUser(FindUserRequest) returns (FindUserResponse);
+  rpc ManyUsers(ManyUsersRequest) returns (ManyUsersResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+}
+
+message UserEntity {
+  string id = 1;
+
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+
+  string alias        = 4;
+  string display_name = 5;
+  string avatar       = 6;
+}
+
+enum UserOrderField {
+  INVALID_USER_ORDER_FIELD = 0;
+
+  USER_CREATED_AT = 1;
+  USER_UPDATED_AT = 2;
+}
+
+message UserOrder {
+  henkenclub.common.PaginationDirection direction = 1;
+  UserOrderField                        field     = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  google.rpc.Status status = 1;
+  UserEntity        user   = 2;
+}
+
+message FindUserRequest {
+  oneof query {
+    string id    = 1;
+    string alias = 2;
+  }
+}
+
+message FindUserResponse {
+  google.rpc.Status   status = 1;
+  optional UserEntity user   = 2;
+}
+
+message CreateUserRequest {
+  string alias        = 1;
+  string display_name = 2;
+  string avatar       = 3;
+}
+
+message CreateUserResponse {
+  google.rpc.Status status = 1;
+  UserEntity        user   = 2;
+}
+
+message ManyUsersRequest {
+  oneof pagination_query {
+    henkenclub.common.CursorBasedPaginationForwardQuery  forward  = 1;
+    henkenclub.common.CursorBasedPaginationBackwardQuery backward = 2;
+  }
+  UserOrder order = 3;
+}
+
+message ManyUsersResponse {
+  google.rpc.Status                                 status     = 1;
+  henkenclub.common.CursorBasedPaginationConnection connection = 2;
+}
