@@ -11,8 +11,8 @@ export class ViewerGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
 
-    const accountId: string | undefined
-      = ctx.getContext().req.headers["x-account-id"];
+    const accountId: string | undefined =
+      ctx.getContext().req.headers["x-account-id"];
 
     if (!accountId) {
       throw new UnauthorizedException();
