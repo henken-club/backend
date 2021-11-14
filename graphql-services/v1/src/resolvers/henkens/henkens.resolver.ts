@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   InternalServerErrorException,
-  UseGuards,
 } from "@nestjs/common";
 import {
   Args,
@@ -22,8 +21,9 @@ import {
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
 import { ManyHenkensArgs } from "./dto/many-henkens.dto";
 
-import { Viewer, ViewerType } from "~/auth/viewer.decorator";
-import { ViewerGuard } from "~/auth/viewer.guard";
+import { AuthContext } from "~/auth/auth-context.decorator";
+import { RequireAuth } from "~/auth/auth.guard";
+import { AuthService } from "~/auth/auth.service";
 import { Answer } from "~/entities/answer.entities";
 import { ContentType } from "~/entities/content.entities";
 import {
@@ -40,10 +40,11 @@ import { UsersService } from "~/services/users/users.service";
 @Resolver(() => Henken)
 export class HenkensResolver {
   constructor(
+    private readonly auth: AuthService,
+    private readonly accounts: AccountsService,
     private readonly henkens: HenkensService,
     private readonly users: UsersService,
     private readonly answers: AnswersService,
-    private readonly accounts: AccountsService,
   ) {}
 
   @ResolveField(() => HenkenContentUnion, { name: "content" })
@@ -107,9 +108,9 @@ export class HenkensResolver {
   @Mutation(() => CreateHenkenPayload, {
     name: "createHenken",
   })
-  @UseGuards(ViewerGuard)
+  @RequireAuth()
   createUser(
-    @Viewer() { accountId }: ViewerType,
+    @AuthContext() { authorization }: AuthContext,
     @Args({ type: () => CreateHenkenArgs }) {
       toUserId,
       comment,
@@ -117,7 +118,9 @@ export class HenkensResolver {
       contentType,
     }: CreateHenkenArgs,
   ): Observable<CreateHenkenPayload> {
-    return this.accounts.getUserId(accountId).pipe(
+    return this.auth.extractAccountId(authorization).pipe(
+      mergeMap((accountId) => this.accounts.getUserId(accountId)),
+    ).pipe(
       mergeMap(
         (fromUserId) => (
           iif(

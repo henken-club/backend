@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { UserEdgesResolver } from "./user-edges.resolver";
 import { UsersResolver } from "./users.resolver";
 
+import { AuthModule } from "~/auth/auth.module";
 import { AccountsModule } from "~/services/account/accounts.module";
 import { ActivitiesModule } from "~/services/activities/activities.module";
 import { FollowingsModule } from "~/services/followings/followings.module";
@@ -12,6 +13,7 @@ import { UsersModule } from "~/services/users/users.module";
 
 @Module({
   imports: [
+    AuthModule,
     UsersModule,
     AccountsModule,
     HenkensModule,

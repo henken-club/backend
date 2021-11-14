@@ -1,4 +1,4 @@
-import { BadRequestException, UseGuards } from "@nestjs/common";
+import { BadRequestException } from "@nestjs/common";
 import {
   Args,
   ID,
@@ -8,7 +8,7 @@ import {
   ResolveField,
   Resolver,
 } from "@nestjs/graphql";
-import { from, map, mergeMap, Observable, switchMap } from "rxjs";
+import { from, map, mergeMap, Observable } from "rxjs";
 
 import { FindUserArgs, FindUserPayload } from "./dto/find-users.dto";
 import { ManyUsersArgs } from "./dto/many-users.args";
@@ -20,9 +20,9 @@ import { FollowersArgs } from "./dto/resolve-followers.dto";
 import { PostsHenkensArgs } from "./dto/resolve-posts-henkens.dto";
 import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
-import { AuthnGuard } from "~/auth/authn.guard";
-import { Viewer, ViewerType } from "~/auth/viewer.decorator";
-import { ViewerGuard } from "~/auth/viewer.guard";
+import { AuthContext } from "~/auth/auth-context.decorator";
+import { RequireAuth } from "~/auth/auth.guard";
+import { AuthService } from "~/auth/auth.service";
 import { ActivityConnection } from "~/entities/activity.entities";
 import { Following, FollowingConnection } from "~/entities/following.entities";
 import { HenkenConnection } from "~/entities/henken.entities";
@@ -39,6 +39,7 @@ import { UsersService } from "~/services/users/users.service";
 export class UsersResolver {
   constructor(
     private readonly users: UsersService,
+    private readonly auth: AuthService,
     private readonly accounts: AccountsService,
     private readonly henkens: HenkensService,
     private readonly followings: FollowingsService,
@@ -188,28 +189,23 @@ export class UsersResolver {
     nullable: true,
     description: "Return current user. Return `null` if user not registered",
   })
-  @UseGuards(ViewerGuard)
-  getViewer(
-    @Viewer() { accountId }: ViewerType,
-  ): Observable<User | null> {
-    return this.accounts.getUserId(accountId)
-      .pipe(
-        switchMap((userId) => {
-          if (userId) {
-            return this.users.getById(userId);
-          } else {
-            return from([null]);
-          }
-        }),
-      );
+  @RequireAuth({ needRegister: false })
+  getViewer(@AuthContext() context: AuthContext): Observable<User | null> {
+    return this.auth.extractAccountId(context.authorization).pipe(
+      mergeMap((accountId) => this.accounts.findUserId(accountId)),
+      mergeMap((userId) => {
+        if (userId === null) {
+          return from([null]);
+        } else {
+          return this.users.getById(userId);
+        }
+      }),
+    );
   }
 
-  @Query(() => NotificationConnection, {
-    name: "notifications",
-  })
-  @UseGuards(ViewerGuard)
+  @Query(() => NotificationConnection, { name: "notifications" })
+  @RequireAuth()
   getNotifications(
-    @Viewer() { accountId }: ViewerType,
     @Args({ type: () => GetNotificationsArgs }) { orderBy, ...pagination }:
       GetNotificationsArgs,
   ): Observable<NotificationConnection> {
@@ -219,25 +215,13 @@ export class UsersResolver {
     );
   }
 
-  @Mutation(() => RegisterUserPayload, {
-    name: "registerUser",
-  })
-  @UseGuards(AuthnGuard)
+  @Mutation(() => RegisterUserPayload, { name: "registerUser" })
+  @RequireAuth({ needRegister: false })
   createUser(
-    @Viewer() { accountId }: ViewerType,
-    @Args({ type: () => RegisterUserArgs }) { ...data }: RegisterUserArgs,
-  ): Observable<RegisterUserPayload> {
-    return this.accounts.isUserExists(accountId).pipe(
-      mergeMap(
-        (value) => {
-          if (value) {
-            throw new BadRequestException("Already registered");
-          } else {
-            return this.users.createUser(data);
-          }
-        },
-      ),
-      map((user) => ({ user })),
-    );
+    @AuthContext() context: AuthContext,
+    @Args({ type: () => RegisterUserArgs }) { alias, avatar, displayName }:
+      RegisterUserArgs,
+  ) {
+    this.users.findByAlias(alias).pipe(mergeMap(async (user) => Boolean(user)));
   }
 }
