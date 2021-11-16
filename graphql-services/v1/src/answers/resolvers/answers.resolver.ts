@@ -8,12 +8,13 @@ import {
 } from "@nestjs/graphql";
 import { map, Observable } from "rxjs";
 
+import { Answer } from "../answers.entities";
+import { AnswersService } from "../answers.service";
+
 import { AnswerHenkenArgs, AnswerHenkenPayload } from "./dto/answer-henken.dto";
 import { FindAnswerArgs, FindAnswerPayload } from "./dto/find-answer.dto";
 
-import { Answer } from "~/answers/answers.entities";
-import { AnswersService } from "~/answers/answers.service";
-import { Henken } from "~/henkens/henken.entities";
+import { Henken } from "~/henkens/henkens.entities";
 import { HenkensService } from "~/henkens/henkens.service";
 
 @Resolver(() => Answer)

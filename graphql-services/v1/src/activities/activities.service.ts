@@ -5,7 +5,8 @@ import {
   Activity,
   ActivityConnection,
   ActivityOrder,
-} from "~/activities/activities.entities";
+} from "./activities.entities";
+
 import { PaginationArgs } from "~/pagination/pagination.entities";
 
 @Injectable()

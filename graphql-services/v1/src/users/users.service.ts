@@ -2,6 +2,13 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
+import {
+  User,
+  UserConnection,
+  UserOrder,
+  UserOrderField,
+} from "./users.entities";
+
 import { PaginationArgs } from "~/pagination/pagination.entities";
 import { PaginationService } from "~/pagination/pagination.service";
 import {
@@ -9,12 +16,6 @@ import {
   UserClient,
   UserOrderField as GrpcUserOrderField,
 } from "~/protogen/core/user";
-import {
-  User,
-  UserConnection,
-  UserOrder,
-  UserOrderField,
-} from "~/users/user.entities";
 
 @Injectable()
 export class UsersService implements OnModuleInit {

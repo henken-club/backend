@@ -1,9 +1,8 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { Observable } from "rxjs";
 
-import { Henken, HenkenEdge } from "../henken.entities";
-
-import { HenkensService } from "~/henkens/henkens.service";
+import { Henken, HenkenEdge } from "../henkens.entities";
+import { HenkensService } from "../henkens.service";
 
 @Resolver(() => HenkenEdge)
 export class HenkenEdgesResolver {

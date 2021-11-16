@@ -22,7 +22,7 @@ import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 
 import { AccountsService } from "~/account/accounts.service";
 import { ActivityConnection } from "~/activities/activities.entities";
-import { ActivitiesService } from "~/activities/services/activities.service";
+import { ActivitiesService } from "~/activities/activities.service";
 import { AuthnGuard } from "~/auth/authn.guard";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
@@ -31,11 +31,11 @@ import {
   FollowingConnection,
 } from "~/followings/followings.entities";
 import { FollowingsService } from "~/followings/followings.service";
-import { HenkenConnection } from "~/henkens/henken.entities";
+import { HenkenConnection } from "~/henkens/henkens.entities";
 import { HenkensService } from "~/henkens/henkens.service";
-import { NotificationConnection } from "~/notifications/notification.entities";
+import { NotificationConnection } from "~/notifications/notifications.entities";
 import { NotificationsService } from "~/notifications/notifications.service";
-import { User, UserConnection } from "~/users/user.entities";
+import { User, UserConnection } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
 
 @Resolver(() => User)

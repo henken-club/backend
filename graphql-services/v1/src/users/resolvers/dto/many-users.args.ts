@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from "@nestjs/graphql";
 
 import { PaginationArgs } from "~/pagination/pagination.entities";
-import { UserOrder } from "~/users/user.entities";
+import { UserOrder } from "~/users/users.entities";
 
 @ArgsType()
 export class ManyUsersArgs extends PaginationArgs {

@@ -1,7 +1,7 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { Observable } from "rxjs";
 
-import { User, UserEdge } from "~/users/user.entities";
+import { User, UserEdge } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
 
 @Resolver(() => UserEdge)

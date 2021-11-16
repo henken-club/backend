@@ -18,7 +18,8 @@ import {
   Henken,
   HenkenConnection,
   HenkenContentUnion,
-} from "../henken.entities";
+} from "../henkens.entities";
+import { HenkensService } from "../henkens.service";
 
 import {
   CreateHenkenArgs,
@@ -34,8 +35,7 @@ import { AnswersService } from "~/answers/answers.service";
 import { Viewer, ViewerType } from "~/auth/viewer.decorator";
 import { ViewerGuard } from "~/auth/viewer.guard";
 import { ContentType } from "~/content/content.entities";
-import { HenkensService } from "~/henkens/henkens.service";
-import { User } from "~/users/user.entities";
+import { User } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
 
 @Resolver(() => Henken)

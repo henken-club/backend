@@ -1,7 +1,7 @@
 import { Resolver } from "@nestjs/graphql";
 
-import { Activity } from "~/activities/activities.entities";
-import { ActivitiesService } from "~/activities/services/activities.service";
+import { Activity } from "../activities.entities";
+import { ActivitiesService } from "../activities.service";
 
 @Resolver(() => Activity)
 export class ActivitiesResolver {

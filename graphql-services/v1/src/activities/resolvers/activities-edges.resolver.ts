@@ -1,8 +1,8 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { Observable } from "rxjs";
 
-import { Activity, ActivityEdge } from "~/activities/activities.entities";
-import { ActivitiesService } from "~/activities/services/activities.service";
+import { Activity, ActivityEdge } from "../activities.entities";
+import { ActivitiesService } from "../activities.service";
 
 @Resolver(() => ActivityEdge)
 export class ActivitiesEdgesResolver {

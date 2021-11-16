@@ -1,6 +1,6 @@
 import { ArgsType, Field, ID, ObjectType } from "@nestjs/graphql";
 
-import { User } from "~/users/user.entities";
+import { User } from "~/users/users.entities";
 
 @ArgsType()
 export class FindUserArgs {

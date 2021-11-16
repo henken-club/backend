@@ -6,7 +6,7 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { Henken } from "../../henken.entities";
+import { Henken } from "../../henkens.entities";
 
 export enum CreateHenkenArgsContentType {
   TEMP_CONTENT,

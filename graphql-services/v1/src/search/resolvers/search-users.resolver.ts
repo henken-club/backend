@@ -7,7 +7,7 @@ import { SearchUserResult } from "../search.entities";
 import { SearchUserArgs, SearchUserPayload } from "./dto/search-user.dto";
 
 import { SearchService } from "~/search/search.service";
-import { User } from "~/users/user.entities";
+import { User } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
 
 @Resolver(() => SearchUserResult)

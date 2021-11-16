@@ -1,8 +1,8 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 
-import { ReceivedHenkenNotification } from "../notification.entities";
+import { ReceivedHenkenNotification } from "../notifications.entities";
 
-import { Henken } from "~/henkens/henken.entities";
+import { Henken } from "~/henkens/henkens.entities";
 import { HenkensService } from "~/henkens/henkens.service";
 
 @Resolver(() => ReceivedHenkenNotification)

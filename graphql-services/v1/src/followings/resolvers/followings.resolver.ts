@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 
 import { Following } from "../followings.entities";
 
-import { User } from "~/users/user.entities";
+import { User } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
 
 @Resolver(() => Following)

@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from "@nestjs/graphql";
 
-import { NotificationOrder } from "~/notifications/notification.entities";
+import { NotificationOrder } from "~/notifications/notifications.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
 
 @ArgsType()

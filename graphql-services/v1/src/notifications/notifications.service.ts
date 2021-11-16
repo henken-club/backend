@@ -5,7 +5,8 @@ import {
   Notification,
   NotificationConnection,
   NotificationOrder,
-} from "~/notifications/notification.entities";
+} from "./notifications.entities";
+
 import { PaginationArgs } from "~/pagination/pagination.entities";
 
 @Injectable()

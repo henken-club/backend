@@ -2,7 +2,7 @@ import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 
 import { Answer } from "~/answers/answers.entities";
 import { AnswersService } from "~/answers/answers.service";
-import { ReceivedAnswerNotification } from "~/notifications/notification.entities";
+import { ReceivedAnswerNotification } from "~/notifications/notifications.entities";
 
 @Resolver(() => ReceivedAnswerNotification)
 export class ReceivedAnswerNotificationsResolver {

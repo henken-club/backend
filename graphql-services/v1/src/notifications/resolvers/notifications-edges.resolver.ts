@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import {
   Notification,
   NotificationEdge,
-} from "~/notifications/notification.entities";
+} from "~/notifications/notifications.entities";
 import { NotificationsService } from "~/notifications/notifications.service";
 
 @Resolver(() => NotificationEdge)

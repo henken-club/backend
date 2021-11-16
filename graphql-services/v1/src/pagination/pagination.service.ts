@@ -1,9 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
-import {
-  OrderDirection,
-  PaginationArgs,
-} from "~/pagination/pagination.entities";
+import { OrderDirection, PaginationArgs } from "./pagination.entities";
+
 import {
   CursorBasedPaginationBackwardQuery,
   CursorBasedPaginationForwardQuery,

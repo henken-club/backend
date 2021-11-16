@@ -2,8 +2,7 @@ import { Args, ID, Query, Resolver } from "@nestjs/graphql";
 import { Observable } from "rxjs";
 
 import { BookSeries } from "../bookseries.entities";
-
-import { BookSeriesService } from "~/bookseries/bookseries.service";
+import { BookSeriesService } from "../bookseries.service";
 
 @Resolver(() => BookSeries)
 export class BookSeriesResolver {

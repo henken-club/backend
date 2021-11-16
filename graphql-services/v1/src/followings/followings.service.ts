@@ -15,7 +15,7 @@ import {
   FollowingClient,
   FollowingOrder_OrderField,
 } from "~/protogen/core/following";
-import { UserConnection } from "~/users/user.entities";
+import { UserConnection } from "~/users/users.entities";
 
 @Injectable()
 export class FollowingsService implements OnModuleInit {

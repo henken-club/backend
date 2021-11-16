@@ -1,6 +1,7 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 
-import { ReceivedAnswerActivity } from "~/activities/activities.entities";
+import { ReceivedAnswerActivity } from "../activities.entities";
+
 import { Answer } from "~/answers/answers.entities";
 import { AnswersService } from "~/answers/answers.service";
 

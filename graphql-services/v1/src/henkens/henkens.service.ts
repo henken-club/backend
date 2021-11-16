@@ -7,7 +7,7 @@ import {
   HenkenConnection,
   HenkenOrder,
   HenkenOrderField,
-} from "./henken.entities";
+} from "./henkens.entities";
 
 import { ContentType } from "~/content/content.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";

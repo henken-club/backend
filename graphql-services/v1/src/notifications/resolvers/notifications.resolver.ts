@@ -1,6 +1,6 @@
 import { Resolver } from "@nestjs/graphql";
 
-import { Notification } from "../notification.entities";
+import { Notification } from "../notifications.entities";
 
 import { NotificationsService } from "~/notifications/notifications.service";
 

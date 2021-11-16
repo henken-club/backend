@@ -4,7 +4,7 @@ import { map, Observable } from "rxjs";
 
 import { Writing, WritingOrder, WritingOrderField } from "./writings.entities";
 
-import { HenkenConnection } from "~/henkens/henken.entities";
+import { HenkenConnection } from "~/henkens/henkens.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
 import { PaginationService } from "~/pagination/pagination.service";
 import {

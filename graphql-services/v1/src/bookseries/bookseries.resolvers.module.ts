@@ -1,9 +1,8 @@
 import { Module } from "@nestjs/common";
 
+import { BookSeriesModule } from "./bookseries.module";
 import { BookSeriesEdgesResolver } from "./resolvers/bookseries-edges.resolver";
 import { BookSeriesResolver } from "./resolvers/bookseries.resolver";
-
-import { BookSeriesModule } from "~/bookseries/bookseries.module";
 
 @Module({
   imports: [

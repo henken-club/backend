@@ -2,7 +2,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { BookSeries } from "~/bookseries/bookseries.entities";
+import { BookSeries } from "./bookseries.entities";
+
 import { ContentType } from "~/content/content.entities";
 import {
   BOOK_SERIES_SERVICE_NAME,

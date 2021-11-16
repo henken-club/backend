@@ -1,6 +1,6 @@
 import { ArgsType, Field, ID, InputType, Int } from "@nestjs/graphql";
 
-import { HenkenOrder } from "~/henkens/henken.entities";
+import { HenkenOrder } from "~/henkens/henkens.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
 
 @InputType("UserPostsHenkensFilter")

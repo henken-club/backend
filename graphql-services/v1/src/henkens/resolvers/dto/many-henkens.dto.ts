@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from "@nestjs/graphql";
 
-import { HenkenOrder } from "../../henken.entities";
+import { HenkenOrder } from "../../henkens.entities";
 
 import { PaginationArgs } from "~/pagination/pagination.entities";
 
