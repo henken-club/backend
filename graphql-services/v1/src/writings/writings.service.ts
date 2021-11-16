@@ -2,16 +2,16 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "../pagination/pagination.service";
+import { Writing, WritingOrder, WritingOrderField } from "./writings.entities";
 
 import { HenkenConnection } from "~/henkens/henken.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
+import { PaginationService } from "~/pagination/pagination.service";
 import {
   ManyWritingsRequest_Order_OrderField,
   WRITING_SERVICE_NAME,
   WritingClient,
 } from "~/protogen/content/writing";
-import { Writing, WritingOrder, WritingOrderField } from "./writings.entities";
 
 @Injectable()
 export class WritingsService {

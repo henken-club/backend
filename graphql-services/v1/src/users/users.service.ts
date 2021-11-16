@@ -2,9 +2,8 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "../pagination/pagination.service";
-
 import { PaginationArgs } from "~/pagination/pagination.entities";
+import { PaginationService } from "~/pagination/pagination.service";
 import {
   USER_SERVICE_NAME,
   UserClient,

@@ -2,15 +2,14 @@ import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "../pagination/pagination.service";
-
 import {
   Following,
   FollowingOrder,
   FollowingOrderField,
-} from "./following.entities";
+} from "./followings.entities";
 
 import { PaginationArgs } from "~/pagination/pagination.entities";
+import { PaginationService } from "~/pagination/pagination.service";
 import {
   FOLLOWING_SERVICE_NAME,
   FollowingClient,

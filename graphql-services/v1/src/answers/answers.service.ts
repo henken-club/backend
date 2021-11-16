@@ -2,9 +2,9 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { TimestampService } from "../timestamp/timestamp.service";
+import { TimestampService } from "~/timestamp/timestamp.service";
 
-import { Answer, AnswerType } from "~/answers/answer.entities";
+import { Answer, AnswerType } from "~/answers/answers.entities";
 import {
   ANSWER_SERVICE_NAME,
   AnswerClient,

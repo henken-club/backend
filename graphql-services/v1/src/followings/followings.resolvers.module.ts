@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 
-import { FollowingEdgesResolver } from "./following-edges.resolver";
 import { FollowingsModule } from "./followings.module";
-import { FollowingsResolver } from "./followings.resolver";
+import { FollowingEdgesResolver } from "./resolvers/following-edges.resolver";
+import { FollowingsResolver } from "./resolvers/followings.resolver";
 
 import { UsersModule } from "~/users/users.module";
 

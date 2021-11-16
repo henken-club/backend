@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 
-import { BookSeriesPartEdgesResolver } from "./bookseries-part-edges.resolver";
-import { BookSeriesPartsResolver } from "./bookseries-parts.resolver";
+import { BookSeriesPartsModule } from "./bookseries-parts.module";
+import { BookSeriesPartEdgesResolver } from "./resolvers/bookseries-part-edges.resolver";
+import { BookSeriesPartsResolver } from "./resolvers/bookseries-parts.resolver";
 
 import { BooksModule } from "~/books/books.module";
 import { BookSeriesModule } from "~/bookseries/bookseries.module";
-import { BookSeriesPartsModule } from "./bookseries-parts.module";
 
 @Module({
   imports: [

@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { Author } from "./author.entities";
+import { Author } from "./authors.entities";
 
 import { ContentType } from "~/content/content.entities";
 import { AUTHOR_SERVICE_NAME, AuthorClient } from "~/protogen/content/author";

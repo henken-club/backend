@@ -1,15 +1,12 @@
 import { Module } from "@nestjs/common";
 
-import { ActivitiesEdgesResolver } from "./activities-edges.resolver";
-import { ActivitiesResolver } from "./activities.resolver";
-import { ReceivedAnswerActivitiesResolver } from "./received-answer-activities.resolver";
-import { ReceivedHenkenActivitiesResolver } from "./received-henken-activities.resolver";
+import { PostAnswerActivity, PostHenkenActivity } from "./activities.entities";
+import { ActivitiesModule } from "./activities.module";
+import { ActivitiesEdgesResolver } from "./resolvers/activities-edges.resolver";
+import { ActivitiesResolver } from "./resolvers/activities.resolver";
+import { ReceivedAnswerActivitiesResolver } from "./resolvers/received-answer-activities.resolver";
+import { ReceivedHenkenActivitiesResolver } from "./resolvers/received-henken-activities.resolver";
 
-import { ActivitiesModule } from "~/activities/activities.module";
-import {
-  PostAnswerActivity,
-  PostHenkenActivity,
-} from "~/activities/activity.entities";
 import { AnswersModule } from "~/answers/answers.module";
 import { HenkensModule } from "~/henkens/henkens.module";
 

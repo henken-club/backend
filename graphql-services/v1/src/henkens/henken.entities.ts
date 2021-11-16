@@ -9,19 +9,18 @@ import {
   registerEnumType,
 } from "@nestjs/graphql";
 
-import { ContentType } from "../content/content.entities";
+import { Author } from "~/authors/authors.entities";
+import { Book } from "~/books/books.entities";
+import { BookSeries } from "~/bookseries/bookseries.entities";
+import { ContentType } from "~/content/content.entities";
 import {
   Connection,
   Edge,
   Node,
   OrderDirection,
   PageInfo,
-} from "../pagination/pagination.entities";
-import { TempContent } from "../temp-content/temp-content.entities";
-
-import { Author } from "~/authors/author.entities";
-import { Book } from "~/books/books.entities";
-import { BookSeries } from "~/bookseries/bookseries.entities";
+} from "~/pagination/pagination.entities";
+import { TempContent } from "~/temp-content/temp-content.entities";
 
 export const HenkenContentUnion = createUnionType({
   name: "HenkenContentUnion",

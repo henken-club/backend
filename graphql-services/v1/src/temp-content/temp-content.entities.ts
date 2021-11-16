@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 
-import { ContentType } from "../content/content.entities";
-import { Node } from "../pagination/pagination.entities";
+import { ContentType } from "~/content/content.entities";
+import { Node } from "~/pagination/pagination.entities";
 
 @ObjectType("TempContent", { implements: () => [Node] })
 export class TempContent implements Node {

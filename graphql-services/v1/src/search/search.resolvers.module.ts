@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 
-import { SearchContentResolver } from "./search-content.resolver";
-import { SearchUserResolver } from "./search-users.resolver";
+import { SearchContentResolver } from "./resolvers/search-content.resolver";
+import { SearchUserResolver } from "./resolvers/search-users.resolver";
 
 import { SearchModule } from "~/search/search.module";
 import { UsersModule } from "~/users/users.module";

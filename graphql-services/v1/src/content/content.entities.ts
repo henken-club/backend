@@ -1,6 +1,6 @@
 import { createUnionType, registerEnumType } from "@nestjs/graphql";
 
-import { Author } from "~/authors/author.entities";
+import { Author } from "~/authors/authors.entities";
 import { Book } from "~/books/books.entities";
 import { BookSeries } from "~/bookseries/bookseries.entities";
 

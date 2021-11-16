@@ -1,9 +1,8 @@
 import { Module } from "@nestjs/common";
 
-import { GrpcClientsModule } from "~/grpc-clients/grpc-clients.module";
-
 import { AnswersService } from "./answers.service";
 
+import { GrpcClientsModule } from "~/grpc-clients/grpc-clients.module";
 import { TimestampModule } from "~/timestamp/timestamp.module";
 
 @Module({

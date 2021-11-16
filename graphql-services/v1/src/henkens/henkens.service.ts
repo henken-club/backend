@@ -2,8 +2,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "../pagination/pagination.service";
-import { TimestampService } from "../timestamp/timestamp.service";
+import { PaginationService } from "~/pagination/pagination.service";
+import { TimestampService } from "~/timestamp/timestamp.service";
 
 import {
   Henken,

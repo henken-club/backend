@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 
-import { AnswerEdgesResolver } from "./answer-edges.resolver";
-import { AnswersResolver } from "./answers.resolver";
+import { AnswerEdgesResolver } from "./resolvers/answer-edges.resolver";
+import { AnswersResolver } from "./resolvers/answers.resolver";
 
 import { AnswersModule } from "~/answers/answers.module";
 import { HenkensModule } from "~/henkens/henkens.module";
