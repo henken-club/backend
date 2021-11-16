@@ -2,9 +2,6 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "~/pagination/pagination.service";
-import { TimestampService } from "~/timestamp/timestamp.service";
-
 import {
   Henken,
   HenkenConnection,
@@ -14,6 +11,7 @@ import {
 
 import { ContentType } from "~/content/content.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
+import { PaginationService } from "~/pagination/pagination.service";
 import { ContentType as GrpcContentType } from "~/protogen/content/type";
 import {
   HENKEN_SERVICE_NAME,
@@ -21,6 +19,7 @@ import {
   HenkenEntity,
   HenkenOrderField as GrpcHenkenOrderField,
 } from "~/protogen/core/henken";
+import { TimestampService } from "~/timestamp/timestamp.service";
 
 @Injectable()
 export class HenkensService {

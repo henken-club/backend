@@ -2,8 +2,6 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientGrpc } from "@nestjs/microservices";
 import { map, Observable } from "rxjs";
 
-import { PaginationService } from "~/pagination/pagination.service";
-
 import {
   Book,
   BookConnection,
@@ -13,6 +11,7 @@ import {
 
 import { ContentType } from "~/content/content.entities";
 import { PaginationArgs } from "~/pagination/pagination.entities";
+import { PaginationService } from "~/pagination/pagination.service";
 import {
   BOOKCOVER_SERVICE_NAME,
   BookcoverClient,
