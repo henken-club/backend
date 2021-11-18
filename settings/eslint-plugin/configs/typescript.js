@@ -22,6 +22,8 @@ module.exports = {
         "overrides": {
           "?": "before",
           ":": "before",
+          "||": "before",
+          "&&": "before",
         },
       },
     ],
