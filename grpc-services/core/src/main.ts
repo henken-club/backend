@@ -16,6 +16,7 @@ async function bootstrap() {
         package: "henkenclub.core",
         protoPath: [
           path.join(__dirname, "protobufs/common/pagination.proto"),
+          path.join(__dirname, "protobufs/google/rpc/status.proto"),
           path.join(__dirname, "protobufs/content/type.proto"),
           path.join(__dirname, "protobufs/core/answer.proto"),
           path.join(__dirname, "protobufs/core/following.proto"),
