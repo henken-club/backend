@@ -6,10 +6,17 @@ import { HenkensResolver } from "./resolvers/henkens.resolver";
 
 import { AccountsModule } from "~/account/accounts.module";
 import { AnswersModule } from "~/answers/answers.module";
+import { AuthModule } from "~/auth/auth.module";
 import { UsersModule } from "~/users/users.module";
 
 @Module({
-  imports: [HenkensModule, UsersModule, AnswersModule, AccountsModule],
+  imports: [
+    HenkensModule,
+    UsersModule,
+    AnswersModule,
+    AuthModule,
+    AccountsModule,
+  ],
   providers: [HenkensResolver, HenkenEdgesResolver],
 })
 export class HenkensResolversModule {}

@@ -6,10 +6,14 @@ export class AccountsService {
   constructor() {}
 
   isUserExists(accountId: string): Observable<boolean> {
-    return from([false]);
+    return from([true]);
   }
 
   getUserId(accountId: string): Observable<string> {
-    return from([""]);
+    return from(["userId"]);
+  }
+
+  findUserId(accountId: string): Observable<string | null> {
+    return from([null]);
   }
 }
