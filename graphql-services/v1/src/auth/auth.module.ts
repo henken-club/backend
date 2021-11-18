@@ -2,7 +2,8 @@ import { Module } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 
-import { AccountsModule } from "~/services/account/accounts.module";
+import { AccountsModule } from "~/account/accounts.module";
+
 
 @Module({
   imports: [AccountsModule],

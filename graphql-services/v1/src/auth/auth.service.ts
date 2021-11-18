@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { from, Observable } from "rxjs";
 
-import { AccountsService } from "~/services/account/accounts.service";
+import { AccountsService } from "~/account/accounts.service";
+
 
 @Injectable()
 export class AuthService {
