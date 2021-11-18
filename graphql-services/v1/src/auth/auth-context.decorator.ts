@@ -11,8 +11,8 @@ export type AuthContext = { authorization: string };
 
 export const AuthContext = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext): Promise<AuthContext> => {
-    const gqlctx = GqlExecutionContext.create(ctx);
-    const req: Request = gqlctx.getContext().req;
+    const gqlContext = GqlExecutionContext.create(ctx);
+    const req: Request = gqlContext.getContext().req;
 
     if (!req.headers.authorization) {
       throw new InternalServerErrorException();

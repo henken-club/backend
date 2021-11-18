@@ -3,7 +3,6 @@ import { from, Observable } from "rxjs";
 
 import { AccountsService } from "~/account/accounts.service";
 
-
 @Injectable()
 export class AuthService {
   constructor(private readonly accounts: AccountsService) {

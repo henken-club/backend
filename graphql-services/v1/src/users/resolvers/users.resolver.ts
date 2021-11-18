@@ -23,6 +23,8 @@ import { ReceivedHenkensArgs } from "./dto/resolve-received-henkens.dto";
 import { AccountsService } from "~/account/accounts.service";
 import { ActivityConnection } from "~/activities/activities.entities";
 import { ActivitiesService } from "~/activities/activities.service";
+import { AuthContext } from "~/auth/auth-context.decorator";
+import { RequireAuth } from "~/auth/auth.guard";
 import { AuthService } from "~/auth/auth.service";
 import {
   Following,
@@ -35,9 +37,6 @@ import { NotificationConnection } from "~/notifications/notifications.entities";
 import { NotificationsService } from "~/notifications/notifications.service";
 import { User, UserConnection } from "~/users/users.entities";
 import { UsersService } from "~/users/users.service";
-import { AuthContext } from "~/auth/auth-context.decorator";
-import { RequireAuth } from "~/auth/auth.guard";
-
 
 @Resolver(() => User)
 export class UsersResolver {

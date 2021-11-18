@@ -28,16 +28,15 @@ import {
 import { FindHenkenArgs, FindHenkenPayload } from "./dto/find-henken.dto";
 import { ManyHenkensArgs } from "./dto/many-henkens.dto";
 
+import { AccountsService } from "~/account/accounts.service";
+import { Answer } from "~/answers/answers.entities";
+import { AnswersService } from "~/answers/answers.service";
 import { AuthContext } from "~/auth/auth-context.decorator";
 import { RequireAuth } from "~/auth/auth.guard";
 import { AuthService } from "~/auth/auth.service";
-import { AccountsService } from "~/account/accounts.service";
-import { UsersService } from "~/users/users.service";
-import { AnswersService } from "~/answers/answers.service";
-import { User } from "~/users/users.entities";
-import { Answer } from "~/answers/answers.entities";
 import { ContentType } from "~/content/content.entities";
-
+import { User } from "~/users/users.entities";
+import { UsersService } from "~/users/users.service";
 
 @Resolver(() => Henken)
 export class HenkensResolver {

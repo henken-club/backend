@@ -4,7 +4,6 @@ import { AuthService } from "./auth.service";
 
 import { AccountsModule } from "~/account/accounts.module";
 
-
 @Module({
   imports: [AccountsModule],
   providers: [AuthService],
