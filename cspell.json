@@ -49,6 +49,8 @@
     "bahmutov",
     "plexsystems",
     "openbd",
+    // adminer
+    "adminer",
     // postgresql
     "citext",
     // imgproxy

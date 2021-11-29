@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("PRISMA_DATABASE_URL")
 }
 
@@ -13,7 +13,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  alias       String @unique @db.Citext
+  alias       String @unique
   displayName String
   avatar      String
 
@@ -36,7 +36,6 @@ model Following {
   toId String
 
   @@unique([fromId, toId])
-  @@map("Follow")
 }
 
 model Henken {
