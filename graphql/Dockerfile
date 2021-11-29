@@ -1,27 +1,16 @@
-FROM node:16.4.2-slim AS node-for-prisma
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  libssl-dev=1.1.1d-0+deb10u7 \
-  curl=7.64.0-4+deb10u2 \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-
 # whole dependencies
-FROM node-for-prisma AS deps
+FROM node:16.9.1-slim AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile && yarn cache clean
 
-COPY ./schema.prisma ./
-RUN yarn run generate
-
 # production only dependencies
-FROM deps AS deps-production
+FROM node:16.9.1-slim AS deps-production
 WORKDIR /app
 
-RUN npm prune --production
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production && yarn cache clean
 
 # builder
 FROM deps AS builder
@@ -29,10 +18,11 @@ WORKDIR /app
 
 COPY tsconfig.json tsconfig.build.json nest-cli.json ./
 COPY src ./src
-RUN yarn run build
+COPY scripts ./scripts
+RUN yarn run generate && yarn run build
 
 # runner
-FROM node-for-prisma AS runner
+FROM node:16.9.1-slim AS runner
 WORKDIR /app
 
 ENV PORT 8000

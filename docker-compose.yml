@@ -1,68 +1,28 @@
 version: "3.9"
 
 services:
-  graphql-gateway:
+  graphql:
     build:
-      context: ./graphql-gateway
+      context: ./graphql
       dockerfile: Dockerfile
-    networks:
-      - graphql-core
-      - graphql-content
-      - graphql-search
     ports:
       - published: 4000
         target: 4000
+    networks:
+      - graphql
     environment:
       PORT: 4000
-      JWKS_URI: $JWKS_URI
-      AUDIENCE: $AUDIENCE
-      ISSUER: $ISSUER
-      SERVICE_URL_CORE: http://graphql-core:8000/graphql
-      SERVICE_URL_CONTENT: http://graphql-contain:8000/graphql
-      SERVICE_URL_SEARCH: http://graphql-search:8000/graphql
+      GRPC_SERVICE_URL_CORE: grpc-core:5000
+      GRPC_SERVICE_URL_CONTENT: grpc-content:5000
+      GRPC_SERVICE_URL_SEARCH: grpc-search:5000
+      GRPC_SERVICE_URL_BOOKCOVER: grpc-bookcover:5000
 
-  graphql-core:
+  grpc-core:
     build:
-      context: ./graphql-services/core
+      context: ./grpc-services/core
       dockerfile: Dockerfile
     networks:
-      - graphql-core
-    environment:
-      PORT: 8000
-
-  graphql-content:
-    build:
-      context: ./graphql-services/content
-      dockerfile: Dockerfile
-    networks:
-      - graphql-content
-    environment:
-      PORT: 8000
-
-  graphql-search:
-    build:
-      context: ./graphql-services/search
-      dockerfile: Dockerfile
-    networks:
-      - graphql-search
-    environment:
-      PORT: 8000
-
-  grpc-auth:
-    build:
-      context: ./grpc-services/auth
-      dockerfile: Dockerfile
-    networks:
-      - grpc-auth
-    environment:
-      CONNECTION_URL: localhost:5000
-
-  grpc-bookcover:
-    build:
-      context: ./grpc-services/bookcover
-      dockerfile: Dockerfile
-    networks:
-      - grpc-bookcover
+      - grpc-core
     environment:
       CONNECTION_URL: localhost:5000
 
@@ -75,21 +35,18 @@ services:
     environment:
       CONNECTION_URL: localhost:5000
 
-  grpc-temp-content:
+  grpc-bookcover:
     build:
-      context: ./grpc-services/temp-content
+      context: ./grpc-services/bookcover
       dockerfile: Dockerfile
     networks:
-      - grpc-temp-content
+      - grpc-bookcover
     environment:
       CONNECTION_URL: localhost:5000
 
 networks:
-  graphql-core:
-  graphql-content:
-  graphql-search:
+  graphql:
 
-  grpc-auth:
-  grpc-bookcover:
+  grpc-core:
   grpc-search:
-  grpc-temp-content:
+  grpc-bookcover:
