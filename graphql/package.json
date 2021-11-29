@@ -1,5 +1,5 @@
 {
-  "name": "@henken.club/graphql-v1",
+  "name": "@henken.club/graphql",
   "private": true,
   "scripts": {
     "build": "nest build",
